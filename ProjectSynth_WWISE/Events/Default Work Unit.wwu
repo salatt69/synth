@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" SchemaVersion="119">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="SynthDJ_Play_Music_System" ID="{B5EE96FE-A7CC-4347-A977-5AE4B7812175}">
+					<ChildrenList>
+						<Action Name="" ID="{B2B4E929-BCF2-43E2-A6CB-FD44869FB737}" ShortID="1031892631">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Music_System" ID="{4A0A6CC7-7868-43D9-A030-01B65CE3A6D5}" WorkUnitID="{D98BF7EA-A549-4A29-B9E6-B1AA479DCE3E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="SynthDJ_Pause_Music" ID="{E33AD991-AE80-4247-BA40-4A458129866C}">
+					<ChildrenList>
+						<Action Name="" ID="{072297D9-2A84-4D3B-9A6D-5501203281FB}" ShortID="275263825">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="7"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Music_System" ID="{4A0A6CC7-7868-43D9-A030-01B65CE3A6D5}" WorkUnitID="{D98BF7EA-A549-4A29-B9E6-B1AA479DCE3E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="SynthDJ_Unpause_Music" ID="{D7907C8F-FBA0-437B-8FC0-BD682E7E50BB}">
+					<ChildrenList>
+						<Action Name="" ID="{35D3BC14-3430-4779-A1BA-776727EBC2C8}" ShortID="410578133">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="9"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Music_System" ID="{4A0A6CC7-7868-43D9-A030-01B65CE3A6D5}" WorkUnitID="{D98BF7EA-A549-4A29-B9E6-B1AA479DCE3E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_synth_ThirtyNineMusic_shot" ID="{7D408CF4-88CF-4288-BB80-18FA4953D151}">
+					<ChildrenList>
+						<Action Name="" ID="{DC260DD7-7243-4D55-AEA7-09A0CF92EE76}" ShortID="381438320">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="[MS] DnB Perc - 2 [Instict]" ID="{55F9EEC6-9765-4140-B1A6-242B5540B47F}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_synth_MetronomeSustain" ID="{B2D824F0-05C1-41C1-9443-1A175D2AD115}">
+					<ChildrenList>
+						<Action Name="" ID="{A57737A4-4BC2-4DB1-98C9-081410966122}" ShortID="364929822">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MetronomeSustain" ID="{BECCD25C-0CB8-4484-8B71-169D2FD6F3FC}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_synth_MetronomeTick" ID="{8A2E32EC-1672-42D3-8ACC-910603C9FC15}">
+					<ChildrenList>
+						<Action Name="" ID="{9F8568EA-9977-4064-85CE-75120D3EDAAF}" ShortID="23455787">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MetronomeTick" ID="{2531DAD0-A263-4264-9592-0CE9726AC7FB}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_synth_MetronomeSustain" ID="{171C3868-2E8E-497F-AD82-A87571F70A5F}">
+					<ChildrenList>
+						<Action Name="" ID="{1ACF7375-7B26-47F5-9C19-546772E62641}" ShortID="561462326">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeOutCurve" Type="int16" Value="1"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.25"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MetronomeSustain" ID="{BECCD25C-0CB8-4484-8B71-169D2FD6F3FC}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{1C795D1D-4CA7-4E92-8669-B86F4C3C3912}" ShortID="750787517">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+								<Property Name="FadeInCurve" Type="int16" Value="1"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.125"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MetronomeSustain_End" ID="{AD5471F7-138F-438A-A2E2-68F1773116B9}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_MetronomeRecharge_1" ID="{A30BC7B3-0AFE-4678-8648-AAED2CBD76F1}">
+					<ChildrenList>
+						<Action Name="" ID="{D15CE9BF-BAE2-4C24-BC87-9015E618E728}" ShortID="929526224">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MetronomeRecharge_1" ID="{26E8301F-8950-4CCA-821E-743DBE06D162}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_MetronomeRecharge_2" ID="{3FAD3798-DEE9-4551-B4C0-61A8E58C0957}">
+					<ChildrenList>
+						<Action Name="" ID="{4D6054AC-670E-4241-AAFC-5BB2987BFE91}" ShortID="526525828">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MetronomeRecharge_2" ID="{3207D39B-3F5D-40A8-9166-413CF21564E8}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_MetronomeRecharge_3" ID="{62D22CFA-DD6D-4588-B3B2-7299944559BE}">
+					<ChildrenList>
+						<Action Name="" ID="{08E6A303-9F45-43F8-A8D3-ACC206E6B85A}" ShortID="712022473">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MetronomeRecharge_3" ID="{592B1E64-42F3-4BA7-96AF-D4666AC1648D}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_MetronomeRecharge_4" ID="{28F0A1BB-99AB-47D1-8278-2CBDC9A60485}">
+					<ChildrenList>
+						<Action Name="" ID="{F939AEC0-C591-4A86-BB04-FC4CC1CB47D9}" ShortID="606586584">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MetronomeRecharge_4" ID="{F746696D-88FC-401A-B288-AC2BBF613E89}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

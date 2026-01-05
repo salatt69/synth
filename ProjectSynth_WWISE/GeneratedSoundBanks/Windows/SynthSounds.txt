@@ -1,0 +1,24 @@
+Event	ID	Name			Wwise Object Path	Notes
+	950680430	Stop_synth_MetronomeSustain			\Default Work Unit\Stop_synth_MetronomeSustain	
+	2177578824	Play_synth_MetronomeSustain			\Default Work Unit\Play_synth_MetronomeSustain	
+	2888092107	Play_synth_ThirtyNineMusic_shot			\Default Work Unit\Play_synth_ThirtyNineMusic_shot	
+	3990587744	Play_MetronomeRecharge_4			\Default Work Unit\Play_MetronomeRecharge_4	
+	3990587749	Play_MetronomeRecharge_1			\Default Work Unit\Play_MetronomeRecharge_1	
+	3990587750	Play_MetronomeRecharge_2			\Default Work Unit\Play_MetronomeRecharge_2	
+	3990587751	Play_MetronomeRecharge_3			\Default Work Unit\Play_MetronomeRecharge_3	
+	4019602470	Play_synth_MetronomeTick			\Default Work Unit\Play_synth_MetronomeTick	
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	3673881719	Volume_SFX			\Default Work Unit\Volume_SFX	
+	3846151963	SyncMusicToTempo			\Default Work Unit\SyncMusicToTempo	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	85850594	MetronomeSustain	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeSustain_1956D230.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeSustain		66492
+	306217552	MetronomeRecharge_3	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeRecharge_3_258792A0.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeRecharge_3		3079
+	417519357	MetronomeRecharge_1	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeRecharge_1_258792A0.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeRecharge_1		3163
+	586801430	MetronomeRecharge_4	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeRecharge_4_258792A0.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeRecharge_4		3365
+	641344601	MetronomeSustain_End	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeSustain_End_D407CDF3.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeSustain_End		3941
+	663363815	MetronomeTick	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeTick_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeTick		51648
+	786092481	MetronomeRecharge_2	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeRecharge_2_258792A0.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeRecharge_2		3128
+	966266746	[MS] DnB Perc - 2 [Instict]	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\[MS] DnB Perc - 2 [Instict]_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\[MS] DnB Perc - 2 [Instict]		2370
+

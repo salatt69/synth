@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
+	<RootPaths>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Windows</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<SoundBanks>
+		<SoundBank Id="393143179" Type="User" Language="SFX" Hash="{7FD4C05E-5710-BBB0-6530-2AB4308731B3}">
+			<ShortName>SynthDJ</ShortName>
+			<Path>SynthDJ.bnk</Path>
+			<Media>
+				<File Id="463370878" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Skybreak - WORLD'S END (REMEMBER).wav</ShortName>
+					<CachePath>SFX/Skybreak - WORLD'S END (REMEMBER)_56CEF360.wem</CachePath>
+				</File>
+				<File Id="522789390" Language="SFX" Streaming="true" Location="Memory">
+					<ShortName>Atura - LIKE THIS (Skybreak HALF BLOOD Remix).wav</ShortName>
+					<Path>Media/522789390.wem</Path>
+					<CachePath>SFX/Atura - LIKE THIS (Skybreak HALF BLOOD Remix)_56CEF360.wem</CachePath>
+					<PrefetchSize>4208</PrefetchSize>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="3045904752" Name="SynthDJ_Pause_Music" MaxAttenuation="0">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="792781730" Id="580146960"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1714381171" Id="3403129731"/>
+									<MediaRefs>
+										<MediaRef Id="522789390"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="792781730" Id="89505537"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1714381171" Id="145640315"/>
+									<MediaRefs>
+										<MediaRef Id="522789390"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="792781730" Id="2607556080"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1598298728" Id="2326263800"/>
+									<MediaRefs>
+										<MediaRef Id="522789390"/>
+									</MediaRefs>
+								</SwitchContainer>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1598298728" Id="3161908922"/>
+									<MediaRefs>
+										<MediaRef Id="463370878"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+				<Event Id="478512564" Name="SynthDJ_Play_Music_System">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="792781730" Id="580146960"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1714381171" Id="3403129731"/>
+									<MediaRefs>
+										<MediaRef Id="522789390"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="792781730" Id="89505537"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1714381171" Id="145640315"/>
+									<MediaRefs>
+										<MediaRef Id="522789390"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="792781730" Id="2607556080"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1598298728" Id="2326263800"/>
+									<MediaRefs>
+										<MediaRef Id="522789390"/>
+									</MediaRefs>
+								</SwitchContainer>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1598298728" Id="3161908922"/>
+									<MediaRefs>
+										<MediaRef Id="463370878"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+				<Event Id="3209949659" Name="SynthDJ_Unpause_Music" MaxAttenuation="0">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="792781730" Id="580146960"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1714381171" Id="3403129731"/>
+									<MediaRefs>
+										<MediaRef Id="522789390"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="792781730" Id="89505537"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1714381171" Id="145640315"/>
+									<MediaRefs>
+										<MediaRef Id="522789390"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="792781730" Id="2607556080"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1598298728" Id="2326263800"/>
+									<MediaRefs>
+										<MediaRef Id="522789390"/>
+									</MediaRefs>
+								</SwitchContainer>
+								<SwitchContainer>
+									<SwitchValue GroupType="State" GroupId="1598298728" Id="3161908922"/>
+									<MediaRefs>
+										<MediaRef Id="463370878"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+			</Events>
+			<GameParameters>
+				<GameParameter Id="151362964" Name="playerHealth"/>
+				<GameParameter Id="3729143042" Name="Volume_MSX"/>
+			</GameParameters>
+			<StateGroups>
+				<StateGroup Id="792781730" Name="Music_system">
+					<States>
+						<State Id="89505537" Name="Gameplay"/>
+						<State Id="580146960" Name="Bossfight"/>
+						<State Id="748895195" Name="None"/>
+						<State Id="778026301" Name="SecretLevel"/>
+						<State Id="2607556080" Name="Menu"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="1598298728" Name="Music_menu">
+					<States>
+						<State Id="113661376" Name="OpeningCutScene1"/>
+						<State Id="113661379" Name="OpeningCutScene2"/>
+						<State Id="748895195" Name="None"/>
+						<State Id="2121506681" Name="OutroCutsceneFULL"/>
+						<State Id="2266819552" Name="OutroCutsceneB"/>
+						<State Id="2266819555" Name="OutroCutsceneA"/>
+						<State Id="2326263800" Name="Logbook2"/>
+						<State Id="3161908922" Name="Main"/>
+						<State Id="3912041495" Name="Prismatic"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="1714381171" Name="SynthDJ_GameplayMusic">
+					<States>
+						<State Id="145640315" Name="MyJazzSong"/>
+						<State Id="748895195" Name="None"/>
+						<State Id="3403129731" Name="Decompression_Loop"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
+		</SoundBank>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{ABF16E1E-4838-FF9C-615F-084CD6D15ACA}">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="213475909" Name="SFX_BUS"/>
+				<Bus Id="805203703" Name="Master Secondary Bus"/>
+				<Bus Id="931844945" Name="HDR"/>
+				<Bus Id="2060036974" Name="MSX_BEACON"/>
+				<Bus Id="2893081552" Name="MSX_BUS"/>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+			<GameParameters>
+				<GameParameter Id="151362964" Name="playerHealth"/>
+				<GameParameter Id="681309163" Name="EscapeTimer"/>
+				<GameParameter Id="1010989040" Name="teleporterPlayerStatus"/>
+				<GameParameter Id="1514947204" Name="Meter_Character"/>
+				<GameParameter Id="1871679725" Name="Meter_UI"/>
+				<GameParameter Id="1924079656" Name="teleporterProximity"/>
+				<GameParameter Id="2969259856" Name="Meter_SFX"/>
+				<GameParameter Id="3673881719" Name="Volume_SFX"/>
+				<GameParameter Id="3695994288" Name="Volume_Master"/>
+				<GameParameter Id="3729143042" Name="Volume_MSX"/>
+				<GameParameter Id="3846151963" Name="SyncMusicToTempo"/>
+				<GameParameter Id="4014092120" Name="teleporterDirection"/>
+			</GameParameters>
+			<StateGroups>
+				<StateGroup Id="549431000" Name="bossStatus">
+					<States>
+						<State Id="655265632" Name="alive"/>
+						<State Id="748895195" Name="None"/>
+						<State Id="2044049779" Name="dead"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="792781730" Name="Music_system">
+					<States>
+						<State Id="89505537" Name="Gameplay"/>
+						<State Id="580146960" Name="Bossfight"/>
+						<State Id="748895195" Name="None"/>
+						<State Id="778026301" Name="SecretLevel"/>
+						<State Id="2607556080" Name="Menu"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="1598298728" Name="Music_menu">
+					<States>
+						<State Id="113661376" Name="OpeningCutScene1"/>
+						<State Id="113661379" Name="OpeningCutScene2"/>
+						<State Id="748895195" Name="None"/>
+						<State Id="2121506681" Name="OutroCutsceneFULL"/>
+						<State Id="2266819552" Name="OutroCutsceneB"/>
+						<State Id="2266819555" Name="OutroCutsceneA"/>
+						<State Id="2326263800" Name="Logbook2"/>
+						<State Id="3161908922" Name="Main"/>
+						<State Id="3912041495" Name="Prismatic"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="1714381171" Name="SynthDJ_GameplayMusic">
+					<States>
+						<State Id="145640315" Name="MyJazzSong"/>
+						<State Id="748895195" Name="None"/>
+						<State Id="3403129731" Name="Decompression_Loop"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="2561284575" Name="bossPhase">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="3630028968" Name="phase2"/>
+						<State Id="3630028969" Name="phase3"/>
+						<State Id="3630028971" Name="phase1"/>
+						<State Id="3630028974" Name="phase4"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="3028652072" Name="TABStatus">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="930712164" Name="off"/>
+						<State Id="1651971902" Name="on"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="3480929964" Name="ghostStatus">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="3053630529" Name="true"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="3807720919" Name="enemyType">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="1160234136" Name="normal"/>
+						<State Id="1464097230" Name="elite"/>
+						<State Id="1560169506" Name="boss"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="4244680111" Name="teleporterZone">
+					<States>
+						<State Id="645492555" Name="OUT"/>
+						<State Id="748895195" Name="None"/>
+						<State Id="1752637612" Name="IN"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
+		</SoundBank>
+		<SoundBank Id="2800900469" Type="User" Language="SFX" Hash="{5CFA5434-D85A-B501-63E4-B41CEC52F3B4}">
+			<ShortName>SynthSounds</ShortName>
+			<Path>SynthSounds.bnk</Path>
+			<Media>
+				<File Id="85850594" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MetronomeSustain.wav</ShortName>
+					<CachePath>SFX/MetronomeSustain_1956D230.wem</CachePath>
+				</File>
+				<File Id="306217552" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MetronomeRecharge_3.wav</ShortName>
+					<CachePath>SFX/MetronomeRecharge_3_258792A0.wem</CachePath>
+				</File>
+				<File Id="417519357" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MetronomeRecharge_1.wav</ShortName>
+					<CachePath>SFX/MetronomeRecharge_1_258792A0.wem</CachePath>
+				</File>
+				<File Id="586801430" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MetronomeRecharge_4.wav</ShortName>
+					<CachePath>SFX/MetronomeRecharge_4_258792A0.wem</CachePath>
+				</File>
+				<File Id="641344601" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MetronomeSustain_End.wav</ShortName>
+					<CachePath>SFX/MetronomeSustain_End_D407CDF3.wem</CachePath>
+				</File>
+				<File Id="663363815" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MetronomeTick.wav</ShortName>
+					<CachePath>SFX/MetronomeTick_8E324C96.wem</CachePath>
+				</File>
+				<File Id="786092481" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MetronomeRecharge_2.wav</ShortName>
+					<CachePath>SFX/MetronomeRecharge_2_258792A0.wem</CachePath>
+				</File>
+				<File Id="966266746" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>[MS] DnB Perc - 2 [Instict].wav</ShortName>
+					<CachePath>SFX/[MS] DnB Perc - 2 [Instict]_8E324C96.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="3990587749" Name="Play_MetronomeRecharge_1" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="417519357"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3990587750" Name="Play_MetronomeRecharge_2" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="786092481"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3990587751" Name="Play_MetronomeRecharge_3" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="306217552"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3990587744" Name="Play_MetronomeRecharge_4" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="586801430"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2177578824" Name="Play_synth_MetronomeSustain" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="85850594"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="4019602470" Name="Play_synth_MetronomeTick" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="663363815"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2888092107" Name="Play_synth_ThirtyNineMusic_shot" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="966266746"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="950680430" Name="Stop_synth_MetronomeSustain" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="641344601"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+			<GameParameters>
+				<GameParameter Id="3673881719" Name="Volume_SFX"/>
+				<GameParameter Id="3846151963" Name="SyncMusicToTempo"/>
+			</GameParameters>
+		</SoundBank>
+	</SoundBanks>
+	<FileHash>{B56C77EF-892E-EF1B-9252-13F15D435EE0}</FileHash>
+</SoundBanksInfo>
