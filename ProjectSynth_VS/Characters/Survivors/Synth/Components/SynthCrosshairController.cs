@@ -39,6 +39,10 @@ namespace ProjectSynth.Characters.Survivors.Synth.Components
         bool rechargeAnimStarted;
         float rechargeTimeWithoutBase => chargeCount * singleRechargeTime;
 
+        Image timer;
+        Sprite sprintTimer;
+        Sprite defaultTimer;
+
         Image walkCrosshair;
         RawImage sprintCrosshair;
 
@@ -68,14 +72,19 @@ namespace ProjectSynth.Characters.Survivors.Synth.Components
             window = transform.Find("Window, L")?.GetComponent<RectTransform>();
             onBeatIndicator = transform.Find("Bracket, L/OnBeat, L")?.GetComponent<RectTransform>();
             offBeatIndicator = transform.Find("Bracket, L/OffBeat, L")?.GetComponent<RectTransform>();
+            timer = transform.Find("Timer")?.GetComponent<Image>();
             chargesRoot = transform.Find("Charges");
             animator = GetComponent<Animator>();
 
-            if (!walkCrosshair || !sprintCrosshair || !window || !onBeatIndicator || !offBeatIndicator || !chargesRoot || !animator)
+            if (!walkCrosshair || !sprintCrosshair || !window || !onBeatIndicator 
+                || !offBeatIndicator || !timer || !chargesRoot || !animator)
             {
                 Log.Error($"{this}: Missing crosshair references on instance!");
                 initialized = false;
             }
+
+            defaultTimer = timer.sprite;
+            sprintTimer = transform.Find("Timer/Sprint")?.GetComponent<Image>().sprite;
 
             // Canvas
             HUD hud = GetComponentInParent<HUD>();
@@ -201,6 +210,10 @@ namespace ProjectSynth.Characters.Survivors.Synth.Components
 
             Util.PlaySound(Sounds.MetronomeSustainStop, soundSource);
 
+            float timerAnimSpeed = 1.0f / currentCooldownTime;
+            animator.SetFloat("RechargeTimerSpeedMult", timerAnimSpeed);
+            animator.Play("animSynthCrosshairRechargeTimer", 5);
+
             nextAllowedTime = Time.time + currentCooldownTime;
             nextRechargeTime = Time.time + singleRechargeTime;
         }
@@ -224,6 +237,8 @@ namespace ProjectSynth.Characters.Survivors.Synth.Components
         {
             this.walkCrosshair.enabled = !isSprinting;
             this.sprintCrosshair.enabled = isSprinting;
+
+            this.timer.sprite = isSprinting ? this.sprintTimer : this.defaultTimer;
         }
 
         private bool ShouldEndSequence()
@@ -258,8 +273,8 @@ namespace ProjectSynth.Characters.Survivors.Synth.Components
             {
                 rechargeAnimStarted = true;
                 float startFrom = (float)(chargeCount - chargesToRecharge) / chargeCount;
-                float animationSpeed = 1.0f / rechargeTimeWithoutBase;
-                animator.SetFloat("RechargeSpeedMult", animationSpeed);
+                float animSpeed = 1.0f / rechargeTimeWithoutBase;
+                animator.SetFloat("RechargeSpeedMult", animSpeed);
                 animator.Play("animSynthCrosshairRecharge", 4, startFrom);
             }
 

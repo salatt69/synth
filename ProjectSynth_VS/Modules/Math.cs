@@ -26,7 +26,7 @@ namespace ProjectSynth.Modules
 
             float newTempoPitch = centsInOneOctave * logOfAnimSpeedMult;
 
-            Log.Info($"Music transposed to: {newTempoPitch} cents.");
+            if (newTempoPitch != 0) Log.Info($"Music transposed to: {newTempoPitch} cents.");
 
             float finalWwiseUnits = wwiseCenterValue + wwiseUnitsPerOctave * logOfAnimSpeedMult;
 
