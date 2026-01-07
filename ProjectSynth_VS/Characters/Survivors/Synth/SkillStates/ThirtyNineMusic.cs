@@ -24,7 +24,7 @@ namespace ProjectSynth.Survivors.Synth.SkillStates
 
             // you will get some stats boosted and "Encore" debuff applied to an enemy you hit,
             // if you have a metronome passive AND you hit the window during a sequence
-            if (MetronomeSequenceManager.TryBeginMetronomeSequence(gameObject))
+            if (MetronomeSequenceManager.TryConsumeCharge())
                 ((IMetronomeBoostable)this).ApplyMetronomeBoost();
         }
 
@@ -53,7 +53,7 @@ namespace ProjectSynth.Survivors.Synth.SkillStates
 
         void IMetronomeBoostable.ApplyMetronomeBoost()
         {
-            MetronomeSequenceManager.SetHitResult(true);
+            MetronomeSequenceManager.SetWindowHitResult(true);
 
             damageCoefficient = SynthStaticValues.boosted_thirtNineMusicDamageCoefficient;
         }

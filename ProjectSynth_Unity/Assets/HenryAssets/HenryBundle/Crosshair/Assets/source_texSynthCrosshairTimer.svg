@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="41"
-   height="41"
-   viewBox="0 0 10.847916 10.847917"
+   width="45"
+   height="45"
+   viewBox="0 0 11.906249 11.90625"
    version="1.1"
    id="svg1"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
@@ -27,8 +27,8 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      inkscape:zoom="5.6568542"
-     inkscape:cx="-10.253048"
-     inkscape:cy="50.29297"
+     inkscape:cx="-8.1317281"
+     inkscape:cy="27.135223"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -44,19 +44,20 @@
     <path
        id="path1"
        style="display:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.646;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
-       d="M 5.4239583,0 A 5.4239583,5.4239583 0 0 0 0,5.4239583 5.4239583,5.4239583 0 0 0 5.4239583,10.847917 5.4239583,5.4239583 0 0 0 10.847917,5.4239583 5.4239583,5.4239583 0 0 0 5.4239583,0 Z m 0,2.7119792 A 2.7119792,2.7119792 0 0 1 8.1359375,5.4239583 2.7119792,2.7119792 0 0 1 5.4239583,8.1359375 2.7119792,2.7119792 0 0 1 2.7119792,5.4239583 2.7119792,2.7119792 0 0 1 5.4239583,2.7119792 Z" />
+       d="M 5.9531246,0 A 5.9531246,5.9531246 0 0 0 0,5.9531246 5.9531246,5.9531246 0 0 0 5.9531246,11.90625 5.9531246,5.9531246 0 0 0 11.90625,5.9531246 5.9531246,5.9531246 0 0 0 5.9531246,0 Z m 0,2.9765623 A 2.9765623,2.9765623 0 0 1 8.9296869,5.9531246 2.9765623,2.9765623 0 0 1 5.9531246,8.9296869 2.9765623,2.9765623 0 0 1 2.9765623,5.9531246 2.9765623,2.9765623 0 0 1 5.9531246,2.9765623 Z" />
     <path
        id="path3"
-       style="display:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.646;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
-       d="M 5.4239583,0 C 2.4283888,0 0,2.4283888 0,5.4239583 c -2.2091391e-7,2.9955696 2.4283887,5.4239587 5.4239583,5.4239587 2.9955698,0 5.4239587,-2.4283889 5.4239587,-5.4239587 C 10.847917,2.4283887 8.4195279,-2.2091391e-7 5.4239583,0 Z"
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.646;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+       d="M 5.9531246,0 C 2.6653046,0 0,2.6653046 0,5.9531246 -2.4246647e-7,9.2409446 2.6653045,11.90625 5.9531246,11.90625 9.2409448,11.90625 11.90625,9.2409448 11.90625,5.9531246 11.90625,2.6653045 9.2409446,-2.4246647e-7 5.9531246,0 Z"
        sodipodi:nodetypes="sssss" />
     <path
        id="path2"
-       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.646;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
-       d="M 5.4239583,0 A 5.4239583,5.4239583 0 0 0 0,5.4239583 5.4239583,5.4239583 0 0 0 5.4239583,10.847917 5.4239583,5.4239583 0 0 0 10.847917,5.4239583 5.4239583,5.4239583 0 0 0 5.4239583,0 Z m 0,2.7119792 A 2.7119792,2.7119792 0 0 1 8.1359375,5.4239583 2.7119792,2.7119792 0 0 1 5.4239583,8.1359375 2.7119792,2.7119792 0 0 1 2.7119792,5.4239583 2.7119792,2.7119792 0 0 1 5.4239583,2.7119792 Z" />
+       style="display:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.646;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+       d="M 5.9531246,0 A 5.9531246,5.9531246 0 0 0 0,5.9531246 5.9531246,5.9531246 0 0 0 5.9531246,11.90625 5.9531246,5.9531246 0 0 0 11.90625,5.9531246 5.9531246,5.9531246 0 0 0 5.9531246,0 Z m 0,2.9765623 A 2.9765623,2.9765623 0 0 1 8.9296869,5.9531246 2.9765623,2.9765623 0 0 1 5.9531246,8.9296869 2.9765623,2.9765623 0 0 1 2.9765623,5.9531246 2.9765623,2.9765623 0 0 1 5.9531246,2.9765623 Z" />
     <path
        id="rect1"
-       style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
-       d="M 5.4239582,3.8364581 -8.5031851,17.7636 5.4239585,31.690744 19.351102,17.763601 Z m 6e-7,4.4068149 9.5206942,9.520692 -9.5206945,9.520695 -9.520694,-9.520694 z" />
+       style="display:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+       d="M -9.8634514,20.372921 5.9161909,37.2109 21.695832,20.372922 5.9161919,4.5932688 Z m 3.7403582,0 L 5.9166319,8.3331865 17.956359,20.372923 5.9166339,32.412651 Z"
+       sodipodi:nodetypes="cccccccccc" />
   </g>
 </svg>

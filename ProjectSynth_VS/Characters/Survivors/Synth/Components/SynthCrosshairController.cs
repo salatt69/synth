@@ -22,7 +22,7 @@ namespace ProjectSynth.Characters.Survivors.Synth.Components
 
         [Range(0.25f, 3.0f)]
         public float metronomeSeqruenceSpeedMultiplier = 1.0f;
-        public float sequenceBaseCooldownTime = 1.0f;
+        public float sequenceBaseCooldownTime = 1.5f;
         public float singleRechargeTime = 0.5f;
         public bool sequenceInProcess { get; protected set; }
 
@@ -156,7 +156,7 @@ namespace ProjectSynth.Characters.Survivors.Synth.Components
             maxBounces += 2;
         }
 
-        public bool TryConsumeCharge()
+        public bool CanConsumeCharge()
         {
             if (wasInside) ConsumeCharge();
             return wasInside;
@@ -212,7 +212,7 @@ namespace ProjectSynth.Characters.Survivors.Synth.Components
 
             float timerAnimSpeed = 1.0f / currentCooldownTime;
             animator.SetFloat("RechargeTimerSpeedMult", timerAnimSpeed);
-            animator.Play("animSynthCrosshairRechargeTimer", 5);
+            animator.SetTrigger("StartTimer");
 
             nextAllowedTime = Time.time + currentCooldownTime;
             nextRechargeTime = Time.time + singleRechargeTime;

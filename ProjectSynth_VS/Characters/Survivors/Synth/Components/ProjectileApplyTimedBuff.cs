@@ -21,9 +21,9 @@ namespace ProjectSynth.Characters.Survivors.Synth.Components
         {
             if (!NetworkServer.active) return;
 
-            if (!MetronomeSequenceManager.GetHitResult()) return;
+            if (!MetronomeSequenceManager.GetWindowHitResult()) return;
             
-            MetronomeSequenceManager.SetHitResult(false);
+            MetronomeSequenceManager.SetWindowHitResult(false);
 
             HurtBox hurtBox = impactInfo.collider
                 ? impactInfo.collider.GetComponent<HurtBox>()
