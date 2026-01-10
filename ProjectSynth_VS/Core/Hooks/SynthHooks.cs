@@ -38,10 +38,8 @@ namespace ProjectSynth.Core.Hooks
 
         private void OnServerDamageDealt(DamageReport report)
         {
-            Chat.AddMessage("dmg dealt");
             if (!report.damageInfo.HasModdedDamageType(SynthDamageTypes.EncoreDamage)) return;
 
-            Chat.AddMessage("has encore");
             CharacterBody victim = report.victimBody;
             CharacterBody attacker = report.attackerBody;
 
@@ -49,7 +47,6 @@ namespace ProjectSynth.Core.Hooks
 
             victim.AddBuff(SynthBuffs.EncoreDebuff);
             EncoreManager.Start(victim, attacker, 0f);
-            Chat.AddMessage("started");
         }
     }
 }
