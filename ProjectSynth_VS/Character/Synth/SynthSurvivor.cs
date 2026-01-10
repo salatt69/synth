@@ -109,6 +109,7 @@ namespace ProjectSynth.Character.Synth
 
             SynthAssets.Init(assetBundle);
             SynthBuffs.Init(assetBundle);
+            SynthDamageTypes.Register();
 
             InitializeEntityStateMachines();
             InitializeSkills();

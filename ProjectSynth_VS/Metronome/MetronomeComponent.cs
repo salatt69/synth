@@ -31,7 +31,7 @@ namespace ProjectSynth.Metronome
         public bool rechargeAnimStarted;
         public float rechargeTimeWithoutBase => chargeCount * singleRechargeTime;
 
-        // bounce logic
+        // bounce
         public int maxBounces;
         public int bounceCount;
         public int nextBounceTime;
@@ -41,7 +41,7 @@ namespace ProjectSynth.Metronome
         public float nextAllowedTime;
         public float currentCooldownTime;
 
-        // window state
+        // state
         bool wasInside;
         bool endEarly;
 
@@ -62,26 +62,7 @@ namespace ProjectSynth.Metronome
             }
         }
 
-        /* =============================
-         *  INPUTS FROM UI (REPORTING)
-         * ============================= */
-
-        public void ReportWindowState(bool inside)
-        {
-            wasInside = inside;
-        }
-
-        public void ReportBounce()
-        {
-            if (state != MetronomeState.Sequence)
-                return;
-
-            bounceCount++;
-        }
-
-        /* =============================
-         *  RULEBOOK LOGIC
-         * ============================= */
+        #region logic
 
         public bool ShouldEndSequence()
         {
@@ -154,9 +135,26 @@ namespace ProjectSynth.Metronome
                 endEarly = true;
         }
 
-        /* =============================
-         *  SKILL-FACING API
-         * ============================= */
+        #endregion
+
+        #region ui state
+
+        public void ReportWindowState(bool inside)
+        {
+            wasInside = inside;
+        }
+
+        public void ReportBounce()
+        {
+            if (state != MetronomeState.Sequence)
+                return;
+
+            bounceCount++;
+        }
+
+        #endregion
+
+        #region skill api
 
         public bool StartMetronomeSequence()
         {
@@ -183,5 +181,7 @@ namespace ProjectSynth.Metronome
             if (wasInside) ConsumeCharge();
             return wasInside;
         }
+
+        #endregion
     }
 }

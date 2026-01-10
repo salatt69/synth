@@ -8,28 +8,38 @@ namespace ProjectSynth.Character.Synth.Content
     public static class SynthBuffs
     {
         // armor buff gained during roll
-        public static BuffDef armorBuff;
-        public static BuffDef encoreDebuff;
+        public static BuffDef ArmorBuff;
+        public static BuffDef EncoreDebuff;
 
         public static void Init(AssetBundle assetBundle)
         {
-            armorBuff = ScriptableObject.CreateInstance<BuffDef>();
-            armorBuff.name = "HenryArmorBuff";
-            armorBuff.buffColor = Color.white;
-            armorBuff.canStack = false;
-            armorBuff.isDebuff = false;
-            armorBuff.eliteDef = null;
-            armorBuff.iconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Croco/texBuffRegenBoostIcon.tif").WaitForCompletion();
-            ContentAddition.AddBuffDef(armorBuff);
+            ArmorBuff = ScriptableObject.CreateInstance<BuffDef>();
+            ArmorBuff.name = "HenryArmorBuff";
+            ArmorBuff.buffColor = Color.white;
+            ArmorBuff.canStack = false;
+            ArmorBuff.isDebuff = false;
+            ArmorBuff.eliteDef = null;
+            ArmorBuff.iconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Croco/texBuffRegenBoostIcon.tif").WaitForCompletion();
+            ContentAddition.AddBuffDef(ArmorBuff);
 
-            encoreDebuff = ScriptableObject.CreateInstance<BuffDef>();
-            encoreDebuff.name = "Encore";
-            encoreDebuff.buffColor = Color.magenta;
-            encoreDebuff.canStack = true;
-            encoreDebuff.isDebuff = true;
-            encoreDebuff.eliteDef = null;
-            encoreDebuff.iconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Grandparent/texBuffOverheat.tif").WaitForCompletion();
-            ContentAddition.AddBuffDef(encoreDebuff);
+            EncoreDebuff = ScriptableObject.CreateInstance<BuffDef>();
+            EncoreDebuff.name = "Encore";
+            EncoreDebuff.buffColor = Color.magenta;
+            EncoreDebuff.canStack = false;
+            EncoreDebuff.isDebuff = true;
+            EncoreDebuff.eliteDef = null;
+            EncoreDebuff.iconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Grandparent/texBuffOverheat.tif").WaitForCompletion();
+            ContentAddition.AddBuffDef(EncoreDebuff);
+        }
+    }
+
+    public static class SynthDamageTypes
+    {
+        public static DamageAPI.ModdedDamageType EncoreDamage;
+
+        public static void Register()
+        {
+            EncoreDamage = DamageAPI.ReserveDamageType();
         }
     }
 }

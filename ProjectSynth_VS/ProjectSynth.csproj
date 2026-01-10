@@ -41,6 +41,11 @@
 		<PackageReference Include="R2API.Language" Version="1.1.0" />
 		<PackageReference Include="R2API.Sound" Version="1.0.3" />
 		<PackageReference Include="R2API.Items" Version="1.0.7" />
+		<PackageReference Include="R2API.DamageType" Version="1.1.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Character\Synth\Components\" />
 	</ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="if &quot;$(Username)&quot; == &quot;dud&quot; set build=true&#xD;&#xA;&#xD;&#xA;if defined build (&#xD;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(ProjectDir)..\Build\plugins&quot;&#xD;&#xA;&#xD;&#xA;if exist &quot;$(ProjectDir)..\ProjectSynth_Unity\AssetBundles\projectsynth_bundle&quot; (&#xD;&#xA;copy &quot;$(ProjectDir)..\ProjectSynth_Unity\AssetBundles\projectsynth_bundle&quot; &quot;$(ProjectDir)..\Build\plugins\AssetBundles\&quot;&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;if exist &quot;$(ProjectDir)..\ProjectSynth_WWISE\GeneratedSoundBanks\Windows\Init.bnk&quot; (&#xD;&#xA;copy &quot;$(ProjectDir)..\ProjectSynth_WWISE\GeneratedSoundBanks\Windows\Init.bnk&quot; &quot;$(ProjectDir)..\Build\plugins\SoundBanks\CustomMusic\SynthDJ_Init.bnk&quot;&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;if exist &quot;$(ProjectDir)..\ProjectSynth_WWISE\GeneratedSoundBanks\Windows\SynthDJ.bnk&quot; (&#xD;&#xA;copy &quot;$(ProjectDir)..\ProjectSynth_WWISE\GeneratedSoundBanks\Windows\SynthDJ.bnk&quot; &quot;$(ProjectDir)..\Build\plugins\SoundBanks\CustomMusic\SynthDJ.bnk&quot;&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;if exist &quot;$(ProjectDir)..\ProjectSynth_WWISE\GeneratedSoundBanks\Windows\SynthSounds.bnk&quot; (&#xD;&#xA;copy &quot;$(ProjectDir)..\ProjectSynth_WWISE\GeneratedSoundBanks\Windows\SynthSounds.bnk&quot; &quot;$(ProjectDir)..\Build\plugins\SoundBanks\SynthSounds.sound&quot;&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;if exist &quot;$(ProjectDir)..\ProjectSynth_WWISE\GeneratedSoundBanks\Windows\Media\&quot; (&#xD;&#xA;Xcopy /E /I /Y &quot;$(ProjectDir)..\ProjectSynth_WWISE\GeneratedSoundBanks\Windows\Media&quot; &quot;$(ProjectDir)..\Build\plugins\SoundBanks\CustomMusic\Media&quot;&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;Xcopy /E /I /Y &quot;$(ProjectDir)..\Build\plugins&quot; &quot;D:\r2\r2profiles\RiskOfRain2\profiles\dev\BepInEx\plugins\TeamSynth-ProjectSynth\&quot;&#xD;&#xA;)&#xD;&#xA;" />

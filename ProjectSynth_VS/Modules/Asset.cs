@@ -11,8 +11,6 @@ namespace ProjectSynth.Modules
 {
     internal static class Asset
     {
-        #region helpers
-
         //cache bundles if multiple characters use the same one
         internal static Dictionary<string, AssetBundle> loadedBundles = new Dictionary<string, AssetBundle>();
 
@@ -168,7 +166,5 @@ namespace ProjectSynth.Modules
 
             return newPrefab;
         }
-
-        #endregion helpers
     }
 }

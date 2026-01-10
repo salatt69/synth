@@ -2,6 +2,8 @@
 using ProjectSynth.Character.Synth.Content;
 using ProjectSynth.Character.Synth.Content.Items;
 using ProjectSynth.Metronome;
+using R2API;
+using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
 
@@ -14,9 +16,14 @@ namespace ProjectSynth.Character.Synth.States.Primary
 
         private bool fireDouble;
 
+        private ProjectileDamage dmg;
+
         public override void OnEnter()
         {
             projectilePrefab = SynthAssets.thirtyNineMusicProjectile;
+            dmg = projectilePrefab.GetComponent<ProjectileDamage>();
+
+            dmg.damageType = DamageType.Generic;
 
             baseDuration = BaseDuration;
             damageCoefficient = DamageCoefficient;
@@ -109,8 +116,10 @@ namespace ProjectSynth.Character.Synth.States.Primary
         public void ApplyBoost()
         {
             fireDouble = true;
+            
+            dmg.damageType.AddModdedDamageType(SynthDamageTypes.EncoreDamage);
 
-            damageCoefficient = SynthStaticValues.boosted_thirtNineMusicDamageCoefficient;
+            //damageCoefficient = SynthStaticValues.boosted_thirtNineMusicDamageCoefficient;
         }
     }
 }

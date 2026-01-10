@@ -1,5 +1,4 @@
 ﻿using ProjectSynth.Character.Synth.UI.Crosshair;
-using ProjectSynth.Components;
 using ProjectSynth.Core;
 using ProjectSynth.Modules;
 using R2API;
@@ -154,9 +153,6 @@ namespace ProjectSynth.Character.Synth.Content
 
             var single = projectile.GetComponent<ProjectileSingleTargetImpact>();
             single.hitSound = hitSound;
-
-            var buffOnHit = projectile.AddComponent<ProjectileApplyTimedBuff>();
-            buffOnHit.projectile = projectile;
 
             var ghost = _assetBundle.LoadAsset<GameObject>($"{projectileName}Model")?.InstantiateClone($"{projectileName}Model", true);
             if (!ghost)

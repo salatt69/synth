@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public static class EncoreSequenceManager
+public static class EncoreManager
 {
-    private class Seq
+    private class Sequence
     {
         public CharacterBody victim;
         public CharacterBody attacker;
@@ -15,13 +15,13 @@ public static class EncoreSequenceManager
         public float nextTime;
     }
 
-    private static readonly List<Seq> active = new();
+    private static readonly List<Sequence> active = new();
 
     public static void Start(CharacterBody victim, CharacterBody attacker, float procCoef)
     {
         if (!NetworkServer.active) return;
 
-        active.Add(new Seq
+        active.Add(new Sequence
         {
             victim = victim,
             attacker = attacker,
@@ -56,7 +56,7 @@ public static class EncoreSequenceManager
 
             if (s.remaining <= 0)
             {
-                s.victim.ClearTimedBuffs(SynthBuffs.encoreDebuff);
+                s.victim.ClearTimedBuffs(SynthBuffs.EncoreDebuff);
                 active.RemoveAt(i);
             }
         }

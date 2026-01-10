@@ -193,7 +193,7 @@ namespace ProjectSynth.Character.Synth.UI.Crosshair
                     Sounds.MetronomeSustain,
                     soundSource,
                     "SyncMusicToTempo",
-                    Modules.Math.CalculateSpeedToPitch(metronome.metronomeSequenceSpeedMultiplier)
+                    Modules.WwiseMath.CalculateSpeedToPitch(metronome.metronomeSequenceSpeedMultiplier)
                 );
             }
         }

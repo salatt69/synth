@@ -1,9 +1,10 @@
 ﻿using ProjectSynth.Core;
+using System;
 using UnityEngine;
 
 namespace ProjectSynth.Modules
 {
-    internal static class Math
+    internal static class WwiseMath
     {
         public static readonly float centsInOneOctave = 1200.0f;
         public static readonly float wwiseUnitsPerOctave = 25.0f;
