@@ -1,5 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-using BepInEx.Configuration;
+﻿using BepInEx.Configuration;
+using ProjectSynth.Core;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace ProjectSynth.Modules

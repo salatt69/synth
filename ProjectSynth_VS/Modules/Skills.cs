@@ -1,11 +1,10 @@
 ﻿using EntityStates;
+using ProjectSynth.Core;
+using R2API;
 using RoR2;
 using RoR2.Skills;
 using System;
-using System.Collections.Generic;
-using ProjectSynth;
 using UnityEngine;
-using R2API;
 
 namespace ProjectSynth.Modules
 {

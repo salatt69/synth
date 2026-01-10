@@ -1,7 +1,7 @@
 ﻿using RoR2;
 using System.Collections.Generic;
 
-namespace ProjectSynth.Modules.Characters
+namespace ProjectSynth.Modules.BaseContent.Characters
 {
     public abstract class ItemDisplaysBase
     {

@@ -2,12 +2,10 @@
 using RoR2;
 using RoR2.Audio;
 using RoR2.Skills;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ProjectSynth.Modules.BaseStates
+namespace ProjectSynth.Modules.BaseContent.BaseStates
 {
     public abstract class BaseMeleeAttack : BaseSkillState, SteppedSkillDef.IStepSetter
     {

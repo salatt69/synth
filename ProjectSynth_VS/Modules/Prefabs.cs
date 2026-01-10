@@ -1,13 +1,12 @@
-﻿using R2API;
+﻿using ProjectSynth.Core;
+using ProjectSynth.Modules.BaseContent.Characters;
+using R2API;
 using RoR2;
-using System.Collections.Generic;
-using UnityEngine;
-using ProjectSynth.Modules.Characters;
 using RoR2.CharacterAI;
-using static RoR2.CharacterAI.AISkillDriver;
-using RoR2.Skills;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace ProjectSynth.Modules
 {
@@ -395,8 +394,8 @@ namespace ProjectSynth.Modules
             characterModel.baseRendererInfos = rendererInfos.ToArray();
         }
 
-        private static void SetupHurtboxGroup(GameObject bodyPrefab, GameObject model) 
-        {         
+        private static void SetupHurtboxGroup(GameObject bodyPrefab, GameObject model)
+        {
             SetupMainHurtboxesFromChildLocator(bodyPrefab, model);
 
             SetHurtboxesHealthComponents(bodyPrefab);
@@ -579,7 +578,7 @@ namespace ProjectSynth.Modules
             GameObject newMaster = assetBundle.LoadAsset<GameObject>(assetName);
 
             BaseAI baseAI = newMaster.GetComponent<BaseAI>();
-            if(baseAI == null)
+            if (baseAI == null)
             {
                 baseAI = newMaster.AddComponent<BaseAI>();
                 baseAI.aimVectorDampTime = 0.1f;
@@ -588,7 +587,7 @@ namespace ProjectSynth.Modules
             baseAI.scanState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.AI.Walker.Wander));
 
             EntityStateMachine stateMachine = newMaster.GetComponent<EntityStateMachine>();
-            if(stateMachine == null)
+            if (stateMachine == null)
             {
                 AddEntityStateMachine(newMaster, "AI", typeof(EntityStates.AI.Walker.Wander), typeof(EntityStates.AI.Walker.Wander));
             }
@@ -596,7 +595,7 @@ namespace ProjectSynth.Modules
             baseAI.stateMachine = stateMachine;
 
             CharacterMaster characterMaster = newMaster.GetComponent<CharacterMaster>();
-            if(characterMaster == null)
+            if (characterMaster == null)
             {
                 characterMaster = newMaster.AddComponent<CharacterMaster>();
             }
@@ -802,7 +801,7 @@ namespace ProjectSynth.Modules
                 hitBoxes.Add(hitBox);
             }
 
-            if(hitBoxes.Count == 0)
+            if (hitBoxes.Count == 0)
             {
                 Log.Error($"No hitboxes were set up. aborting setting up hitboxGroup for {hitBoxGroupName}");
                 return;

@@ -1,7 +1,6 @@
 ﻿using EntityStates;
-using System;
 
-namespace ProjectSynth.Modules.BaseStates
+namespace ProjectSynth.Modules.BaseContent.BaseStates
 {
     //see example skills below
     public abstract class BaseTimedSkillState : BaseSkillState

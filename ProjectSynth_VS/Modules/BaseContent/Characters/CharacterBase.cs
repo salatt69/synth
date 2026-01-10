@@ -1,9 +1,7 @@
 ﻿using RoR2;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace ProjectSynth.Modules.Characters
+namespace ProjectSynth.Modules.BaseContent.Characters
 {
     public abstract class CharacterBase<T> where T : CharacterBase<T>, new()
     {
@@ -11,7 +9,7 @@ namespace ProjectSynth.Modules.Characters
 
         public abstract string bodyName { get; }
         public abstract string modelPrefabName { get; }
-        
+
         public abstract BodyInfo bodyInfo { get; }
 
         public virtual CustomRendererInfo[] customRendererInfos { get; }
@@ -22,10 +20,10 @@ namespace ProjectSynth.Modules.Characters
 
         public abstract AssetBundle assetBundle { get; protected set; }
 
-        public abstract GameObject bodyPrefab                 {get; protected set;}
-        public abstract CharacterBody prefabCharacterBody     {get; protected set;}
-        public abstract GameObject characterModelObject       {get; protected set;}
-        public abstract CharacterModel prefabCharacterModel   {get; protected set;}
+        public abstract GameObject bodyPrefab { get; protected set; }
+        public abstract CharacterBody prefabCharacterBody { get; protected set; }
+        public abstract GameObject characterModelObject { get; protected set; }
+        public abstract CharacterModel prefabCharacterModel { get; protected set; }
 
         public virtual void Initialize()
         {
@@ -52,19 +50,22 @@ namespace ProjectSynth.Modules.Characters
             prefabCharacterModel = Modules.Prefabs.SetupCharacterModel(bodyPrefab, customRendererInfos);
         }
 
-        public virtual void InitializeItemDisplays() {
+        public virtual void InitializeItemDisplays()
+        {
             ItemDisplayRuleSet itemDisplayRuleSet = ScriptableObject.CreateInstance<ItemDisplayRuleSet>();
             itemDisplayRuleSet.name = "idrs" + bodyName;
-            
+
             prefabCharacterModel.itemDisplayRuleSet = itemDisplayRuleSet;
 
-            if (itemDisplays != null) {
+            if (itemDisplays != null)
+            {
                 Modules.ItemDisplays.queuedDisplays++;
                 RoR2.ContentManagement.ContentManager.onContentPacksAssigned += SetItemDisplays;
             }
         }
 
-        public void SetItemDisplays(HG.ReadOnlyArray<RoR2.ContentManagement.ReadOnlyContentPack> obj) {
+        public void SetItemDisplays(HG.ReadOnlyArray<RoR2.ContentManagement.ReadOnlyContentPack> obj)
+        {
             itemDisplays.SetItemDisplays(prefabCharacterModel.itemDisplayRuleSet);
         }
 
@@ -144,7 +145,7 @@ namespace ProjectSynth.Modules.Characters
 
         /// <summary> basically the "height" of your camera </summary>
         public Vector3 cameraPivotPosition = new Vector3(0f, 0.8f, 0f);
-        
+
         /// <summary> how far relative to the pivot is your camera's center </summary>
         public float cameraParamsVerticalOffset = 1.37f;
 

@@ -1,11 +1,11 @@
-﻿using BepInEx.Configuration;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using RoR2.Skills;
+﻿using ProjectSynth.Core;
 using R2API;
+using RoR2;
+using RoR2.Skills;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace ProjectSynth.Modules.Characters
+namespace ProjectSynth.Modules.BaseContent.Characters
 {
     public abstract class SurvivorBase<T> : CharacterBase<T> where T : SurvivorBase<T>, new()
     {

@@ -1,9 +1,11 @@
-﻿using R2API;
+﻿using ProjectSynth.Core;
+using R2API;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace ProjectSynth.Modules {
+namespace ProjectSynth.Modules
+{
     internal static class Language
     {
         public static string TokensOutput = "";
@@ -12,21 +14,27 @@ namespace ProjectSynth.Modules {
 
         public static bool printingEnabled = false;
 
-        public static void Init() {
-            if (usingLanguageFolder) {
+        public static void Init()
+        {
+            if (usingLanguageFolder)
+            {
                 RoR2.Language.collectLanguageRootFolders += Language_collectLanguageRootFolders;
             }
         }
 
-        private static void Language_collectLanguageRootFolders(List<string> obj) {
+        private static void Language_collectLanguageRootFolders(List<string> obj)
+        {
             string path = Path.Combine(Path.GetDirectoryName(SynthPlugin.instance.Info.Location), "Language");
-            if (Directory.Exists(path)) {
+            if (Directory.Exists(path))
+            {
                 obj.Add(path);
             }
         }
 
-        public static void Add(string token, string text) {
-            if (!usingLanguageFolder) {
+        public static void Add(string token, string text)
+        {
+            if (!usingLanguageFolder)
+            {
                 LanguageAPI.Add(token, text);
             }
 
@@ -36,7 +44,8 @@ namespace ProjectSynth.Modules {
             TokensOutput += $"\n    \"{token}\" : \"{text.Replace(Environment.NewLine, "\\n").Replace("\n", "\\n")}\",";
         }
 
-        public static void PrintOutput(string fileName = "") {
+        public static void PrintOutput(string fileName = "")
+        {
             if (!printingEnabled) return;
 
             //wrap all tokens in a properly formatted language file
@@ -46,7 +55,8 @@ namespace ProjectSynth.Modules {
             Log.Message($"{fileName}: \n{strings}");
 
             //write a language file next to your mod. must have a folder called Language next to your mod dll.
-            if (!string.IsNullOrEmpty(fileName)) {
+            if (!string.IsNullOrEmpty(fileName))
+            {
                 string path = Path.Combine(Directory.GetParent(SynthPlugin.instance.Info.Location).FullName, "Language", "en", fileName);
                 File.WriteAllText(path, strings);
             }

@@ -1,18 +1,18 @@
-﻿using System.Reflection;
+﻿using ProjectSynth.Core;
 using R2API;
+using RoR2;
+using RoR2.Projectile;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using RoR2;
-using System.IO;
-using System.Collections.Generic;
-using RoR2.UI;
-using RoR2.Projectile;
 using Path = System.IO.Path;
 
 namespace ProjectSynth.Modules
 {
     internal static class Asset
     {
+        #region helpers
+
         //cache bundles if multiple characters use the same one
         internal static Dictionary<string, AssetBundle> loadedBundles = new Dictionary<string, AssetBundle>();
 
@@ -142,7 +142,7 @@ namespace ProjectSynth.Modules
             if (!ghostPrefab.GetComponent<NetworkIdentity>()) ghostPrefab.AddComponent<NetworkIdentity>();
             if (!ghostPrefab.GetComponent<ProjectileGhostController>()) ghostPrefab.AddComponent<ProjectileGhostController>();
 
-            Modules.Asset.ConvertAllRenderersToHopooShader(ghostPrefab);
+            Asset.ConvertAllRenderersToHopooShader(ghostPrefab);
 
             return ghostPrefab;
         }
@@ -168,5 +168,7 @@ namespace ProjectSynth.Modules
 
             return newPrefab;
         }
+
+        #endregion helpers
     }
 }

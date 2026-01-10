@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ProjectSynth.Core;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProjectSynth.Modules
@@ -17,7 +18,8 @@ namespace ProjectSynth.Modules
                 materialName.Replace(" (Instance)", "");
                 return mat.name.Contains(materialName);
             });
-            if (tempMat) {
+            if (tempMat)
+            {
                 Log.Debug($"{tempMat.name} has already been loaded. returning cached");
                 return tempMat;
             }
@@ -35,7 +37,8 @@ namespace ProjectSynth.Modules
         public static Material SetHopooMaterial(this Material tempMat) => ConvertDefaultShaderToHopoo(tempMat);
         public static Material ConvertDefaultShaderToHopoo(this Material tempMat)
         {
-            if (cachedMaterials.Contains(tempMat)) {
+            if (cachedMaterials.Contains(tempMat))
+            {
                 Log.Debug($"{tempMat.name} has already been converted. returning cached");
                 return tempMat;
             }
@@ -66,7 +69,7 @@ namespace ProjectSynth.Modules
             //apply values after shader is set
             tempMat.SetTexture("_EmTex", tempMat.GetTexture("_EmissionMap"));
             tempMat.EnableKeyword("DITHER");
-            
+
             if (bumpScale != null)
             {
                 tempMat.SetFloat("_NormalStrength", (float)bumpScale);
