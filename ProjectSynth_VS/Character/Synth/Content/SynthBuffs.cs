@@ -32,14 +32,4 @@ namespace ProjectSynth.Character.Synth.Content
             ContentAddition.AddBuffDef(EncoreDebuff);
         }
     }
-
-    public static class SynthDamageTypes
-    {
-        public static DamageAPI.ModdedDamageType EncoreDamage;
-
-        public static void Register()
-        {
-            EncoreDamage = DamageAPI.ReserveDamageType();
-        }
-    }
 }
