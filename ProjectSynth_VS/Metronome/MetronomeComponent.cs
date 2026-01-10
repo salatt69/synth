@@ -5,15 +5,15 @@ using UnityEngine;
 
 namespace ProjectSynth.Metronome
 {
+    public enum MetronomeState
+    {
+        Idle,
+        Sequence,
+        Cooldown
+    }
+
     public class MetronomeComponent : MonoBehaviour
     {
-        public enum MetronomeState
-        {
-            Idle,
-            Sequence,
-            Cooldown
-        }
-
         public MetronomeState state = MetronomeState.Idle;
 
         [Range(0.25f, 3.0f)]

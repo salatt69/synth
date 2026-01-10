@@ -88,11 +88,11 @@ namespace ProjectSynth.Character.Synth.UI.Crosshair
 
             switch (metronome.state)
             {
-                case MetronomeComponent.MetronomeState.Sequence:
+                case MetronomeState.Sequence:
                     UpdateSequence();
                     break;
 
-                case MetronomeComponent.MetronomeState.Cooldown:
+                case MetronomeState.Cooldown:
                     metronome.UpdateCooldown();
                     break;
             }
