@@ -6,8 +6,9 @@ using UnityEngine.AddressableAssets;
 
 namespace ProjectSynth.Character.Synth.Content.Items
 {
-    internal class AnotherPassiveItemBehavior : PassiveItems
+    internal class AnotherPassiveItemBehavior : Passive
     {
+        // Taken from: https://github.com/royal0959/R2RailgunnerPassive/blob/main/RailgunnerPassive/CustomItems.cs
         public static void CreateItem()
         {
             ItemDef Item = new ItemDef
@@ -35,15 +36,15 @@ namespace ProjectSynth.Character.Synth.Content.Items
                 hidden = true
             };
 
-            var itemIndex = new CustomItem(Item, PassiveItems.displayRules);
+            var itemIndex = new CustomItem(Item, Passive.displayRules);
             ItemAPI.Add(itemIndex);
-            PassiveItems.Another = Item;
+            Passive.Another = Item;
         }
 
         [BaseItemBodyBehavior.ItemDefAssociationAttribute(useOnServer = true, useOnClient = false)]
         public static ItemDef GetItemDef()
         {
-            return PassiveItems.Another;
+            return Passive.Another;
         }
 
         void OnEnable()

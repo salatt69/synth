@@ -6,8 +6,9 @@ using UnityEngine.AddressableAssets;
 
 namespace ProjectSynth.Character.Synth.Content.Items
 {
-    internal class MetronomePassiveItemBehavior : PassiveItems
+    internal class MetronomePassiveItemBehavior : Passive
     {
+        // Taken from: https://github.com/royal0959/R2RailgunnerPassive/blob/main/RailgunnerPassive/CustomItems.cs
         public static void CreateItem()
         {
             ItemDef Item = new ItemDef
@@ -35,15 +36,15 @@ namespace ProjectSynth.Character.Synth.Content.Items
                 hidden = true
             };
 
-            var itemIndex = new CustomItem(Item, PassiveItems.displayRules);
+            var itemIndex = new CustomItem(Item, Passive.displayRules);
             ItemAPI.Add(itemIndex);
-            PassiveItems.Metronome = Item;
+            Passive.Metronome = Item;
         }
 
         [BaseItemBodyBehavior.ItemDefAssociationAttribute(useOnServer = true, useOnClient = false)]
         public static ItemDef GetItemDef()
         {
-            return PassiveItems.Metronome;
+            return Passive.Metronome;
         }
 
         void OnEnable()

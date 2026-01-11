@@ -32,7 +32,7 @@ namespace ProjectSynth.Character.Synth.States.Primary
 
             base.OnEnter();
 
-            if (PassiveItems.HasMetronomePassive(characterBody))
+            if (Passive.HasMetronomePassive(characterBody))
             {
                 var metro = characterBody.GetComponent<MetronomeComponent>();
                 if (metro == null)
@@ -48,11 +48,6 @@ namespace ProjectSynth.Character.Synth.States.Primary
                     metro.IncreaseMaxBounces();
                 }
             }
-
-            // you will get some stats boosted and "Encore" debuff applied to an enemy you hit,
-            // if you have a metronome passive AND you hit the window during a sequence
-            //if (MetronomeSequenceManager.TryConsumeCharge()) 
-            //    ApplyMetronomeBoost();
         }
 
         public override void FixedUpdate()

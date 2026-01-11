@@ -1,4 +1,6 @@
 ﻿using ProjectSynth.Character.Synth.Content;
+using ProjectSynth.Character.Synth.Content.Items;
+using ProjectSynth.Core.Patches;
 using R2API;
 using RoR2;
 using UnityEngine.Networking;
@@ -25,6 +27,15 @@ namespace ProjectSynth.Core.Hooks
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
         {
+            if (sender.inventory?.GetItemCountEffective(Passive.Metronome) >= 1)
+            {
+                float virtualSpeed = VirtualAttackSpeedManager.Get(sender);
+
+                args.critTotalMult = virtualSpeed * SynthStaticValues.CRIT_CHANCE_PER_ATTACK_SPEED;
+            }
+            if (sender.inventory?.GetItemCountEffective(Passive.Another) >= 1)
+            {
+            }
             if (sender.HasBuff(SynthBuffs.ArmorBuff))
             {
                 args.armorAdd += 300;

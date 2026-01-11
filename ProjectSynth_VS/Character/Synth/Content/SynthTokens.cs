@@ -46,8 +46,12 @@ namespace ProjectSynth.Character.Synth.Content
             #endregion
 
             #region Passive
+
+            string metroDesc = "*describes metronome sequence*" + Environment.NewLine + Environment.NewLine
+                + $"Gain {Tokens.DamageText($"{SynthStaticValues.CRIT_CHANCE_PER_ATTACK_SPEED * 100}% Critical Strike Chance")} for every 1% {Tokens.DamageText("attack speed")}.";
+
             Language.Add(prefix + "METRONOME_PASSIVE_NAME", "M1K-U");
-            Language.Add(prefix + "METRONOME_PASSIVE_DESCRIPTION", "eat shit");
+            Language.Add(prefix + "METRONOME_PASSIVE_DESCRIPTION", metroDesc);
 
             Language.Add(prefix + "ANOTHER_PASSIVE_NAME", "M1K-U v2.0");
             Language.Add(prefix + "ANOTHER_PASSIVE_DESCRIPTION", "fuck you looking at");

@@ -11,5 +11,7 @@
 
         public const float thirtNineMusicDamageCoefficient = 2.2f;
         public const float boosted_thirtNineMusicDamageCoefficient = 20.2f;
+
+        public const float CRIT_CHANCE_PER_ATTACK_SPEED = 0.005f; // 0.5%
     }
 }

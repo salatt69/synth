@@ -105,7 +105,7 @@ namespace ProjectSynth.Character.Synth
 
             // it is here and not in SynthPlugin.Awake(), bc this mod has no items to pickup
             // it only has items for passive skills
-            PassiveItems.Initialize();
+            Passive.Initialize();
 
             SynthAssets.Init(assetBundle);
             SynthBuffs.Init(assetBundle);
@@ -171,7 +171,7 @@ namespace ProjectSynth.Character.Synth
             passiveSkillDef1.skillNameToken = SYNTH_PREFIX + "METRONOME_PASSIVE_NAME";
             passiveSkillDef1.skillDescriptionToken = SYNTH_PREFIX + "METRONOME_PASSIVE_DESCRIPTION";
             passiveSkillDef1.icon = assetBundle.LoadAsset<Sprite>("texPassiveIcon");
-            passiveSkillDef1.passiveItem = PassiveItems.Metronome;
+            passiveSkillDef1.passiveItem = Passive.Metronome;
 
             passiveSkillDef1.activationState = new EntityStates.SerializableEntityStateType(typeof(SynthMain));
             passiveSkillDef1.activationStateMachineName = "Body";
@@ -181,7 +181,7 @@ namespace ProjectSynth.Character.Synth
             passiveSkillDef2.skillNameToken = SYNTH_PREFIX + "ANOTHER_PASSIVE_NAME";
             passiveSkillDef2.skillDescriptionToken = SYNTH_PREFIX + "ANOTHER_PASSIVE_DESCRIPTION";
             passiveSkillDef2.icon = assetBundle.LoadAsset<Sprite>("texPassiveIcon");
-            passiveSkillDef2.passiveItem = PassiveItems.Another;
+            passiveSkillDef2.passiveItem = Passive.Another;
 
             passiveSkillDef2.activationState = new EntityStates.SerializableEntityStateType(typeof(SynthMain));
             passiveSkillDef2.activationStateMachineName = "Body";

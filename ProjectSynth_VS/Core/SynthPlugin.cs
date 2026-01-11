@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using HarmonyLib;
 using R2API;
 using R2API.Utils;
 using System.Security;
@@ -31,6 +32,9 @@ namespace ProjectSynth.Core
         void Awake()
         {
             instance = this;
+
+            var harmony = new Harmony(MODUID);
+            harmony.PatchAll();
 
             //easy to use logger
             Log.Init(Logger);
