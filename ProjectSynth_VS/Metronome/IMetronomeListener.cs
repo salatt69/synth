@@ -1,6 +1,6 @@
 ﻿namespace ProjectSynth.Metronome
 {
-    public interface IMetronomeBoostable
+    public interface IMetronomeListener
     {
         public void ApplyBoost();
     }

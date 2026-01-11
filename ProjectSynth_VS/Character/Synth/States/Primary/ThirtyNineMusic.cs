@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace ProjectSynth.Character.Synth.States.Primary
 {
-    public class ThirtyNineMusic : GenericProjectileBaseState, IMetronomeBoostable
+    public class ThirtyNineMusic : GenericProjectileBaseState, IMetronomeListener
     {
         public static float BaseDuration = 0.7f;
         public static float DamageCoefficient = SynthStaticValues.thirtNineMusicDamageCoefficient;
@@ -35,13 +35,10 @@ namespace ProjectSynth.Character.Synth.States.Primary
             if (Passive.HasMetronomePassive(characterBody))
             {
                 var metro = characterBody.GetComponent<MetronomeComponent>();
-                if (metro == null)
-                    return;
+                if (metro == null) return;
 
-                // 1) Attempt start
                 metro.StartMetronomeSequence();
-
-                // 2) Attempt consume
+                
                 if (metro.CanConsumeCharge())
                 {
                     ApplyBoost();
@@ -87,8 +84,6 @@ namespace ProjectSynth.Character.Synth.States.Primary
             info.position = aimRay.origin + right * offset;
             ProjectileManager.instance.FireProjectile(info);
         }
-
-
 
         public override void ModifyProjectileInfo(ref FireProjectileInfo fireProjectileInfo)
         {

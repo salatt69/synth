@@ -171,9 +171,9 @@ namespace ProjectSynth.Metronome
             return true;
         }
 
-        public void IncreaseMaxBounces()
+        public void IncreaseMaxBounces(int increment = 2)
         {
-            maxBounces += 2;
+            maxBounces += increment;
         }
 
         public bool CanConsumeCharge()

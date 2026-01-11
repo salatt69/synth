@@ -31,9 +31,13 @@ namespace ProjectSynth.Character.Synth.Content
         public static GameObject synthCrosshair;
         public static GameObject dafaultSprintngCrosshair;
 
+        public static Sprite secondary;
+
         public static void Init(AssetBundle assetBundle)
         {
             _assetBundle = assetBundle;
+
+            secondary = _assetBundle.LoadAsset<Sprite>("texSecondaryIcon");
 
             CreateSoundEvents();
             CreateEffects();

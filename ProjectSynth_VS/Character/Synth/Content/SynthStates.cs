@@ -22,6 +22,8 @@ namespace ProjectSynth.Character.Synth.Content
             ContentAddition.AddEntityState(typeof(ThrowBomb), out _);
 
             ContentAddition.AddEntityState(typeof(ThirtyNineMusic), out _);
+
+            ContentAddition.AddEntityState(typeof(SonicBoom), out _);
         }
     }
 }

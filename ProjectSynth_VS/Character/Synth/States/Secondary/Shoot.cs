@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ProjectSynth.Character.Synth.States.Secondary
 {
-    public class Shoot : BaseSkillState, IMetronomeBoostable
+    public class Shoot : BaseSkillState, IMetronomeListener
     {
         public static float damageCoefficient = SynthStaticValues.gunDamageCoefficient;
         public static float procCoefficient = 1f;

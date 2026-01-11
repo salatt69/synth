@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 namespace ProjectSynth.Character.Synth.States.Utility
 {
-    public class Roll : BaseSkillState, IMetronomeBoostable
+    public class Roll : BaseSkillState, IMetronomeListener
     {
         public static float duration = 0.5f;
         public static float initialSpeedCoefficient = 5f;

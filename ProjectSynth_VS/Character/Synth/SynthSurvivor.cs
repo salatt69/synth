@@ -1,5 +1,6 @@
 ﻿using ProjectSynth.Character.Synth.Content;
 using ProjectSynth.Character.Synth.Content.Items;
+using ProjectSynth.Character.Synth.Content.SkillDefs;
 using ProjectSynth.Character.Synth.States;
 using ProjectSynth.Character.Synth.States.Primary;
 using ProjectSynth.Character.Synth.States.Secondary;
@@ -288,7 +289,10 @@ namespace ProjectSynth.Character.Synth
 
             });
 
+            SkillDef secondarySkillDef2 = SynthSkillDefs.Secondary_SonicBoom();
+
             Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef1);
+            Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef2);
         }
 
         private void AddUtilitySkills()
