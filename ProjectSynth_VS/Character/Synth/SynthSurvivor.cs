@@ -202,37 +202,7 @@ namespace ProjectSynth.Character.Synth
             //the primary skill is created using a constructor for a typical primary
             //it is also a SteppedSkillDef. Custom Skilldefs are very useful for custom behaviors related to casting a skill. see ror2's different skilldefs for reference
 
-            SkillDef primarySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "39 Music!",
-                skillNameToken = SYNTH_PREFIX + "PRIMARY_THIRTY_NINE_MUSIC_NAME",
-                skillDescriptionToken = SYNTH_PREFIX + "PRIMARY_THIRTY_NINE_MUSIC_DESCRIPTION",
-                keywordTokens = new string[] { SYNTH_PREFIX + "KEYWORD_FOLLOW_THE_RHYTHM" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texBoxingGlovesIcon"),
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(ThirtyNineMusic)),
-                activationStateMachineName = "Weapon",
-                interruptPriority = EntityStates.InterruptPriority.Any,
-
-                baseRechargeInterval = 0,
-                baseMaxStock = 0,
-
-                rechargeStock = 0,
-                requiredStock = 0,
-                stockToConsume = 0,
-
-                resetCooldownTimerOnUse = false,
-                fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = false,
-                mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
-
-                isCombatSkill = true,
-                canceledFromSprinting = false,
-                cancelSprintingOnActivation = true,
-                forceSprintDuringState = false,
-
-            });
+            SkillDef primarySkillDef1 = SynthSkillDefs.Primary_ThirtyNineMusic();
 
             SteppedSkillDef primarySkillDef2 = Skills.CreateSkillDef<SteppedSkillDef>(new SkillDefInfo
                 (
@@ -248,8 +218,7 @@ namespace ProjectSynth.Character.Synth
             primarySkillDef2.stepCount = 2;
             primarySkillDef2.stepGraceDuration = 0.5f;
 
-            Skills.AddPrimarySkills(bodyPrefab, primarySkillDef1);
-            Skills.AddPrimarySkills(bodyPrefab, primarySkillDef2);
+            Skills.AddPrimarySkills(bodyPrefab, primarySkillDef1, primarySkillDef2);
         }
 
         private void AddSecondarySkills()
@@ -257,7 +226,9 @@ namespace ProjectSynth.Character.Synth
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Secondary);
 
             //here is a basic skill def with all fields accounted for
-            SkillDef secondarySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef secondarySkillDef1 = SynthSkillDefs.Secondary_SonicBoom();
+
+            SkillDef secondarySkillDef2 = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "HenryGun",
                 skillNameToken = SYNTH_PREFIX + "SECONDARY_GUN_NAME",
@@ -289,10 +260,7 @@ namespace ProjectSynth.Character.Synth
 
             });
 
-            SkillDef secondarySkillDef2 = SynthSkillDefs.Secondary_SonicBoom();
-
-            Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef1);
-            Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef2);
+            Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef1, secondarySkillDef2);
         }
 
         private void AddUtilitySkills()

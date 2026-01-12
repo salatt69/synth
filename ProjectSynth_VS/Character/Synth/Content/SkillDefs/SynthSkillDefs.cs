@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using ProjectSynth.Character.Synth.States.Primary;
 using ProjectSynth.Modules;
 using RoR2.Skills;
 using System;
@@ -14,49 +15,100 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
     {
         private static string Prefix => SynthSurvivor.SYNTH_PREFIX;
 
+        public static SkillDef Primary_ThirtyNineMusic()
+        {
+            SkillDef tnm = Skills.CreateSkillDef2(new SkillDefInfo2
+            {
+                skillName = "39 Music!",
+                skillNameToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_NAME",
+                skillDescriptionToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_DESCRIPTION",
+                keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
+                icon = Bundle.tex_ThirtyNineMusic,
+
+                activationStateMachineName = "Weapon",
+                activationState = new SerializableEntityStateType(typeof(ThirtyNineMusic)),
+                interruptPriority = InterruptPriority.Any,
+
+                baseRechargeInterval = 0,
+                baseMaxStock = 0,
+                rechargeStock = 0,
+                requiredStock = 0,
+                stockToConsume = 0,
+
+                attackSpeedBuffsRestockSpeed = false,
+                attackSpeedBuffsRestockSpeed_Multiplier = 1,
+
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
+
+                resetCooldownTimerOnUse = false,
+                beginSkillCooldownOnSkillEnd = true,
+                isCooldownBlockedUntilManuallyReset = false,
+
+                cancelSprintingOnActivation = true,
+                forceSprintDuringState = false,
+                canceledFromSprinting = true,
+                isCombatSkill = true,
+
+                mustKeyPress = true,
+                triggeredByPressRelease = false,
+
+                autoHandleLuminousShot = true,
+                suppressSkillActivation = false,
+
+                hideStockCount = false,
+                hideCooldown = false
+            });
+
+            return tnm;
+        }
+
         public static SkillDef Secondary_SonicBoom()
         {
-            SkillDef sd = ScriptableObject.CreateInstance<SkillDef>();
-            sd.skillName = "Sonic Boom";
-            sd.skillNameToken = Prefix + "SECONDARY_SONIC_BOOM_NAME";
-            sd.skillDescriptionToken = Prefix + "SECONDARY_SONIC_BOOM_DESCRIPTION";
-            sd.keywordTokens = new string[] { Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" };
-            sd.icon = SynthAssets.secondary;
+            SkillDef sonicBoom = Skills.CreateSkillDef2(new SkillDefInfo2
+            {
+                skillName = "Sonic Boom",
+                skillNameToken = Prefix + "SECONDARY_SONIC_BOOM_NAME",
+                skillDescriptionToken = Prefix + "SECONDARY_SONIC_BOOM_DESCRIPTION",
+                keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
+                icon = Bundle.tex_SonicBoom,
 
-            sd.activationStateMachineName = "Weapon";
-            sd.activationState = new SerializableEntityStateType(typeof(States.Secondary.SonicBoom));
-            sd.interruptPriority = InterruptPriority.PrioritySkill;
+                activationStateMachineName = "Weapon",
+                activationState = new SerializableEntityStateType(typeof(States.Secondary.SonicBoom)),
+                interruptPriority = InterruptPriority.PrioritySkill,
 
-            sd.baseRechargeInterval = 4f;
-            sd.baseMaxStock = 1;
-            sd.rechargeStock = 1;
-            sd.requiredStock = 1;
-            sd.stockToConsume = 1;
+                baseRechargeInterval = 4f,
+                baseMaxStock = 1,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
 
-            sd.attackSpeedBuffsRestockSpeed = false;
-            sd.attackSpeedBuffsRestockSpeed_Multiplier = 1;
+                attackSpeedBuffsRestockSpeed = false,
+                attackSpeedBuffsRestockSpeed_Multiplier = 1,
 
-            sd.fullRestockOnAssign = true;
-            sd.dontAllowPastMaxStocks = false;
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
 
-            sd.resetCooldownTimerOnUse = false;
-            sd.beginSkillCooldownOnSkillEnd = true;
-            sd.isCooldownBlockedUntilManuallyReset = false;
+                resetCooldownTimerOnUse = false,
+                beginSkillCooldownOnSkillEnd = true,
+                isCooldownBlockedUntilManuallyReset = false,
 
-            sd.cancelSprintingOnActivation = false;
-            sd.forceSprintDuringState = true;
-            sd.canceledFromSprinting = false;
-            sd.isCombatSkill = false;
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = true,
+                canceledFromSprinting = false,
+                isCombatSkill = false,
 
-            sd.mustKeyPress = true;
-            sd.triggeredByPressRelease = false;
+                mustKeyPress = true,
+                triggeredByPressRelease = false,
 
-            sd.autoHandleLuminousShot = true;
-            sd.suppressSkillActivation = false;
+                autoHandleLuminousShot = true,
+                suppressSkillActivation = false,
 
-            sd.hideStockCount = false;
-            sd.hideCooldown = false;
-            return sd;
+                hideStockCount = false,
+                hideCooldown = false
+            });
+
+            return sonicBoom;
 
             // make note of SkillDef.InstantiateNextState()
         }

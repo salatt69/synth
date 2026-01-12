@@ -31,25 +31,24 @@ namespace ProjectSynth.Character.Synth.Content
         public static GameObject synthCrosshair;
         public static GameObject dafaultSprintngCrosshair;
 
-        public static Sprite secondary;
 
         public static void Init(AssetBundle assetBundle)
         {
             _assetBundle = assetBundle;
 
-            secondary = _assetBundle.LoadAsset<Sprite>("texSecondaryIcon");
+            Bundle.Init(assetBundle);
 
             CreateSoundEvents();
             CreateEffects();
             CreateProjectiles();
 
             dafaultSprintngCrosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SprintingCrosshair.prefab").WaitForCompletion();
-            CreateCrosshair();
+            CreateCrosshair(_assetBundle);
         }
 
-        private static void CreateCrosshair()
+        private static void CreateCrosshair(AssetBundle bundle)
         {
-            synthCrosshair = _assetBundle.LoadAsset<GameObject>("SynthCrosshair");
+            synthCrosshair = bundle.LoadAsset<GameObject>("SynthCrosshair");
 
             HudElement hudElem = synthCrosshair.AddComponent<HudElement>();
             CrosshairController controller = synthCrosshair.AddComponent<CrosshairController>();
@@ -78,7 +77,6 @@ namespace ProjectSynth.Character.Synth.Content
             RawImage rawImage = synthCrosshair.transform.Find("Center, Sprint").GetComponent<RawImage>();
             rawImage.texture = image;
             rawImage.color = color;
-
         }
 
         #region sound events
@@ -176,6 +174,16 @@ namespace ProjectSynth.Character.Synth.Content
             return projectile;
         }
         #endregion projectiles
+    }
+
+    public static class Bundle
+    {
+        private static AssetBundle _ab;
+
+        public static void Init(AssetBundle assetBundle) { _ab = assetBundle; }
+
+        public static readonly Sprite tex_SonicBoom = _ab.LoadAsset<Sprite>("texSecondaryIcon");
+        public static readonly Sprite tex_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
     }
 
     public static class Sounds

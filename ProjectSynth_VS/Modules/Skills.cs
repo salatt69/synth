@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using ProjectSynth.Character.Synth;
 using ProjectSynth.Core;
 using R2API;
 using RoR2;
@@ -152,6 +153,61 @@ namespace ProjectSynth.Modules
             return CreateSkillDef<SkillDef>(skillDefInfo);
         }
 
+        public static SkillDef CreateSkillDef2(SkillDefInfo2 skillDefInfo)
+        {
+            return CreateSkillDef2<SkillDef>(skillDefInfo);
+        }
+
+        public static T CreateSkillDef2<T>(SkillDefInfo2 skillDefInfo) where T : SkillDef
+        {
+            //pass in a type for a custom skilldef, e.g. HuntressTrackingSkillDef
+            T skillDef = ScriptableObject.CreateInstance<T>();
+
+            skillDef.skillName = skillDefInfo.skillName;
+            skillDef.skillNameToken = skillDefInfo.skillNameToken;
+            skillDef.skillDescriptionToken = skillDefInfo.skillDescriptionToken;
+            skillDef.keywordTokens = skillDefInfo.keywordTokens;
+            skillDef.icon = skillDefInfo.icon;
+
+            skillDef.activationStateMachineName = skillDefInfo.activationStateMachineName;
+            skillDef.activationState = skillDefInfo.activationState;
+            skillDef.interruptPriority = skillDefInfo.interruptPriority;
+
+            skillDef.baseRechargeInterval = skillDefInfo.baseRechargeInterval;
+            skillDef.baseMaxStock = skillDefInfo.baseMaxStock;
+            skillDef.rechargeStock = skillDefInfo.rechargeStock;
+            skillDef.requiredStock = skillDefInfo.requiredStock;
+            skillDef.stockToConsume = skillDefInfo.stockToConsume;
+
+            skillDef.attackSpeedBuffsRestockSpeed = skillDefInfo.attackSpeedBuffsRestockSpeed;
+            skillDef.attackSpeedBuffsRestockSpeed_Multiplier = skillDefInfo.attackSpeedBuffsRestockSpeed_Multiplier;
+
+            skillDef.fullRestockOnAssign = skillDefInfo.fullRestockOnAssign;
+            skillDef.dontAllowPastMaxStocks = skillDefInfo.dontAllowPastMaxStocks;
+
+            skillDef.resetCooldownTimerOnUse = skillDefInfo.resetCooldownTimerOnUse;
+            skillDef.beginSkillCooldownOnSkillEnd = skillDefInfo.beginSkillCooldownOnSkillEnd;
+            skillDef.isCooldownBlockedUntilManuallyReset = skillDefInfo.isCooldownBlockedUntilManuallyReset;
+
+            skillDef.cancelSprintingOnActivation = skillDefInfo.cancelSprintingOnActivation;
+            skillDef.forceSprintDuringState = skillDefInfo.forceSprintDuringState;
+            skillDef.canceledFromSprinting = skillDefInfo.canceledFromSprinting;
+            skillDef.isCombatSkill = skillDefInfo.isCombatSkill;
+
+            skillDef.mustKeyPress = skillDefInfo.mustKeyPress;
+            skillDef.triggeredByPressRelease = skillDefInfo.triggeredByPressRelease;
+
+            skillDef.autoHandleLuminousShot = skillDefInfo.autoHandleLuminousShot;
+            skillDef.suppressSkillActivation = skillDefInfo.suppressSkillActivation;
+
+            skillDef.hideStockCount = skillDefInfo.hideStockCount;
+            skillDef.hideCooldown = skillDefInfo.hideCooldown;
+
+            ContentAddition.AddSkillDef(skillDef);
+
+            return skillDef;
+        }
+
         public static T CreateSkillDef<T>(SkillDefInfo skillDefInfo) where T : SkillDef
         {
             //pass in a type for a custom skilldef, e.g. HuntressTrackingSkillDef
@@ -191,6 +247,68 @@ namespace ProjectSynth.Modules
             return skillDef;
         }
         #endregion skilldefs
+    }
+
+    internal class SkillDefInfo2
+    {
+        public string skillName;
+        public string skillNameToken;
+        public string skillDescriptionToken;
+        public string[] keywordTokens;
+        public Sprite icon;
+
+        public string activationStateMachineName;
+        public SerializableEntityStateType activationState;
+        public InterruptPriority interruptPriority;
+
+        public float baseRechargeInterval = 1f;
+        public int baseMaxStock = 1;
+        public int rechargeStock = 1;
+        public int requiredStock = 1;
+        public int stockToConsume = 1;
+
+        public bool attackSpeedBuffsRestockSpeed = false;
+        public float attackSpeedBuffsRestockSpeed_Multiplier = 1.0f;
+
+        public bool fullRestockOnAssign = true;
+        public bool dontAllowPastMaxStocks = false;
+
+        public bool resetCooldownTimerOnUse = false;
+        public bool beginSkillCooldownOnSkillEnd = true;
+        public bool isCooldownBlockedUntilManuallyReset = false;
+
+        public bool cancelSprintingOnActivation = true;
+        public bool forceSprintDuringState = false;
+        public bool canceledFromSprinting = true;
+        public bool isCombatSkill = false;
+
+        public bool mustKeyPress = true;
+        public bool triggeredByPressRelease = false;
+
+        public bool autoHandleLuminousShot = true;
+        public bool suppressSkillActivation = false;
+
+        public bool hideStockCount = false;
+        public bool hideCooldown = false;
+
+        public SkillDefInfo2() { }
+
+        //public SkillDefInfo2(string skillName,
+        //                     string skillNameToken, 
+        //                     string skillDescriptionToken, 
+        //                     string[] keywordTokens, 
+        //                     Sprite icon, 
+        //                     string activationStateMachineName, 
+        //                     SerializableEntityStateType activationState)
+        //{
+        //    this.skillName = skillName;
+        //    this.skillNameToken = SynthSurvivor.SYNTH_PREFIX + skillNameToken;
+        //    this.skillDescriptionToken = SynthSurvivor.SYNTH_PREFIX + skillDescriptionToken;
+        //    this.keywordTokens = keywordTokens;
+        //    this.icon = icon;
+        //    this.activationStateMachineName = activationStateMachineName;
+        //    this.activationState = activationState;
+        //}
     }
 
     /// <summary>
