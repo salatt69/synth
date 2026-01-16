@@ -36,8 +36,6 @@ namespace ProjectSynth.Character.Synth.Content
         {
             _assetBundle = assetBundle;
 
-            Bundle.Init(assetBundle);
-
             CreateSoundEvents();
             CreateEffects();
             CreateProjectiles();
@@ -180,10 +178,21 @@ namespace ProjectSynth.Character.Synth.Content
     {
         private static AssetBundle _ab;
 
-        public static void Init(AssetBundle assetBundle) { _ab = assetBundle; }
+        public static Sprite tex_SonicBoom { get; private set; }
+        public static Sprite tex_ThirtyNineMusic { get; private set; }
 
-        public static readonly Sprite tex_SonicBoom = _ab.LoadAsset<Sprite>("texSecondaryIcon");
-        public static readonly Sprite tex_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
+        public static void Init(AssetBundle assetBundle)
+        {
+            _ab = assetBundle;
+
+            AssignTextures();
+        }
+
+        private static void AssignTextures()
+        {
+            tex_SonicBoom = _ab.LoadAsset<Sprite>("texSecondaryIcon");
+            tex_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
+        }
     }
 
     public static class Sounds

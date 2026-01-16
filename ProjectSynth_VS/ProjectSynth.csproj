@@ -14,12 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Junk\**" />
-    <EmbeddedResource Remove="Junk\**" />
-    <None Remove="Junk\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove=".gitignore" />
     <None Remove="nuget.config" />
   </ItemGroup>

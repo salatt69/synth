@@ -48,6 +48,5 @@ namespace ProjectSynth.Core
             // add hooks
             new Hooks.SynthHooks().Initialize();
         }
-
     }
 }

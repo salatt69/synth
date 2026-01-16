@@ -107,7 +107,8 @@ namespace ProjectSynth.Character.Synth
             // it is here and not in SynthPlugin.Awake(), bc this mod has no items to pickup
             // it only has items for passive skills
             Passive.Initialize();
-
+            
+            Bundle.Init(assetBundle);
             SynthAssets.Init(assetBundle);
             SynthBuffs.Init(assetBundle);
             SynthDamageTypes.Register();
