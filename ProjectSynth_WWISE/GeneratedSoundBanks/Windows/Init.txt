@@ -21,10 +21,10 @@ State	ID	Name	State Group			Notes
 	113661376	OpeningCutScene1	Music_menu			
 	113661379	OpeningCutScene2	Music_menu			
 	748895195	None	Music_menu			
+	1654435662	Logbook	Music_menu			
 	2121506681	OutroCutsceneFULL	Music_menu			
 	2266819552	OutroCutsceneB	Music_menu			
 	2266819555	OutroCutsceneA	Music_menu			
-	2326263800	Logbook2	Music_menu			
 	3161908922	Main	Music_menu			
 	3912041495	Prismatic	Music_menu			
 	145640315	MyJazzSong	SynthDJ_GameplayMusic			

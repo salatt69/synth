@@ -1,7 +1,7 @@
 Event	ID	Name			Wwise Object Path	Notes
 	478512564	SynthDJ_Play_Music_System			\Default Work Unit\SynthDJ_Play_Music_System	
-	3045904752	SynthDJ_Pause_Music			\Default Work Unit\SynthDJ_Pause_Music	
-	3209949659	SynthDJ_Unpause_Music			\Default Work Unit\SynthDJ_Unpause_Music	
+	1905278449	SynthDJ_Unpause_Music_System			\Default Work Unit\SynthDJ_Unpause_Music_System	
+	3058367100	SynthDJ_Pause_Music_System			\Default Work Unit\SynthDJ_Pause_Music_System	
 
 State Group	ID	Name			Wwise Object Path	Notes
 	792781730	Music_system			\Default Work Unit\Music_system	
@@ -17,10 +17,10 @@ State	ID	Name	State Group			Notes
 	113661376	OpeningCutScene1	Music_menu			
 	113661379	OpeningCutScene2	Music_menu			
 	748895195	None	Music_menu			
+	1654435662	Logbook	Music_menu			
 	2121506681	OutroCutsceneFULL	Music_menu			
 	2266819552	OutroCutsceneB	Music_menu			
 	2266819555	OutroCutsceneA	Music_menu			
-	2326263800	Logbook2	Music_menu			
 	3161908922	Main	Music_menu			
 	3912041495	Prismatic	Music_menu			
 	145640315	MyJazzSong	SynthDJ_GameplayMusic			
@@ -32,9 +32,10 @@ Game Parameter	ID	Name			Wwise Object Path	Notes
 	3729143042	Volume_MSX			\Default Work Unit\Volume_MSX	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	463370878	Skybreak - WORLD'S END (REMEMBER)	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\Skybreak - WORLD'S END (REMEMBER)_56CEF360.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\Menu Switch\Main\Title\Skybreak - WORLD'S END (REMEMBER)		3676430
+	463370878	Skybreak - WORLD'S END (REMEMBER)	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\Skybreak - WORLD'S END (REMEMBER)_56CEF360.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\Menu Switch\Main\Whatever\Skybreak - WORLD'S END (REMEMBER)		4335
 	522789390	Atura - LIKE THIS (Skybreak HALF BLOOD Remix)_01	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\Atura - LIKE THIS (Skybreak HALF BLOOD Remix)_56CEF360.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\BossSongChoice\Decompression_Loop\Decompression_Loop\Atura - LIKE THIS (Skybreak HALF BLOOD Remix)_01		4208
 
 Streamed Audio	ID	Name	Audio source file	Generated audio file	Wwise Object Path	Notes
+	463370878	Skybreak - WORLD'S END (REMEMBER)	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\Skybreak - WORLD'S END (REMEMBER)_56CEF360.wem	463370878.wem	\Interactive Music Hierarchy\Default Work Unit\Music_System\Menu Switch\Main\Whatever\Skybreak - WORLD'S END (REMEMBER)	
 	522789390	Atura - LIKE THIS (Skybreak HALF BLOOD Remix)_01	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\Atura - LIKE THIS (Skybreak HALF BLOOD Remix)_56CEF360.wem	522789390.wem	\Interactive Music Hierarchy\Default Work Unit\Music_System\BossSongChoice\Decompression_Loop\Decompression_Loop\Atura - LIKE THIS (Skybreak HALF BLOOD Remix)_01	
 

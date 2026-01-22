@@ -32,17 +32,28 @@
 					</ChildrenList>
 				</StateGroup>
 				<StateGroup Name="Music_menu" ID="{2A0D5C42-8939-4095-BEFA-FE5E1B2D8BF4}">
+					<PropertyList>
+						<Property Name="DefaultTransitionTime" Type="Real64" Value="2"/>
+					</PropertyList>
 					<ChildrenList>
 						<State Name="None" ID="{B3778BA6-EF82-479F-AF81-5F79A3308B4E}"/>
 						<State Name="OpeningCutScene1" ID="{30A2DC1F-ACD1-4D4C-85D1-9905F2FB63DD}"/>
 						<State Name="OpeningCutScene2" ID="{9791AA19-A538-4171-9368-84472959FC37}"/>
-						<State Name="Logbook2" ID="{2B5F57D9-EEC0-4541-9915-160B9B0F3FEA}"/>
+						<State Name="Logbook" ID="{2B5F57D9-EEC0-4541-9915-160B9B0F3FEA}"/>
 						<State Name="OutroCutsceneFULL" ID="{A2F62DDA-994B-47F5-949B-C513C4EE3A45}"/>
 						<State Name="OutroCutsceneB" ID="{E2329B57-B3E0-4908-93EB-BBFA06A47331}"/>
 						<State Name="OutroCutsceneA" ID="{CDA6323A-7709-4E25-B4DB-15DBB1DBE4C0}"/>
 						<State Name="Main" ID="{A39F28B3-DDF5-4B0C-AF03-5E85596A9D73}"/>
 						<State Name="Prismatic" ID="{4C8A1FDD-643E-4C49-B0D7-35FC680CB2BB}"/>
 					</ChildrenList>
+					<TransitionList>
+						<Transition>
+							<StartState Name="Main" ID="{A39F28B3-DDF5-4B0C-AF03-5E85596A9D73}"/>
+							<EndState Name="Logbook" ID="{2B5F57D9-EEC0-4541-9915-160B9B0F3FEA}"/>
+							<Time>1</Time>
+							<IsShared>true</IsShared>
+						</Transition>
+					</TransitionList>
 				</StateGroup>
 				<StateGroup Name="Music_system" ID="{49E8752C-7BE4-47B9-A6B1-842BD9C53467}">
 					<ChildrenList>

@@ -21,9 +21,9 @@ namespace AK
         static const AkUniqueID PLAY_SYNTH_METRONOMETICK = 4019602470U;
         static const AkUniqueID PLAY_SYNTH_THIRTYNINEMUSIC_SHOT = 2888092107U;
         static const AkUniqueID STOP_SYNTH_METRONOMESUSTAIN = 950680430U;
-        static const AkUniqueID SYNTHDJ_PAUSE_MUSIC = 3045904752U;
+        static const AkUniqueID SYNTHDJ_PAUSE_MUSIC_SYSTEM = 3058367100U;
         static const AkUniqueID SYNTHDJ_PLAY_MUSIC_SYSTEM = 478512564U;
-        static const AkUniqueID SYNTHDJ_UNPAUSE_MUSIC = 3209949659U;
+        static const AkUniqueID SYNTHDJ_UNPAUSE_MUSIC_SYSTEM = 1905278449U;
     } // namespace EVENTS
 
     namespace STATES
@@ -84,7 +84,7 @@ namespace AK
 
             namespace STATE
             {
-                static const AkUniqueID LOGBOOK2 = 2326263800U;
+                static const AkUniqueID LOGBOOK = 1654435662U;
                 static const AkUniqueID MAIN = 3161908922U;
                 static const AkUniqueID NONE = 748895195U;
                 static const AkUniqueID OPENINGCUTSCENE1 = 113661376U;

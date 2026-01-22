@@ -123,6 +123,8 @@
 										<MusicSegment Name="Decompression_Loop" ID="{B04CB844-0419-4F7E-ACE9-DEEF271AB9E8}" ShortID="198915538">
 											<PropertyList>
 												<Property Name="EndPosition" Type="Real64" Value="213349.962266927"/>
+												<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
+												<Property Name="Tempo" Type="Real64" Value="142"/>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
@@ -193,7 +195,7 @@
 																						<MusicClip Name="Atura - LIKE THIS (Skybreak HALF BLOOD Remix)" ID="{2CF00E72-BF50-496A-9DAD-B8F785E563F2}">
 																							<PropertyList>
 																								<Property Name="BeginTrimOffset" Type="Real64" Value="114929.52418378"/>
-																								<Property Name="EndTrimOffset" Type="Real64" Value="170679.52418378"/>
+																								<Property Name="EndTrimOffset" Type="Real64" Value="170704.172071104"/>
 																								<Property Name="FadeInDuration" Type="Real64" Value="1665.04815632711"/>
 																								<Property Name="PlayAt" Type="Real64" Value="-114929.52418378"/>
 																							</PropertyList>
@@ -221,7 +223,7 @@
 																												<Flags>0</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>170.67952</XPos>
+																												<XPos>170.70417</XPos>
 																												<YPos>59.31339</YPos>
 																												<Flags>37</Flags>
 																											</Point>
@@ -245,7 +247,7 @@
 																												<Flags>0</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>170.67952</XPos>
+																												<XPos>170.70417</XPos>
 																												<YPos>-0.11346</YPos>
 																												<Flags>37</Flags>
 																											</Point>
@@ -279,7 +281,7 @@
 																												<Flags>0</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>170.67952</XPos>
+																												<XPos>170.70417</XPos>
 																												<YPos>-96.3</YPos>
 																												<Flags>37</Flags>
 																											</Point>
@@ -311,7 +313,7 @@
 															<MusicCue Name="Exit Cue" ID="{59BF57F0-38B4-4036-B7D7-D0DEB37734D7}">
 																<PropertyList>
 																	<Property Name="CueType" Type="int16" Value="1"/>
-																	<Property Name="TimeMs" Type="Real64" Value="54084.7585964387"/>
+																	<Property Name="TimeMs" Type="Real64" Value="54084.5070422535"/>
 																</PropertyList>
 															</MusicCue>
 														</Local>
@@ -447,6 +449,8 @@
 										<MusicSegment Name="Area - Mechelwind - Intro" ID="{4508F174-1294-4E3C-9A92-FABD6EEA76ED}" ShortID="587445001">
 											<PropertyList>
 												<Property Name="EndPosition" Type="Real64" Value="193208.612199034"/>
+												<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
+												<Property Name="Tempo" Type="Real64" Value="142"/>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
@@ -516,7 +520,7 @@
 																					<Local>
 																						<MusicClip Name="Atura - LIKE THIS (Skybreak HALF BLOOD Remix)" ID="{E4365684-3206-4A60-8BD4-838C5D2ED18C}">
 																							<PropertyList>
-																								<Property Name="EndTrimOffset" Type="Real64" Value="184253.682417764"/>
+																								<Property Name="EndTrimOffset" Type="Real64" Value="184225.352112676"/>
 																								<Property Name="FadeInMode" Type="int16" Value="0"/>
 																								<Property Name="FadeOutDuration" Type="Real64" Value="74.6124758130172"/>
 																							</PropertyList>
@@ -534,7 +538,7 @@
 																												<Flags>5</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>184.25368</XPos>
+																												<XPos>184.22535</XPos>
 																												<YPos>0</YPos>
 																												<Flags>37</Flags>
 																											</Point>
@@ -553,7 +557,7 @@
 																												<Flags>5</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>184.25368</XPos>
+																												<XPos>184.22535</XPos>
 																												<YPos>0</YPos>
 																												<Flags>37</Flags>
 																											</Point>
@@ -572,7 +576,7 @@
 																												<Flags>5</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>184.25368</XPos>
+																												<XPos>184.22535</XPos>
 																												<YPos>0</YPos>
 																												<Flags>37</Flags>
 																											</Point>
@@ -604,7 +608,7 @@
 															<MusicCue Name="Exit Cue" ID="{8DCA10CB-DADB-428B-8A18-5E95C5A62344}">
 																<PropertyList>
 																	<Property Name="CueType" Type="int16" Value="1"/>
-																	<Property Name="TimeMs" Type="Real64" Value="182329.937268368"/>
+																	<Property Name="TimeMs" Type="Real64" Value="182535.211267606"/>
 																</PropertyList>
 															</MusicCue>
 														</Local>
@@ -691,21 +695,7 @@
 										</Reference>
 										<Reference Name="PlaylistRoot">
 											<Custom>
-												<MusicPlaylistItem Name="" ID="{98CFA568-C4A5-48BE-AF42-CDCBE2EE0550}" ShortID="300259563">
-													<ChildrenList>
-														<MusicPlaylistItem Name="" ID="{397ADF1D-AF72-4EA8-9E02-45E3D59F1C72}" ShortID="491120674">
-															<PropertyList>
-																<Property Name="LoopCount" Type="int16" Value="0"/>
-																<Property Name="PlaylistItemType" Type="int16" Value="1"/>
-															</PropertyList>
-															<ReferenceList>
-																<Reference Name="Segment">
-																	<ObjectRef Name="Decompression_Loop" ID="{BAF9A447-023C-4733-826A-31D5CE1D2DB7}" WorkUnitID="{D98BF7EA-A549-4A29-B9E6-B1AA479DCE3E}"/>
-																</Reference>
-															</ReferenceList>
-														</MusicPlaylistItem>
-													</ChildrenList>
-												</MusicPlaylistItem>
+												<MusicPlaylistItem Name="" ID="{98CFA568-C4A5-48BE-AF42-CDCBE2EE0550}" ShortID="300259563"/>
 											</Custom>
 										</Reference>
 										<Reference Name="TransitionRoot">
@@ -725,9 +715,11 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<MusicSegment Name="Decompression_Loop" ID="{BAF9A447-023C-4733-826A-31D5CE1D2DB7}" ShortID="260017755">
+										<MusicSegment Name="Decompression_Loop" ID="{0E44ED36-7901-455C-8574-AE3149E6FA72}" ShortID="525475932">
 											<PropertyList>
-												<Property Name="EndPosition" Type="Real64" Value="203883.010999536"/>
+												<Property Name="EndPosition" Type="Real64" Value="213349.962266927"/>
+												<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
+												<Property Name="Tempo" Type="Real64" Value="142"/>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
@@ -738,7 +730,7 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<MusicTrack Name="Atura - LIKE THIS (Skybreak HALF BLOOD Remix)_01" ID="{919B7E9C-EB9F-4C32-A683-01C13770360B}" ShortID="509866550">
+												<MusicTrack Name="Atura - LIKE THIS (Skybreak HALF BLOOD Remix)_01" ID="{6B79B16C-9565-4FD3-A8E8-F42655978342}" ShortID="393327537">
 													<PropertyList>
 														<Property Name="IsStreamingEnabled" Type="bool">
 															<ValueList>
@@ -750,27 +742,19 @@
 																<Value>True</Value>
 															</ValueList>
 														</Property>
-														<Property Name="Volume" Type="Real64">
-															<ValueList>
-																<Value>-3</Value>
-															</ValueList>
-														</Property>
 													</PropertyList>
 													<ReferenceList>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{907D3CE7-24D0-42E4-BE6C-261E21939723}"/>
-														</Reference>
 														<Reference Name="OutputBus">
-															<ObjectRef Name="MSX_BUS" ID="{A613F71D-0E04-4550-81C7-D619012D53E3}" WorkUnitID="{4E69B6C5-F0CD-4548-B9CC-5337E4ABE66B}"/>
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{4E69B6C5-F0CD-4548-B9CC-5337E4ABE66B}"/>
 														</Reference>
 														<Reference Name="TransitionRoot">
 															<Custom>
-																<MusicTransition Name="Root" ID="{FABDF5DF-A6F3-49A7-B693-9BBADF63175B}">
+																<MusicTransition Name="Root" ID="{9B565A38-79EA-4E25-BDD7-A6684F74B2CD}">
 																	<PropertyList>
 																		<Property Name="IsFolder" Type="bool" Value="True"/>
 																	</PropertyList>
 																	<ChildrenList>
-																		<MusicTransition Name="Transition" ID="{ADCD1E05-85A8-4DE3-A5A8-12EC3C1DB9EB}">
+																		<MusicTransition Name="Transition" ID="{DA1DD6F0-77AE-46A0-9817-5537594AC492}">
 																			<TransitionInfo/>
 																		</MusicTransition>
 																	</ChildrenList>
@@ -780,7 +764,7 @@
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
-														<AudioFileSource Name="Atura - LIKE THIS (Skybreak HALF BLOOD Remix)" ID="{4954E9E8-91C5-4942-A074-03D774BA1178}">
+														<AudioFileSource Name="Atura - LIKE THIS (Skybreak HALF BLOOD Remix)" ID="{3FA67619-C639-4AF5-A3F6-06F14EC1286B}">
 															<PropertyList>
 																<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
 																<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
@@ -798,23 +782,22 @@
 														<ObjectList Name="Sequences">
 															<Reference>
 																<Local>
-																	<MusicTrackSequence Name="" ID="{D5963EFE-189B-4A7D-8CCF-0FCCAB4C2A66}">
+																	<MusicTrackSequence Name="" ID="{38F154B2-BC0C-403A-8485-BCD73CD35303}">
 																		<ObjectLists>
 																			<ObjectList Name="Clips">
 																				<Reference>
 																					<Local>
-																						<MusicClip Name="Atura - LIKE THIS (Skybreak HALF BLOOD Remix)" ID="{A9BFBBBE-A905-437A-B1CD-11E3EA737822}">
+																						<MusicClip Name="Atura - LIKE THIS (Skybreak HALF BLOOD Remix)" ID="{5EE3647F-0FDA-4F9A-90BC-45596C71547A}">
 																							<PropertyList>
 																								<Property Name="BeginTrimOffset" Type="Real64" Value="114929.52418378"/>
-																								<Property Name="EndTrimOffset" Type="Real64" Value="147042.813067043"/>
+																								<Property Name="EndTrimOffset" Type="Real64" Value="170704.172071104"/>
 																								<Property Name="FadeInDuration" Type="Real64" Value="1665.04815632711"/>
-																								<Property Name="FadeOutDuration" Type="Real64" Value="24.1627110516347"/>
 																								<Property Name="PlayAt" Type="Real64" Value="-114929.52418378"/>
 																							</PropertyList>
-																							<AudioSourceRef Name="Atura - LIKE THIS (Skybreak HALF BLOOD Remix)" ID="{4954E9E8-91C5-4942-A074-03D774BA1178}"/>
+																							<AudioSourceRef Name="Atura - LIKE THIS (Skybreak HALF BLOOD Remix)" ID="{3FA67619-C639-4AF5-A3F6-06F14EC1286B}"/>
 																							<PropertyCurveList>
 																								<PropertyCurve PropertyName="Highpass">
-																									<Curve Name="" ID="{53401BCF-7297-48E6-BB94-6012B4018636}">
+																									<Curve Name="" ID="{FE1E73EA-3AD2-48B5-9595-CA2D1CE25A1B}">
 																										<PropertyList>
 																											<Property Name="Flags" Type="int32" Value="1"/>
 																										</PropertyList>
@@ -825,15 +808,25 @@
 																												<Flags>5</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>147.04281</XPos>
-																												<YPos>0</YPos>
+																												<XPos>169.00581</XPos>
+																												<YPos>-0.0001</YPos>
+																												<Flags>0</Flags>
+																											</Point>
+																											<Point>
+																												<XPos>170.2007</XPos>
+																												<YPos>51.84716</YPos>
+																												<Flags>0</Flags>
+																											</Point>
+																											<Point>
+																												<XPos>170.70417</XPos>
+																												<YPos>59.31339</YPos>
 																												<Flags>37</Flags>
 																											</Point>
 																										</PointList>
 																									</Curve>
 																								</PropertyCurve>
 																								<PropertyCurve PropertyName="Lowpass">
-																									<Curve Name="" ID="{948C43C6-8466-4FCE-8208-87C273FB736B}">
+																									<Curve Name="" ID="{19BB7F6C-6C42-4BFA-B6B6-5BEEC8CD2351}">
 																										<PropertyList>
 																											<Property Name="Flags" Type="int32" Value="1"/>
 																										</PropertyList>
@@ -844,20 +837,20 @@
 																												<Flags>5</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>143.818166347057</XPos>
-																												<YPos>0</YPos>
+																												<XPos>169.02054</XPos>
+																												<YPos>-8E-05</YPos>
 																												<Flags>0</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>147.04281</XPos>
-																												<YPos>41.23747</YPos>
+																												<XPos>170.70417</XPos>
+																												<YPos>-0.11346</YPos>
 																												<Flags>37</Flags>
 																											</Point>
 																										</PointList>
 																									</Curve>
 																								</PropertyCurve>
 																								<PropertyCurve PropertyName="Volume">
-																									<Curve Name="" ID="{EEBACF32-34C9-40B3-B2EE-AF7236DE5338}">
+																									<Curve Name="" ID="{E80DD333-5515-4037-8111-62A0255630B6}">
 																										<PropertyList>
 																											<Property Name="Flags" Type="int32" Value="3"/>
 																										</PropertyList>
@@ -873,8 +866,18 @@
 																												<Flags>0</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>147.04281</XPos>
+																												<XPos>170.20086</XPos>
 																												<YPos>0</YPos>
+																												<Flags>0</Flags>
+																											</Point>
+																											<Point>
+																												<XPos>170.20186</XPos>
+																												<YPos>-96.3</YPos>
+																												<Flags>0</Flags>
+																											</Point>
+																											<Point>
+																												<XPos>170.70417</XPos>
+																												<YPos>-96.3</YPos>
 																												<Flags>37</Flags>
 																											</Point>
 																										</PointList>
@@ -897,15 +900,15 @@
 												<ObjectList Name="Cues">
 													<Reference>
 														<Local>
-															<MusicCue Name="Entry Cue" ID="{ED582564-EF54-418A-831E-1624AE34D45E}"/>
+															<MusicCue Name="Entry Cue" ID="{F6F2E86A-54C6-4607-8583-1E8B1EBD9096}"/>
 														</Local>
 													</Reference>
 													<Reference>
 														<Local>
-															<MusicCue Name="Exit Cue" ID="{F96A378F-3DA8-4096-B850-B0689B3E555F}">
+															<MusicCue Name="Exit Cue" ID="{4CBAB171-D55A-40D6-BB46-A3C7B3C20E0E}">
 																<PropertyList>
 																	<Property Name="CueType" Type="int16" Value="1"/>
-																	<Property Name="TimeMs" Type="Real64" Value="30375"/>
+																	<Property Name="TimeMs" Type="Real64" Value="54084.5070422535"/>
 																</PropertyList>
 															</MusicCue>
 														</Local>
@@ -934,7 +937,7 @@
 															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Segment">
-																	<ObjectRef Name="Title" ID="{94F2FA73-D200-4353-9DE7-952B2BF8F42B}" WorkUnitID="{D98BF7EA-A549-4A29-B9E6-B1AA479DCE3E}"/>
+																	<ObjectRef Name="Whatever" ID="{94F2FA73-D200-4353-9DE7-952B2BF8F42B}" WorkUnitID="{D98BF7EA-A549-4A29-B9E6-B1AA479DCE3E}"/>
 																</Reference>
 															</ReferenceList>
 														</MusicPlaylistItem>
@@ -959,9 +962,11 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<MusicSegment Name="Title" ID="{94F2FA73-D200-4353-9DE7-952B2BF8F42B}" ShortID="1037716825">
+										<MusicSegment Name="Whatever" ID="{94F2FA73-D200-4353-9DE7-952B2BF8F42B}" ShortID="1037716825">
 											<PropertyList>
 												<Property Name="EndPosition" Type="Real64" Value="204800"/>
+												<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
+												<Property Name="Tempo" Type="Real64" Value="142"/>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
@@ -974,6 +979,16 @@
 											<ChildrenList>
 												<MusicTrack Name="Skybreak - WORLD'S END (REMEMBER)" ID="{44519657-6E43-4E41-AB6F-AD6FD8D46261}" ShortID="750998841">
 													<PropertyList>
+														<Property Name="IsStreamingEnabled" Type="bool">
+															<ValueList>
+																<Value>True</Value>
+															</ValueList>
+														</Property>
+														<Property Name="IsZeroLatency" Type="bool">
+															<ValueList>
+																<Value>True</Value>
+															</ValueList>
+														</Property>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
 																<Value>-3</Value>
@@ -981,8 +996,14 @@
 														</Property>
 													</PropertyList>
 													<ReferenceList>
+														<Reference Name="DefaultSwitchOrState">
+															<ObjectRef Name="Main" ID="{A39F28B3-DDF5-4B0C-AF03-5E85596A9D73}" WorkUnitID="{FDC8D1F2-D4F2-477A-9843-E29A1FE80BBE}"/>
+														</Reference>
 														<Reference Name="OutputBus">
 															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{4E69B6C5-F0CD-4548-B9CC-5337E4ABE66B}"/>
+														</Reference>
+														<Reference Name="SwitchGroupOrStateGroup">
+															<ObjectRef Name="Music_menu" ID="{2A0D5C42-8939-4095-BEFA-FE5E1B2D8BF4}" WorkUnitID="{FDC8D1F2-D4F2-477A-9843-E29A1FE80BBE}"/>
 														</Reference>
 														<Reference Name="TransitionRoot">
 															<Custom>
@@ -990,6 +1011,11 @@
 																	<PropertyList>
 																		<Property Name="IsFolder" Type="bool" Value="True"/>
 																	</PropertyList>
+																	<ChildrenList>
+																		<MusicTransition Name="Transition" ID="{1170E3D7-FEA0-4ADE-88A0-D11A73A80EB4}">
+																			<TransitionInfo/>
+																		</MusicTransition>
+																	</ChildrenList>
 																	<TransitionInfo/>
 																</MusicTransition>
 															</Custom>
@@ -1010,6 +1036,51 @@
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
+													<StateInfo>
+														<StateGroupList>
+															<StateGroupInfo>
+																<StateGroupRef Name="Music_menu" ID="{2A0D5C42-8939-4095-BEFA-FE5E1B2D8BF4}"/>
+															</StateGroupInfo>
+														</StateGroupList>
+														<CustomStateList>
+															<CustomState>
+																<StateRef Name="OpeningCutScene2" ID="{9791AA19-A538-4171-9368-84472959FC37}"/>
+																<CustomState Name="" ID="{5B424395-4016-499C-9FAD-0E41CD470F38}" ShortID="136376967"/>
+															</CustomState>
+															<CustomState>
+																<StateRef Name="Logbook" ID="{2B5F57D9-EEC0-4541-9915-160B9B0F3FEA}"/>
+																<CustomState Name="" ID="{1D4D5AA5-D55B-45F2-946A-437DC5D0AC1F}" ShortID="298087829">
+																	<PropertyList>
+																		<Property Name="Volume" Type="Real64" Value="-108"/>
+																	</PropertyList>
+																</CustomState>
+															</CustomState>
+															<CustomState>
+																<StateRef Name="OutroCutsceneFULL" ID="{A2F62DDA-994B-47F5-949B-C513C4EE3A45}"/>
+																<CustomState Name="" ID="{51ECD914-84E2-41C9-8A07-EE4E0786D0B6}" ShortID="537719701"/>
+															</CustomState>
+															<CustomState>
+																<StateRef Name="OutroCutsceneB" ID="{E2329B57-B3E0-4908-93EB-BBFA06A47331}"/>
+																<CustomState Name="" ID="{2E657B40-986E-41B1-9D25-E50A00F79C1D}" ShortID="350692527"/>
+															</CustomState>
+															<CustomState>
+																<StateRef Name="Main" ID="{A39F28B3-DDF5-4B0C-AF03-5E85596A9D73}"/>
+																<CustomState Name="" ID="{F7719639-8854-49D1-8AC4-E5D4BD311C66}" ShortID="912442616"/>
+															</CustomState>
+															<CustomState>
+																<StateRef Name="Prismatic" ID="{4C8A1FDD-643E-4C49-B0D7-35FC680CB2BB}"/>
+																<CustomState Name="" ID="{BC82A832-685F-41C5-890A-6451AAB400D3}" ShortID="217813507"/>
+															</CustomState>
+															<CustomState>
+																<StateRef Name="OpeningCutScene1" ID="{30A2DC1F-ACD1-4D4C-85D1-9905F2FB63DD}"/>
+																<CustomState Name="" ID="{2AAF62A3-73FD-4B3F-B4FD-3BDEF09D581E}" ShortID="992356001"/>
+															</CustomState>
+															<CustomState>
+																<StateRef Name="OutroCutsceneA" ID="{CDA6323A-7709-4E25-B4DB-15DBB1DBE4C0}"/>
+																<CustomState Name="" ID="{08B62625-83E0-45BD-825F-77E1B34DA8A7}" ShortID="500471854"/>
+															</CustomState>
+														</CustomStateList>
+													</StateInfo>
 													<ObjectLists>
 														<ObjectList Name="Sequences">
 															<Reference>
@@ -1021,10 +1092,10 @@
 																					<Local>
 																						<MusicClip Name="Skybreak - WORLD'S END (REMEMBER)" ID="{B825BE85-5324-4538-AB80-E3FE5D1E4D7D}">
 																							<PropertyList>
-																								<Property Name="BeginTrimOffset" Type="Real64" Value="140474.76660862"/>
-																								<Property Name="EndTrimOffset" Type="Real64" Value="172381.244688768"/>
-																								<Property Name="FadeInDuration" Type="Real64" Value="1442.84669913459"/>
-																								<Property Name="PlayAt" Type="Real64" Value="-140474.76660862"/>
+																								<Property Name="BeginTrimOffset" Type="Real64" Value="140258.813726102"/>
+																								<Property Name="EndTrimOffset" Type="Real64" Value="172371.48978244"/>
+																								<Property Name="FadeInDuration" Type="Real64" Value="1690.05055384238"/>
+																								<Property Name="PlayAt" Type="Real64" Value="-140258.813726102"/>
 																							</PropertyList>
 																							<AudioSourceRef Name="Skybreak - WORLD'S END (REMEMBER)" ID="{27EBD06E-00C5-4361-B57C-F05D89F59FA7}"/>
 																							<PropertyCurveList>
@@ -1035,7 +1106,7 @@
 																										</PropertyList>
 																										<PointList>
 																											<Point>
-																												<XPos>140.47477</XPos>
+																												<XPos>140.25881</XPos>
 																												<YPos>0</YPos>
 																												<Flags>5</Flags>
 																											</Point>
@@ -1050,7 +1121,7 @@
 																												<Flags>0</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>172.38124</XPos>
+																												<XPos>172.37149</XPos>
 																												<YPos>59.14723</YPos>
 																												<Flags>37</Flags>
 																											</Point>
@@ -1064,7 +1135,7 @@
 																										</PropertyList>
 																										<PointList>
 																											<Point>
-																												<XPos>140.47477</XPos>
+																												<XPos>140.25881</XPos>
 																												<YPos>0</YPos>
 																												<Flags>5</Flags>
 																											</Point>
@@ -1079,7 +1150,7 @@
 																												<Flags>0</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>172.38124</XPos>
+																												<XPos>172.37149</XPos>
 																												<YPos>47.86806</YPos>
 																												<Flags>37</Flags>
 																											</Point>
@@ -1093,12 +1164,12 @@
 																										</PropertyList>
 																										<PointList>
 																											<Point>
-																												<XPos>140.47477</XPos>
+																												<XPos>140.25881</XPos>
 																												<YPos>0</YPos>
 																												<Flags>5</Flags>
 																											</Point>
 																											<Point>
-																												<XPos>172.38124</XPos>
+																												<XPos>172.37149</XPos>
 																												<YPos>0</YPos>
 																												<Flags>37</Flags>
 																											</Point>
@@ -1111,6 +1182,7 @@
 																				</Reference>
 																			</ObjectList>
 																		</ObjectLists>
+																		<ReferenceList/>
 																	</MusicTrackSequence>
 																</Local>
 															</Reference>
@@ -1124,7 +1196,7 @@
 														<Local>
 															<MusicCue Name="Entry Cue" ID="{7163C346-7CA8-4D5C-AD5B-6AC367A1AA36}">
 																<PropertyList>
-																	<Property Name="TimeMs" Type="Real64" Value="1473.75188491614"/>
+																	<Property Name="TimeMs" Type="Real64" Value="1690.14084507042"/>
 																</PropertyList>
 															</MusicCue>
 														</Local>
@@ -1134,7 +1206,7 @@
 															<MusicCue Name="Exit Cue" ID="{F6629557-E99E-4667-B43E-753305A559D1}">
 																<PropertyList>
 																	<Property Name="CueType" Type="int16" Value="1"/>
-																	<Property Name="TimeMs" Type="Real64" Value="28531.7005557492"/>
+																	<Property Name="TimeMs" Type="Real64" Value="28732.3943661972"/>
 																</PropertyList>
 															</MusicCue>
 														</Local>
@@ -1266,7 +1338,7 @@
 												<ObjectLists>
 													<ObjectList Name="EntryPath">
 														<Reference>
-															<ObjectRef Name="Logbook2" ID="{2B5F57D9-EEC0-4541-9915-160B9B0F3FEA}" WorkUnitID="{FDC8D1F2-D4F2-477A-9843-E29A1FE80BBE}"/>
+															<ObjectRef Name="Logbook" ID="{2B5F57D9-EEC0-4541-9915-160B9B0F3FEA}" WorkUnitID="{FDC8D1F2-D4F2-477A-9843-E29A1FE80BBE}"/>
 														</Reference>
 													</ObjectList>
 												</ObjectLists>

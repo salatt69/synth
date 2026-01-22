@@ -9,13 +9,15 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="393143179" Type="User" Language="SFX" Hash="{7FD4C05E-5710-BBB0-6530-2AB4308731B3}">
+		<SoundBank Id="393143179" Type="User" Language="SFX" Hash="{74A698D7-3244-C384-7178-3EC9D4FEB548}">
 			<ShortName>SynthDJ</ShortName>
 			<Path>SynthDJ.bnk</Path>
 			<Media>
-				<File Id="463370878" Language="SFX" Streaming="false" Location="Memory">
+				<File Id="463370878" Language="SFX" Streaming="true" Location="Memory">
 					<ShortName>Skybreak - WORLD'S END (REMEMBER).wav</ShortName>
+					<Path>Media/463370878.wem</Path>
 					<CachePath>SFX/Skybreak - WORLD'S END (REMEMBER)_56CEF360.wem</CachePath>
+					<PrefetchSize>4335</PrefetchSize>
 				</File>
 				<File Id="522789390" Language="SFX" Streaming="true" Location="Memory">
 					<ShortName>Atura - LIKE THIS (Skybreak HALF BLOOD Remix).wav</ShortName>
@@ -25,7 +27,7 @@
 				</File>
 			</Media>
 			<Events>
-				<Event Id="3045904752" Name="SynthDJ_Pause_Music" MaxAttenuation="0">
+				<Event Id="3058367100" Name="SynthDJ_Pause_Music_System" MaxAttenuation="0">
 					<SwitchContainers>
 						<SwitchContainer>
 							<SwitchValue GroupType="State" GroupId="792781730" Id="580146960"/>
@@ -53,7 +55,7 @@
 							<SwitchValue GroupType="State" GroupId="792781730" Id="2607556080"/>
 							<Children>
 								<SwitchContainer>
-									<SwitchValue GroupType="State" GroupId="1598298728" Id="2326263800"/>
+									<SwitchValue GroupType="State" GroupId="1598298728" Id="1654435662"/>
 									<MediaRefs>
 										<MediaRef Id="522789390"/>
 									</MediaRefs>
@@ -96,7 +98,7 @@
 							<SwitchValue GroupType="State" GroupId="792781730" Id="2607556080"/>
 							<Children>
 								<SwitchContainer>
-									<SwitchValue GroupType="State" GroupId="1598298728" Id="2326263800"/>
+									<SwitchValue GroupType="State" GroupId="1598298728" Id="1654435662"/>
 									<MediaRefs>
 										<MediaRef Id="522789390"/>
 									</MediaRefs>
@@ -111,7 +113,7 @@
 						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
-				<Event Id="3209949659" Name="SynthDJ_Unpause_Music" MaxAttenuation="0">
+				<Event Id="1905278449" Name="SynthDJ_Unpause_Music_System" MaxAttenuation="0">
 					<SwitchContainers>
 						<SwitchContainer>
 							<SwitchValue GroupType="State" GroupId="792781730" Id="580146960"/>
@@ -139,7 +141,7 @@
 							<SwitchValue GroupType="State" GroupId="792781730" Id="2607556080"/>
 							<Children>
 								<SwitchContainer>
-									<SwitchValue GroupType="State" GroupId="1598298728" Id="2326263800"/>
+									<SwitchValue GroupType="State" GroupId="1598298728" Id="1654435662"/>
 									<MediaRefs>
 										<MediaRef Id="522789390"/>
 									</MediaRefs>
@@ -174,10 +176,10 @@
 						<State Id="113661376" Name="OpeningCutScene1"/>
 						<State Id="113661379" Name="OpeningCutScene2"/>
 						<State Id="748895195" Name="None"/>
+						<State Id="1654435662" Name="Logbook"/>
 						<State Id="2121506681" Name="OutroCutsceneFULL"/>
 						<State Id="2266819552" Name="OutroCutsceneB"/>
 						<State Id="2266819555" Name="OutroCutsceneA"/>
-						<State Id="2326263800" Name="Logbook2"/>
 						<State Id="3161908922" Name="Main"/>
 						<State Id="3912041495" Name="Prismatic"/>
 					</States>
@@ -191,7 +193,7 @@
 				</StateGroup>
 			</StateGroups>
 		</SoundBank>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{ABF16E1E-4838-FF9C-615F-084CD6D15ACA}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{236098B5-9308-FA86-1085-B8C1980F3CE4}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -244,10 +246,10 @@
 						<State Id="113661376" Name="OpeningCutScene1"/>
 						<State Id="113661379" Name="OpeningCutScene2"/>
 						<State Id="748895195" Name="None"/>
+						<State Id="1654435662" Name="Logbook"/>
 						<State Id="2121506681" Name="OutroCutsceneFULL"/>
 						<State Id="2266819552" Name="OutroCutsceneB"/>
 						<State Id="2266819555" Name="OutroCutsceneA"/>
-						<State Id="2326263800" Name="Logbook2"/>
 						<State Id="3161908922" Name="Main"/>
 						<State Id="3912041495" Name="Prismatic"/>
 					</States>
@@ -383,5 +385,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{B56C77EF-892E-EF1B-9252-13F15D435EE0}</FileHash>
+	<FileHash>{C8133640-3A50-AE7C-7370-0390EBF74F0F}</FileHash>
 </SoundBanksInfo>

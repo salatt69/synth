@@ -3,6 +3,8 @@ using ProjectSynth.Character.Synth.Content.Items;
 using ProjectSynth.Core.Patches;
 using R2API;
 using RoR2;
+using SyncLib.API;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace ProjectSynth.Core.Hooks
@@ -12,6 +14,7 @@ namespace ProjectSynth.Core.Hooks
         public void Initialize()
         {
             On.RoR2.Run.FixedUpdate += HookFixedUpdate;
+            On.RoR2.Run.Update += HookUpdate;
             R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             GlobalEventManager.onServerDamageDealt += OnServerDamageDealt;
         }
@@ -23,6 +26,14 @@ namespace ProjectSynth.Core.Hooks
             if (!NetworkServer.active) return;
 
             EncoreManager.Process();
+        }
+
+        private void HookUpdate(On.RoR2.Run.orig_Update orig, Run self)
+        {
+            if (MusicSync.OnBeat())
+            {
+                Chat.AddMessage($"{Random.Range(10000, 100000)}");
+            }
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)

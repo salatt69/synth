@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth.Content;
+using RoR2;
 
 namespace ProjectSynth.Character.Synth.States
 {

@@ -17,7 +17,7 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="SynthDJ_Pause_Music" ID="{E33AD991-AE80-4247-BA40-4A458129866C}">
+				<Event Name="SynthDJ_Pause_Music_System" ID="{E33AD991-AE80-4247-BA40-4A458129866C}">
 					<ChildrenList>
 						<Action Name="" ID="{072297D9-2A84-4D3B-9A6D-5501203281FB}" ShortID="275263825">
 							<PropertyList>
@@ -31,7 +31,7 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="SynthDJ_Unpause_Music" ID="{D7907C8F-FBA0-437B-8FC0-BD682E7E50BB}">
+				<Event Name="SynthDJ_Unpause_Music_System" ID="{D7907C8F-FBA0-437B-8FC0-BD682E7E50BB}">
 					<ChildrenList>
 						<Action Name="" ID="{35D3BC14-3430-4779-A1BA-776727EBC2C8}" ShortID="410578133">
 							<PropertyList>

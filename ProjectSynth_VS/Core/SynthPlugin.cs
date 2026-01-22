@@ -2,6 +2,8 @@
 using HarmonyLib;
 using R2API;
 using R2API.Utils;
+using RoR2;
+using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
 
@@ -13,9 +15,9 @@ using System.Security.Permissions;
 
 namespace ProjectSynth.Core
 {
-    //[BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(R2API.ContentManagement.R2APIContentManager.PluginGUID)]
     [BepInDependency(ItemAPI.PluginGUID)]
+    [BepInDependency("com.salatt.SyncLib", BepInDependency.DependencyFlags.HardDependency)]
 
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
@@ -36,7 +38,10 @@ namespace ProjectSynth.Core
             var harmony = new Harmony(MODUID);
             harmony.PatchAll();
 
-            //easy to use logger
+            // to see beats in console
+            SyncLib.API.MusicSync.Initialize(true);
+
+            // easy to use logger
             Log.Init(Logger);
 
             // used when you want to properly set up language folders
