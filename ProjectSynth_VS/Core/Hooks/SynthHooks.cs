@@ -60,15 +60,16 @@ namespace ProjectSynth.Core.Hooks
 
         private void OnServerDamageDealt(DamageReport report)
         {
-            if (!report.damageInfo.HasModdedDamageType(SynthDamageTypes.EncoreDamage)) return;
+            if (report.damageInfo.HasModdedDamageType(SynthDamageTypes.EncoreDamage))
+            {
+                CharacterBody victim = report.victimBody;
+                CharacterBody attacker = report.attackerBody;
 
-            CharacterBody victim = report.victimBody;
-            CharacterBody attacker = report.attackerBody;
+                if (!victim || !attacker) return;
 
-            if (!victim || !attacker) return;
-
-            victim.AddBuff(SynthBuffs.EncoreDebuff);
-            EncoreManager.Start(victim, attacker, 0f);
+                victim.AddBuff(SynthBuffs.EncoreDebuff);
+                EncoreManager.Start(victim, attacker, 0f);
+            }
         }
     }
 }

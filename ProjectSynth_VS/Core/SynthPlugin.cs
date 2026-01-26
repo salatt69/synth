@@ -38,7 +38,7 @@ namespace ProjectSynth.Core
             var harmony = new Harmony(MODUID);
             harmony.PatchAll();
 
-            // to see beats in console
+            // optional
             SyncLib.API.MusicSync.Initialize(true);
 
             // easy to use logger
