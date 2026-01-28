@@ -95,12 +95,11 @@ namespace ProjectSynth.Metronome
 
         private void SyncToMusic()
         {
-            // Only do work when a beat happened
             if (!MusicSync.OnBeat()) return;
 
             double now = Time.time;
 
-            // First beat: arm the clock, but don't compute a period yet
+            // arm the clock, but don't compute a period yet
             if (_lastBeatTime < 0.0)
             {
                 _lastBeatTime = now;
@@ -109,38 +108,27 @@ namespace ProjectSynth.Metronome
 
             double delta = now - _lastBeatTime;
 
-            // Always update last beat time at the end of beat processing
-            // BUT: we might early-return for duplicate beats without updating it (see below)
+            // absolute duplicate protection (idk if its needed)
+            if (delta < MinDeltaAbs) return;
 
-            // Duplicate-beat protection (absolute)
-            if (delta < MinDeltaAbs)
-            {
-                // ignore this beat entirely; do not update lastBeatTime
-                // (prevents tiny delta -> insane speed)
-                return;
-            }
-
-            // If we already have a period, use ratio-based checks too
+            // if already have a period, use ratio-based checks too
             if (_hasPeriod && _beatPeriod > 0.0)
             {
-                // Duplicate protection (relative)
-                if (delta < _beatPeriod * MinDeltaRatio)
-                {
-                    return; // ignore duplicate
-                }
+                // relative duplicate protection (again, idk)
+                if (delta < _beatPeriod * MinDeltaRatio) return;
 
-                // Pause/resume gap detection (relative)
+                // relative gap detection (usually pause/resume)
                 if (delta > _beatPeriod * MaxGapRatio)
                 {
-                    // Treat as resync: accept the beat time, but DO NOT update period/speed
+                    // accept the beat time, but do not update period/speed
                     _lastBeatTime = now;
-                    _hasPeriod = false; // require one more beat to re-lock
+                    _hasPeriod = false;
                     return;
                 }
             }
             else
             {
-                // If we don't have a period yet, use absolute gap detection
+                // if don't have a period yet, use absolute gap detection
                 if (delta > MaxGapAbs)
                 {
                     _lastBeatTime = now;
@@ -149,7 +137,7 @@ namespace ProjectSynth.Metronome
                 }
             }
 
-            // We have a plausible delta: update period (initialize or smooth)
+            // if have a plausible delta, update period
             if (!_hasPeriod || _beatPeriod <= 0.0)
             {
                 _beatPeriod = delta;
@@ -164,7 +152,6 @@ namespace ProjectSynth.Metronome
 
             double speed = 1.0 / _beatPeriod;
 
-            // Emit only when we actually updated period
             _lastEmittedSpeed = (float)speed;
             sequenceSpeedMultiplier = _lastEmittedSpeed;
             OnSequenceUpdate?.Invoke();
