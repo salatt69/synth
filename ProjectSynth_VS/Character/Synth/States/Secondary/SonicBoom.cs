@@ -42,12 +42,12 @@ namespace ProjectSynth.Character.Synth.States.Secondary
                 var metro = characterBody.GetComponent<MetronomeComponent>();
                 if (metro == null) return;
 
-                metro.StartMetronomeSequence();
+                //metro.StartMetronomeSequence();
 
                 if (metro.CanConsumeCharge())
                 {
                     ApplyBoost();
-                    metro.IncreaseMaxBounces();
+                    //metro.IncreaseMaxBounces();
                 }
             }
         }

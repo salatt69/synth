@@ -11,8 +11,8 @@ namespace ProjectSynth.Character.Synth.States.Primary
 {
     public class ThirtyNineMusic : GenericProjectileBaseState, IMetronomeListener
     {
-        public static float BaseDuration = 0.7f;
-        public static float DamageCoefficient = SynthStaticValues.thirtNineMusicDamageCoefficient;
+        public static float BaseDuration = 0.3f;
+        public static float DamageCoefficient = SynthStaticValues.thirtyNineMusicDamageCoefficient;
 
         private bool fireDouble;
 
@@ -37,12 +37,12 @@ namespace ProjectSynth.Character.Synth.States.Primary
                 var metro = characterBody.GetComponent<MetronomeComponent>();
                 if (metro == null) return;
 
-                metro.StartMetronomeSequence();
+                //metro.StartMetronomeSequence();
                 
                 if (metro.CanConsumeCharge())
                 {
                     ApplyBoost();
-                    metro.IncreaseMaxBounces();
+                    //metro.IncreaseMaxBounces();
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace ProjectSynth.Character.Synth.States.Primary
             
             dmg.damageType.AddModdedDamageType(SynthDamageTypes.EncoreDamage);
 
-            //damageCoefficient = SynthStaticValues.boosted_thirtNineMusicDamageCoefficient;
+            //damageCoefficient = SynthStaticValues.boosted_thirtyNineMusicDamageCoefficient;
         }
     }
 }

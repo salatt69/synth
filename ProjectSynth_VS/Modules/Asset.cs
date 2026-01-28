@@ -90,7 +90,6 @@ namespace ProjectSynth.Modules
             }
         }
 
-        // TODO: Rewrite this to use Addressables.LoadAssetAsync(Key).WaitForCompletion();
         internal static GameObject LoadCrosshair(string crosshairName)
         {
             GameObject loadedCrosshair = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/Crosshair/" + crosshairName + "Crosshair");

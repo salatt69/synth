@@ -50,7 +50,7 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 canceledFromSprinting = true,
                 isCombatSkill = true,
 
-                mustKeyPress = true,
+                mustKeyPress = false,
                 triggeredByPressRelease = false,
 
                 autoHandleLuminousShot = true,

@@ -22,10 +22,6 @@ namespace ProjectSynth.Core.Hooks
         private void HookFixedUpdate(On.RoR2.Run.orig_FixedUpdate orig, Run self)
         {
             orig(self);
-
-            if (!NetworkServer.active) return;
-
-            EncoreManager.Process();
         }
 
         private void HookUpdate(On.RoR2.Run.orig_Update orig, Run self)
@@ -34,6 +30,10 @@ namespace ProjectSynth.Core.Hooks
             {
                 Chat.AddMessage($"{Random.Range(10000, 100000)}");
             }
+
+            if (!NetworkServer.active) return;
+
+            EncoreManager.Process();
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)

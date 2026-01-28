@@ -72,6 +72,7 @@ namespace ProjectSynth.Character.Synth.UI.Crosshair
         {
             // unsubscribe from whichever metronome it currently bound to
             if (metronome != null) UnsubscribeFromMetronome(metronome);
+            animator.SetBool("Ongoing", false);
         }
 
         private void Update()
@@ -81,19 +82,23 @@ namespace ProjectSynth.Character.Synth.UI.Crosshair
 
             ResolveTarget();
 
-            // to prevent logic from running w/o body and metronome, bc this is the whole point
+            // to prevent logic from running w/o body and metronome, bc what's the point
             if (body == null || metronome == null) return;
 
             SprintingCrosshairOverride(body.isSprinting);
 
-            switch (metronome.state)
+            switch (metronome.State)
             {
+                case MetronomeState.Idle:
+                    {
+                        break;
+                    }
                 case MetronomeState.Sequence:
-                    UpdateSequence();
-                    break;
-
-                case MetronomeState.Cooldown:
-                    metronome.UpdateCooldown();
+                    {
+                        UpdateSequence();
+                        break;
+                    }
+                default:
                     break;
             }
         }
@@ -104,29 +109,40 @@ namespace ProjectSynth.Character.Synth.UI.Crosshair
                 ? canvas.worldCamera
                 : null;
 
-            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(cam, onBeatIndicator.position);
-            bool inside = RectTransformUtility.RectangleContainsScreenPoint(window, screenPoint, cam);
+            Vector2 screenPointOnBeat = RectTransformUtility.WorldToScreenPoint(cam, onBeatIndicator.position);
 
-            animator.SetBool("Inside", inside);
-            metronome.ReportWindowState(inside);
+            bool or = RectTransformUtility.RectangleContainsScreenPoint(window, screenPointOnBeat, cam) 
+                    || animator.GetCurrentAnimatorStateInfo(7).IsName("animSynthCrosshairIndicatorOnBeatEnd");
+
+            animator.SetBool("Inside", or);
+            metronome.ReportWindowState(or);
 
             SequenceLoop();
-
-            if (metronome.ShouldEndSequence()) metronome.EnterCooldownState();
         }
 
         private void SequenceLoop()
         {
-            AnimatorStateInfo asi = animator.GetCurrentAnimatorStateInfo(0);
+            AnimatorStateInfo asi_0 = animator.GetCurrentAnimatorStateInfo(0);
 
-            if (asi.normalizedTime <= metronome.nextBounceTime)
-                metronome.canBounce = true;
+            // TODO: i hate this piece of code
+            if (asi_0.normalizedTime <= metronome.nextLoopTime)
+                metronome.canLoop = true;
 
-            if (asi.normalizedTime >= metronome.nextBounceTime && metronome.canBounce)
+            if (metronome.canLoop)
             {
-                metronome.canBounce = false;
-                metronome.ReportBounce();
-                metronome.nextBounceTime++;
+                if (asi_0.normalizedTime >= metronome.nextLoopTime)
+                {
+                    metronome.canLoop = false;
+                    metronome.nextLoopTime++;
+                    animator.Play("animSynthCrosshairSquarePulse", 6);
+                    animator.Play("animSynthCrosshairIndicatorOnBeatEnd", 7);
+                }
+            
+                if (asi_0.normalizedTime >= metronome.nextHalfLoopTime)
+                {
+                    metronome.nextHalfLoopTime++;
+                    animator.Play("animSynthCrosshairIndicatorOffBeatEnd", 8);
+                }
             }
         }
 
@@ -182,82 +198,32 @@ namespace ProjectSynth.Character.Synth.UI.Crosshair
 
         #region events
 
-        private void HandleSequenceStarted()
+        private void HandleSequenceUpdate()
         {
             animator.SetBool("Ongoing", true);
-            animator.SetFloat("SpeedMult", metronome.metronomeSequenceSpeedMultiplier);
-
-            if (soundSource)
-            {
-                Util.PlaySound(
-                    Sounds.MetronomeSustain,
-                    soundSource,
-                    "SyncMusicToTempo",
-                    Modules.WwiseMath.CalculateSpeedToPitch(metronome.metronomeSequenceSpeedMultiplier)
-                );
-            }
+            animator.SetFloat("SpeedMult", metronome.sequenceSpeedMultiplier);
         }
 
-        private void HandleSequenceEnded()
+        private void HandleMusicChange()
         {
             animator.SetBool("Ongoing", false);
-
-            if (soundSource)
-                Util.PlaySound(Sounds.MetronomeSustainStop, soundSource);
-
-            float timerAnimSpeed = 1.0f / metronome.currentCooldownTime;
-            animator.SetFloat("RechargeTimerSpeedMult", timerAnimSpeed);
-            animator.SetTrigger("StartTimer");
-        }
-
-        private void HandleChargeConsumed(int index)
-        {
-            if (charge == null || index < 0 || index >= charge.Length)
-                return;
-
-            var cg = charge[index].GetComponent<CanvasGroup>();
-            if (cg) cg.alpha = 0.0f;
-        }
-
-        private void HandleChargeRestored(int restoreIndex)
-        {
-            if (charge == null || restoreIndex < 0 || restoreIndex >= charge.Length) return;
-
-            var cg = charge[restoreIndex].GetComponent<CanvasGroup>();
-            if (cg) cg.alpha = 1.0f;
-
-            if (!metronome.rechargeAnimStarted)
-            {
-                metronome.rechargeAnimStarted = true;
-
-                float startFrom = (float)(charge.Length - metronome.chargesToRecharge) / charge.Length;
-                float animSpeed = 1.0f / metronome.rechargeTimeWithoutBase;
-
-                animator.SetFloat("RechargeSpeedMult", animSpeed);
-                animator.Play("animSynthCrosshairRecharge", 4, startFrom);
-            }
-
-            if (soundSource) Util.PlaySound(Sounds.MetronomeRecharge[restoreIndex], soundSource);
+            animator.SetBool("Inside", false);
         }
 
         private void SubscribeToMetronome(MetronomeComponent m)
         {
             if (m == null) return;
 
-            m.OnSequenceStarted += HandleSequenceStarted;
-            m.OnChargeConsumed += HandleChargeConsumed;
-            m.OnChargeRestored += HandleChargeRestored;
-            m.OnSequenceEnded += HandleSequenceEnded;
+            m.OnSequenceUpdate += HandleSequenceUpdate;
+            m.OnSourceChanged += HandleMusicChange;
         }
 
         private void UnsubscribeFromMetronome(MetronomeComponent m)
         {
             if (m == null) return;
 
-            m.OnSequenceStarted -= HandleSequenceStarted;
-            m.OnChargeConsumed -= HandleChargeConsumed;
-            m.OnChargeRestored -= HandleChargeRestored;
-            m.OnSequenceEnded -= HandleSequenceEnded;
+            m.OnSequenceUpdate -= HandleSequenceUpdate;
+            m.OnSourceChanged -= HandleMusicChange;
         }
 
         #endregion events

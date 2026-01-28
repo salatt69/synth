@@ -51,21 +51,22 @@ namespace ProjectSynth.Character.Synth.Content
             HudElement hudElem = synthCrosshair.AddComponent<HudElement>();
             CrosshairController controller = synthCrosshair.AddComponent<CrosshairController>();
 
-            //controller.spriteSpreadPositions = new[]
-            //{
-            //    new CrosshairController.SpritePosition
-            //    {
-            //        target = synthCrosshair.transform.Find("Bracket, L").GetComponent<RectTransform>(),
-            //        zeroPosition = new Vector2(-12f, 0f),
-            //        onePosition = new Vector2(-32f, 0f)
-            //    },
-            //    new CrosshairController.SpritePosition
-            //    {
-            //        target = synthCrosshair.transform.Find("Bracket, R").GetComponent<RectTransform>(),
-            //        zeroPosition = new Vector2(12f, 0f),
-            //        onePosition = new Vector2(32f, 0f)
-            //    }
-            //};
+            controller.spriteSpreadPositions =
+            [
+               new CrosshairController.SpritePosition
+               {
+                   target = synthCrosshair.transform.Find("Heart, R").GetComponent<RectTransform>(),
+                   zeroPosition = new Vector2(25f, 0f),
+                   onePosition = new Vector2(60f, 0f)
+               },
+               new CrosshairController.SpritePosition
+               {
+                   target = synthCrosshair.transform.Find("Heart, L").GetComponent<RectTransform>(),
+                   zeroPosition = new Vector2(-25f, 0f),
+                   onePosition = new Vector2(-60f, 0f)
+               }
+            ];
+            controller.maxSpreadAngle = 3;
 
             SynthCrosshairController synthController = synthCrosshair.AddComponent<SynthCrosshairController>();
 
