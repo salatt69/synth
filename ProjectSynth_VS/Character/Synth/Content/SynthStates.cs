@@ -12,9 +12,9 @@ namespace ProjectSynth.Character.Synth.Content
         public static void Init()
         {
             ContentAddition.AddEntityState(typeof(SynthMain), out _);
-
+            
             ContentAddition.AddEntityState(typeof(SlashCombo), out _);
-
+            
             ContentAddition.AddEntityState(typeof(Shoot), out _);
 
             ContentAddition.AddEntityState(typeof(Roll), out _);
@@ -22,8 +22,10 @@ namespace ProjectSynth.Character.Synth.Content
             ContentAddition.AddEntityState(typeof(ThrowBomb), out _);
 
             ContentAddition.AddEntityState(typeof(ThirtyNineMusic), out _);
-
+            
             ContentAddition.AddEntityState(typeof(SonicBoom), out _);
+
+            ContentAddition.AddEntityState(typeof(HoloNade), out _);
         }
     }
 }

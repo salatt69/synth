@@ -26,10 +26,10 @@ namespace ProjectSynth.Core.Hooks
 
         private void HookUpdate(On.RoR2.Run.orig_Update orig, Run self)
         {
-            if (MusicSync.OnBeat())
-            {
-                Chat.AddMessage($"{Random.Range(10000, 100000)}");
-            }
+            // if (MusicSync.OnBeat())
+            // {
+            //     Chat.AddMessage($"{Random.Range(10000, 100000)}");
+            // }
 
             if (!NetworkServer.active) return;
 

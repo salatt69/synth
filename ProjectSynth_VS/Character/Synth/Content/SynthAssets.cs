@@ -1,8 +1,10 @@
 ﻿using ProjectSynth.Character.Synth.UI.Crosshair;
 using ProjectSynth.Core;
+using ProjectSynth.Hologram;
 using ProjectSynth.Modules;
 using R2API;
 using RoR2;
+using RoR2.Hologram;
 using RoR2.Projectile;
 using RoR2.UI;
 using UnityEngine;
@@ -14,39 +16,139 @@ namespace ProjectSynth.Character.Synth.Content
 {
     public static class SynthAssets
     {
-        private static AssetBundle _assetBundle;
+        private static AssetBundle _ab;
 
         // particle effects
         public static GameObject swordSwingEffect;
         public static GameObject swordHitImpactEffect;
         public static GameObject bombExplosionEffect;
 
-        // networked hit sounds
-        public static NetworkSoundEventDef thirtyNineMusicHitSoundEvent;
-
         // projectiles
-        public static GameObject thirtyNineMusicProjectile;
+        public static GameObject proj_ThirtyNineMusic;
+        public static GameObject proj_HoloNade;
 
-        // crosshairs
+        // crosshair
         public static GameObject synthCrosshair;
-        public static GameObject dafaultSprintngCrosshair;
+        public static GameObject defaultSprintingCrosshair;
 
+        // textures
+        public static Sprite tex_SonicBoom;
+        public static Sprite tex_ThirtyNineMusic;
+        public static Sprite tex_HoloNade;
 
+        // misc
+        public static GameObject go_hologram;
+        
         public static void Init(AssetBundle assetBundle)
         {
-            _assetBundle = assetBundle;
+            _ab = assetBundle;
 
-            CreateSoundEvents();
+            Sounds.CreateSoundEvents();
+
+            RegisterTextures();
+            RegisterMisc();
+            
             CreateEffects();
             CreateProjectiles();
-
-            dafaultSprintngCrosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SprintingCrosshair.prefab").WaitForCompletion();
-            CreateCrosshair(_assetBundle);
+            
+            defaultSprintingCrosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SprintingCrosshair.prefab").WaitForCompletion();
+            CreateSynthCrosshair();
+        }
+        
+        private static void RegisterTextures()
+        {
+            tex_SonicBoom = _ab.LoadAsset<Sprite>("texSecondaryIcon");
+            tex_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
+            tex_HoloNade = _ab.LoadAsset<Sprite>("texSecondaryIcon");
         }
 
-        private static void CreateCrosshair(AssetBundle bundle)
+        private static void RegisterMisc()
         {
-            synthCrosshair = bundle.LoadAsset<GameObject>("SynthCrosshair");
+            go_hologram = _ab.LoadAsset<GameObject>("Hologram");
+            go_hologram.AddComponent<DestroyOnTimer>().duration = 20f;
+        }
+        
+        private static void CreateEffects()
+        {
+            bombExplosionEffect = _ab.LoadEffect("BombExplosionEffect", "HenryBombExplosion");
+
+            if (!bombExplosionEffect)
+                return;
+
+            ShakeEmitter shakeEmitter = bombExplosionEffect.AddComponent<ShakeEmitter>();
+            shakeEmitter.amplitudeTimeDecay = true;
+            shakeEmitter.duration = 0.5f;
+            shakeEmitter.radius = 200f;
+            shakeEmitter.scaleShakeRadiusWithLocalScale = false;
+
+            shakeEmitter.wave = new Wave
+            {
+                amplitude = 1f,
+                frequency = 40f,
+                cycleOffset = 0f
+            };
+
+            swordSwingEffect = _ab.LoadEffect("HenrySwordSwingEffect", true);
+            swordHitImpactEffect = _ab.LoadEffect("ImpactHenrySlash");
+        }
+
+        private static void CreateProjectiles()
+        {
+            // tnm
+            proj_ThirtyNineMusic = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Treebot/SyringeProjectile.prefab")
+                .WaitForCompletion()?
+                .InstantiateClone("ThirtyNineMusic", true);
+
+            var tnm_controller = proj_ThirtyNineMusic.GetComponent<ProjectileController>();
+            tnm_controller.startSound = Sounds.ThirtyNineMusicShot;
+
+            var tnm_single = proj_ThirtyNineMusic.GetComponent<ProjectileSingleTargetImpact>();
+            tnm_single.hitSound = Sounds.thirtyNineMusicHitSoundEvent;
+
+            var tnm_ghost = _ab.LoadAsset<GameObject>("ThirtyNineMusicModel")?
+                .InstantiateClone("ThirtyNineMusicModel", true);
+
+            tnm_ghost.AddComponent<NetworkIdentity>();
+            tnm_ghost.AddComponent<ProjectileGhostController>();
+
+            tnm_ghost.AddComponent<VFXAttributes>().DoNotPool = true;
+            tnm_controller.ghostPrefab = tnm_ghost;
+
+            ContentAddition.AddProjectile(proj_ThirtyNineMusic);
+
+            // nade
+            proj_HoloNade = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/CommandoGrenadeProjectile.prefab")
+                .WaitForCompletion()?
+                .InstantiateClone("HoloNade", true);
+
+            var holo_controller = proj_HoloNade.GetComponent<ProjectileController>();
+            // holo_controller.startSound = 
+
+            var holo_explosion = proj_HoloNade.GetComponent<ProjectileImpactExplosion>();
+            holo_explosion.timerAfterImpact = false;
+            holo_explosion.lifetime = 10f;
+            holo_explosion.destroyOnWorld = false;
+            holo_explosion.destroyOnEnemy = false;
+            holo_explosion.detonateOnEnemy = false;
+
+            var holo_spawn = proj_HoloNade.AddComponent<HologramSpawnBehavior>();
+            holo_spawn.objectToSpawn = SynthAssets.go_hologram;
+
+            var holo_ghost = _ab.LoadAsset<GameObject>("HoloNadeModel")?
+                .InstantiateClone("HoloNadeModel", true);
+
+            holo_ghost.AddComponent<NetworkIdentity>();
+            holo_ghost.AddComponent<ProjectileGhostController>();
+
+            holo_ghost.AddComponent<VFXAttributes>().DoNotPool = true;
+            holo_controller.ghostPrefab = holo_ghost;
+
+            ContentAddition.AddProjectile(proj_HoloNade);
+        }
+
+        private static void CreateSynthCrosshair()
+        {
+            synthCrosshair = _ab.LoadAsset<GameObject>("SynthCrosshair");
 
             HudElement hudElem = synthCrosshair.AddComponent<HudElement>();
             CrosshairController controller = synthCrosshair.AddComponent<CrosshairController>();
@@ -70,129 +172,12 @@ namespace ProjectSynth.Character.Synth.Content
 
             SynthCrosshairController synthController = synthCrosshair.AddComponent<SynthCrosshairController>();
 
-            Texture image = dafaultSprintngCrosshair.GetComponent<RawImage>().texture;
-            Color color = dafaultSprintngCrosshair.GetComponent<RawImage>().color;
+            Texture image = defaultSprintingCrosshair.GetComponent<RawImage>().texture;
+            Color color = defaultSprintingCrosshair.GetComponent<RawImage>().color;
 
             RawImage rawImage = synthCrosshair.transform.Find("Center, Sprint").GetComponent<RawImage>();
             rawImage.texture = image;
             rawImage.color = color;
-        }
-
-        #region sound events
-        private static void CreateSoundEvents()
-        {
-            thirtyNineMusicHitSoundEvent = CreateSoundEvent(Sounds.ThirtyNineMusicShot);
-        }
-
-        private static NetworkSoundEventDef CreateSoundEvent(string eventName)
-        {
-            NetworkSoundEventDef networkSoundEventDef = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
-            networkSoundEventDef.akId = AkSoundEngine.GetIDFromString(eventName);
-            networkSoundEventDef.eventName = eventName;
-
-            ContentAddition.AddNetworkSoundEventDef(networkSoundEventDef);
-
-            return networkSoundEventDef;
-        }
-
-        #endregion sound events
-
-        #region effects
-        private static void CreateEffects()
-        {
-            CreateBombExplosionEffect();
-
-            swordSwingEffect = _assetBundle.LoadEffect("HenrySwordSwingEffect", true);
-            swordHitImpactEffect = _assetBundle.LoadEffect("ImpactHenrySlash");
-        }
-
-        private static void CreateBombExplosionEffect()
-        {
-            bombExplosionEffect = _assetBundle.LoadEffect("BombExplosionEffect", "HenryBombExplosion");
-
-            if (!bombExplosionEffect)
-                return;
-
-            ShakeEmitter shakeEmitter = bombExplosionEffect.AddComponent<ShakeEmitter>();
-            shakeEmitter.amplitudeTimeDecay = true;
-            shakeEmitter.duration = 0.5f;
-            shakeEmitter.radius = 200f;
-            shakeEmitter.scaleShakeRadiusWithLocalScale = false;
-
-            shakeEmitter.wave = new Wave
-            {
-                amplitude = 1f,
-                frequency = 40f,
-                cycleOffset = 0f
-            };
-
-        }
-        #endregion effects
-
-        #region projectiles
-        private static void CreateProjectiles()
-        {
-            thirtyNineMusicProjectile = CreateProjectile(
-                "RoR2/Base/Treebot/SyringeProjectile.prefab",
-                "ThirtyNineMusic",
-                thirtyNineMusicHitSoundEvent,
-                Sounds.ThirtyNineMusicShot
-                );
-        }
-
-        private static GameObject CreateProjectile(string addressablePath, string projectileName, NetworkSoundEventDef hitSound, string startSound)
-        {
-            GameObject projectile = Addressables.LoadAssetAsync<GameObject>(addressablePath).WaitForCompletion()?.InstantiateClone(projectileName, true);
-            if (!projectile)
-            {
-                Log.Warning($"Failed to load addresable GameObject! Check the spelling. [{addressablePath}]");
-                return null;
-            }
-
-            var controller = projectile.GetComponent<ProjectileController>();
-            controller.startSound = startSound;
-
-            var single = projectile.GetComponent<ProjectileSingleTargetImpact>();
-            single.hitSound = hitSound;
-
-            var ghost = _assetBundle.LoadAsset<GameObject>($"{projectileName}Model")?.InstantiateClone($"{projectileName}Model", true);
-            if (!ghost)
-            {
-                Log.Warning($"Failed to load ghost projectile! Build your AssetBundle ot check the spelling. [{projectileName}Model]");
-                return null;
-            }
-
-            ghost.AddComponent<NetworkIdentity>();
-            ghost.AddComponent<ProjectileGhostController>();
-
-            ghost.AddComponent<VFXAttributes>().DoNotPool = true;
-            controller.ghostPrefab = ghost;
-
-            ContentAddition.AddProjectile(projectile);
-
-            return projectile;
-        }
-        #endregion projectiles
-    }
-
-    public static class Bundle
-    {
-        private static AssetBundle _ab;
-
-        public static Sprite tex_SonicBoom { get; private set; }
-        public static Sprite tex_ThirtyNineMusic { get; private set; }
-
-        public static void Init(AssetBundle assetBundle)
-        {
-            _ab = assetBundle;
-
-            AssignTextures();
-        }
-
-        private static void AssignTextures()
-        {
-            tex_SonicBoom = _ab.LoadAsset<Sprite>("texSecondaryIcon");
-            tex_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
         }
     }
 
@@ -210,5 +195,23 @@ namespace ProjectSynth.Character.Synth.Content
             "Play_MetronomeRecharge_3",
             "Play_MetronomeRecharge_4"
         };
+        
+        public static NetworkSoundEventDef thirtyNineMusicHitSoundEvent;
+
+        public static void CreateSoundEvents()
+        {
+            thirtyNineMusicHitSoundEvent = CreateSoundEvent(Sounds.ThirtyNineMusicShot);
+        }
+
+        private static NetworkSoundEventDef CreateSoundEvent(string eventName)
+        {
+            NetworkSoundEventDef networkSoundEventDef = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            networkSoundEventDef.akId = AkSoundEngine.GetIDFromString(eventName);
+            networkSoundEventDef.eventName = eventName;
+
+            ContentAddition.AddNetworkSoundEventDef(networkSoundEventDef);
+
+            return networkSoundEventDef;
+        }
     }
 }

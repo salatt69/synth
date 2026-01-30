@@ -66,8 +66,17 @@ namespace ProjectSynth.Character.Synth.Content
             #endregion
 
             #region Secondary
+
+            string holoDesc = "Grenade projectile, upon landing summons a holograph of Miku dancing, which will lure enemies into it. "
+                + "Using second will teleport survivor to a holograph position creating an AOE explosion. "
+                + "Can be teleported to even while projectile not landed. " + Environment.NewLine + Environment.NewLine
+                + "*describes how Backup Magazine will interact with it*";
+
             Language.Add(prefix + "SECONDARY_GUN_NAME", "Handgun");
             Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Tokens.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * SynthStaticValues.gunDamageCoefficient}% damage</style>.");
+            
+            Language.Add(prefix + "SECONDARY_HOLO_NADE_NAME", "Holo-Nade");
+            Language.Add(prefix + "SECONDARY_HOLO_NADE_DESCRIPTION", holoDesc);
             #endregion
 
             #region Utility
@@ -86,9 +95,6 @@ namespace ProjectSynth.Character.Synth.Content
             #endregion
 
             #region Keywords
-            string openingActDesc = "This skill can start the M1K-U sequence.";
-            Language.Add(prefix + "KEYWORD_OPENING_ACT", Tokens.KeywordText("Opening act", openingActDesc));
-
             string boostableDesc = "Allows the skill to be shaped in a special way when used in sync with the rhythm of M1K-U technology.";
             Language.Add(prefix + "KEYWORD_FOLLOW_THE_RHYTHM", Tokens.KeywordText("Follow the Rhythm", boostableDesc));
             #endregion

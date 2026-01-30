@@ -20,7 +20,7 @@ namespace ProjectSynth.Character.Synth.States.Primary
 
         public override void OnEnter()
         {
-            projectilePrefab = SynthAssets.thirtyNineMusicProjectile;
+            projectilePrefab = SynthAssets.proj_ThirtyNineMusic;
             dmg = projectilePrefab.GetComponent<ProjectileDamage>();
 
             dmg.damageType = DamageType.Generic;

@@ -23,7 +23,7 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 skillNameToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_NAME",
                 skillDescriptionToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_DESCRIPTION",
                 keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
-                icon = Bundle.tex_ThirtyNineMusic,
+                icon = SynthAssets.tex_ThirtyNineMusic,
 
                 activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(ThirtyNineMusic)),
@@ -71,7 +71,7 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 skillNameToken = Prefix + "SECONDARY_SONIC_BOOM_NAME",
                 skillDescriptionToken = Prefix + "SECONDARY_SONIC_BOOM_DESCRIPTION",
                 keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
-                icon = Bundle.tex_SonicBoom,
+                icon = SynthAssets.tex_SonicBoom,
 
                 activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(States.Secondary.SonicBoom)),
@@ -112,5 +112,56 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
 
             // make note of SkillDef.InstantiateNextState()
         }
+
+        public static SkillDef Secondary_HoloNade()
+        {
+            SkillDef holoNade = Skills.CreateSkillDef2(new SkillDefInfo2
+            {
+                skillName = "Holo-Nade",
+                skillNameToken = Prefix + "SECONDARY_HOLO_NADE_NAME",
+                skillDescriptionToken = Prefix + "SECONDARY_HOLO_NADE_DESCRIPTION",
+                keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
+                icon = SynthAssets.tex_HoloNade,
+
+                activationStateMachineName = "Weapon2",
+                activationState = new SerializableEntityStateType(typeof(States.Secondary.HoloNade)),
+                interruptPriority = InterruptPriority.Skill,
+
+                baseRechargeInterval = 7f,
+                baseMaxStock = 1,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+                attackSpeedBuffsRestockSpeed = false,
+                attackSpeedBuffsRestockSpeed_Multiplier = 1,
+
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
+
+                resetCooldownTimerOnUse = false,
+                beginSkillCooldownOnSkillEnd = false,
+                isCooldownBlockedUntilManuallyReset = true,
+
+                cancelSprintingOnActivation = true,
+                forceSprintDuringState = false,
+                canceledFromSprinting = false,
+                isCombatSkill = true,
+
+                mustKeyPress = true,
+                triggeredByPressRelease = false,
+
+                autoHandleLuminousShot = true,
+                suppressSkillActivation = false,
+
+                hideStockCount = false,
+                hideCooldown = false
+            });
+
+            return holoNade;
+
+            // TODO: will have two states: first one to throw the nade, second to teleport to it
+            // all in one skill. Should search ReplaceSkillDef or something like that
+        } 
     }
 }

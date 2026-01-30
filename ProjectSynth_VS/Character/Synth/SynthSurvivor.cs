@@ -108,7 +108,6 @@ namespace ProjectSynth.Character.Synth
             // it only has items for passive skills
             Passive.Initialize();
             
-            Bundle.Init(assetBundle);
             SynthAssets.Init(assetBundle);
             SynthBuffs.Init(assetBundle);
             SynthDamageTypes.Register();
@@ -226,42 +225,10 @@ namespace ProjectSynth.Character.Synth
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Secondary);
 
-            //here is a basic skill def with all fields accounted for
-            SkillDef secondarySkillDef1 = SynthSkillDefs.Secondary_SonicBoom();
+            SkillDef holoNade = SynthSkillDefs.Secondary_HoloNade();
+            SkillDef sonicBoom = SynthSkillDefs.Secondary_SonicBoom();
 
-            SkillDef secondarySkillDef2 = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "HenryGun",
-                skillNameToken = SYNTH_PREFIX + "SECONDARY_GUN_NAME",
-                skillDescriptionToken = SYNTH_PREFIX + "SECONDARY_GUN_DESCRIPTION",
-                keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(Shoot)),
-                activationStateMachineName = "Weapon2",
-                interruptPriority = EntityStates.InterruptPriority.Skill,
-
-                baseRechargeInterval = 1f,
-                baseMaxStock = 1,
-
-                rechargeStock = 1,
-                requiredStock = 1,
-                stockToConsume = 1,
-
-                resetCooldownTimerOnUse = false,
-                fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = false,
-                mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
-
-                isCombatSkill = true,
-                canceledFromSprinting = false,
-                cancelSprintingOnActivation = false,
-                forceSprintDuringState = false,
-
-            });
-
-            Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef1, secondarySkillDef2);
+            Skills.AddSecondarySkills(bodyPrefab, holoNade, sonicBoom);
         }
 
         private void AddUtilitySkills()
