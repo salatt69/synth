@@ -15,28 +15,27 @@ namespace ProjectSynth.Character.Synth.States.Special
 
         public override void OnEnter()
         {
-            return;
-            //projectilePrefab = SynthAssets.bombProjectilePrefab;
-            //base.effectPrefab = Modules.Assets.SomeMuzzleEffect;
-            //targetmuzzle = "muzzleThrow"
+            // //projectilePrefab = SynthAssets.bombProjectilePrefab;
+            // //base.effectPrefab = Modules.Assets.SomeMuzzleEffect;
+            // //targetmuzzle = "muzzleThrow"
 
-            projectilePrefab.GetComponent<Rigidbody>().useGravity = true;
+            // projectilePrefab.GetComponent<Rigidbody>().useGravity = true;
 
-            attackSoundString = "HenryBombThrow";
+            // attackSoundString = "HenryBombThrow";
 
-            baseDuration = BaseDuration;
-            baseDelayBeforeFiringProjectile = BaseDelayDuration;
+            // baseDuration = BaseDuration;
+            // baseDelayBeforeFiringProjectile = BaseDelayDuration;
 
-            damageCoefficient = DamageCoefficient;
-            //proc coefficient is set on the components of the projectile prefab
-            force = 80f;
+            // damageCoefficient = DamageCoefficient;
+            // //proc coefficient is set on the components of the projectile prefab
+            // force = 80f;
 
-            //base.projectilePitchBonus = 0;
-            //base.minSpread = 0;
-            //base.maxSpread = 0;
+            // //base.projectilePitchBonus = 0;
+            // //base.minSpread = 0;
+            // //base.maxSpread = 0;
 
-            recoilAmplitude = 0.1f;
-            bloom = 10;
+            // recoilAmplitude = 0.1f;
+            // bloom = 10;
 
             base.OnEnter();
         }

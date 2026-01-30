@@ -11,6 +11,7 @@ namespace ProjectSynth.Character.Synth.Content.Items
         // Taken from: https://github.com/royal0959/R2RailgunnerPassive/blob/main/RailgunnerPassive/CustomItems.cs
         public static void CreateItem()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             ItemDef Item = new ItemDef
             {
                 name = "MetronomePassiveItem",
@@ -35,6 +36,7 @@ namespace ProjectSynth.Character.Synth.Content.Items
                 canRemove = false,
                 hidden = true
             };
+#pragma warning restore CS0618 // Type or member is obsolete
 
             var itemIndex = new CustomItem(Item, Passive.displayRules);
             ItemAPI.Add(itemIndex);

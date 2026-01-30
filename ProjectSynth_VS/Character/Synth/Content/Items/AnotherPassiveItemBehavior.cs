@@ -11,6 +11,7 @@ namespace ProjectSynth.Character.Synth.Content.Items
         // Taken from: https://github.com/royal0959/R2RailgunnerPassive/blob/main/RailgunnerPassive/CustomItems.cs
         public static void CreateItem()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             ItemDef Item = new ItemDef
             {
                 name = "AnotherPassiveItem",
@@ -19,10 +20,10 @@ namespace ProjectSynth.Character.Synth.Content.Items
                 deprecatedTier = ItemTier.NoTier,
                 pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion(),
                 pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion(),
-                nameToken = SynthSurvivor.SYNTH_PREFIX + "IT_IS_NOT_GONNA_BE_SEEN_ANYWAY_SYNTHPASSIVE2_NAME",
-                pickupToken = SynthSurvivor.SYNTH_PREFIX + "IT_IS_NOT_GONNA_BE_SEEN_ANYWAY_SYNTHPASSIVE2_PICKUP",
-                descriptionToken = SynthSurvivor.SYNTH_PREFIX + "IT_IS_NOT_GONNA_BE_SEEN_ANYWAY_SYNTHPASSIVE2_DESC",
-                loreToken = SynthSurvivor.SYNTH_PREFIX + "IT_IS_NOT_GONNA_BE_SEEN_ANYWAY_SYNTHPASSIVE2_LORE",
+                nameToken = SynthSurvivor.SYNTH_PREFIX + "IT_IS_NOT_GONNA_BE_SEEN_ANYWAY_PASSIVE2_NAME",
+                pickupToken = SynthSurvivor.SYNTH_PREFIX + "IT_IS_NOT_GONNA_BE_SEEN_ANYWAY_PASSIVE2_PICKUP",
+                descriptionToken = SynthSurvivor.SYNTH_PREFIX + "IT_IS_NOT_GONNA_BE_SEEN_ANYWAY_PASSIVE2_DESC",
+                loreToken = SynthSurvivor.SYNTH_PREFIX + "IT_IS_NOT_GONNA_BE_SEEN_ANYWAY_PASSIVE2_LORE",
                 tags =
                 [
                     ItemTag.WorldUnique,
@@ -35,6 +36,7 @@ namespace ProjectSynth.Character.Synth.Content.Items
                 canRemove = false,
                 hidden = true
             };
+#pragma warning restore CS0618 // Type or member is obsolete
 
             var itemIndex = new CustomItem(Item, Passive.displayRules);
             ItemAPI.Add(itemIndex);
