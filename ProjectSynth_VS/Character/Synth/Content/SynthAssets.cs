@@ -4,7 +4,6 @@ using ProjectSynth.Hologram;
 using ProjectSynth.Modules;
 using R2API;
 using RoR2;
-using RoR2.Hologram;
 using RoR2.Projectile;
 using RoR2.UI;
 using UnityEngine;
@@ -25,7 +24,7 @@ namespace ProjectSynth.Character.Synth.Content
 
         // projectiles
         public static GameObject proj_ThirtyNineMusic;
-        public static GameObject proj_HoloNade;
+        public static GameObject proj_ExpoNade;
 
         // crosshair
         public static GameObject synthCrosshair;
@@ -34,7 +33,8 @@ namespace ProjectSynth.Character.Synth.Content
         // textures
         public static Sprite tex_SonicBoom;
         public static Sprite tex_ThirtyNineMusic;
-        public static Sprite tex_HoloNade;
+        public static Sprite tex_ExpoNade;
+        public static Sprite tex_ExpoShift;
 
         // misc
         public static GameObject go_hologram;
@@ -57,15 +57,17 @@ namespace ProjectSynth.Character.Synth.Content
         
         private static void RegisterTextures()
         {
-            tex_SonicBoom = _ab.LoadAsset<Sprite>("texSecondaryIcon");
+            tex_SonicBoom = _ab.LoadAsset<Sprite>("texBazookaFireIcon");
             tex_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
-            tex_HoloNade = _ab.LoadAsset<Sprite>("texSecondaryIcon");
+            tex_ExpoNade = _ab.LoadAsset<Sprite>("texSecondaryIcon");
+            tex_ExpoShift = _ab.LoadAsset<Sprite>("texBazookaIconScepter");
         }
 
         private static void RegisterMisc()
         {
             go_hologram = _ab.LoadAsset<GameObject>("Hologram");
             go_hologram.AddComponent<DestroyOnTimer>().duration = 20f;
+            go_hologram.AddComponent<NetworkIdentity>();
         }
         
         private static void CreateEffects()
@@ -117,33 +119,33 @@ namespace ProjectSynth.Character.Synth.Content
             ContentAddition.AddProjectile(proj_ThirtyNineMusic);
 
             // nade
-            proj_HoloNade = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/CommandoGrenadeProjectile.prefab")
+            proj_ExpoNade = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/CommandoGrenadeProjectile.prefab")
                 .WaitForCompletion()?
-                .InstantiateClone("HoloNade", true);
+                .InstantiateClone("ExpoNade", true);
 
-            var holo_controller = proj_HoloNade.GetComponent<ProjectileController>();
-            // holo_controller.startSound = 
+            var expo_controller = proj_ExpoNade.GetComponent<ProjectileController>();
+            // expo_controller.startSound = 
 
-            var holo_explosion = proj_HoloNade.GetComponent<ProjectileImpactExplosion>();
-            holo_explosion.timerAfterImpact = false;
-            holo_explosion.lifetime = 10f;
-            holo_explosion.destroyOnWorld = false;
-            holo_explosion.destroyOnEnemy = false;
-            holo_explosion.detonateOnEnemy = false;
+            var expo_impact = proj_ExpoNade.GetComponent<ProjectileImpactExplosion>();
+            expo_impact.timerAfterImpact = false;
+            expo_impact.lifetime = 10f;
+            expo_impact.destroyOnWorld = false;
+            expo_impact.destroyOnEnemy = false;
+            expo_impact.detonateOnEnemy = false;
 
-            var holo_spawn = proj_HoloNade.AddComponent<HologramSpawnBehavior>();
-            holo_spawn.objectToSpawn = SynthAssets.go_hologram;
+            var expo_hologram = proj_ExpoNade.AddComponent<HologramSpawnBehavior>();
+            expo_hologram.objectToSpawn = SynthAssets.go_hologram;
 
-            var holo_ghost = _ab.LoadAsset<GameObject>("HoloNadeModel")?
-                .InstantiateClone("HoloNadeModel", true);
+            var expo_ghost = _ab.LoadAsset<GameObject>("ExpoNadeModel")?
+                .InstantiateClone("ExpoNadeModel", true);
 
-            holo_ghost.AddComponent<NetworkIdentity>();
-            holo_ghost.AddComponent<ProjectileGhostController>();
+            expo_ghost.AddComponent<NetworkIdentity>();
+            expo_ghost.AddComponent<ProjectileGhostController>();
 
-            holo_ghost.AddComponent<VFXAttributes>().DoNotPool = true;
-            holo_controller.ghostPrefab = holo_ghost;
+            expo_ghost.AddComponent<VFXAttributes>().DoNotPool = true;
+            expo_controller.ghostPrefab = expo_ghost;
 
-            ContentAddition.AddProjectile(proj_HoloNade);
+            ContentAddition.AddProjectile(proj_ExpoNade);
         }
 
         private static void CreateSynthCrosshair()

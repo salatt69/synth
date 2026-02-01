@@ -77,6 +77,7 @@ namespace ProjectSynth.Modules
             GenericSkill skill = targetPrefab.AddComponent<GenericSkill>();
             skill.skillName = genericSkillName;
             skill.hideInCharacterSelect = hidden;
+            skill.hideInLoadoutSelect = hidden;
 
             SkillFamily newFamily = ScriptableObject.CreateInstance<SkillFamily>();
             (newFamily as ScriptableObject).name = targetPrefab.name + familyName + "Family";

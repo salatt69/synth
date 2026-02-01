@@ -7,6 +7,7 @@ using ProjectSynth.Character.Synth.States.Secondary;
 using ProjectSynth.Character.Synth.States.Special;
 using ProjectSynth.Character.Synth.States.Utility;
 using ProjectSynth.Core;
+using ProjectSynth.Hologram;
 using ProjectSynth.Metronome;
 using ProjectSynth.Modules;
 using ProjectSynth.Modules.BaseContent.Characters;
@@ -124,6 +125,7 @@ namespace ProjectSynth.Character.Synth
         {
             AddHitboxes();
             bodyPrefab.AddComponent<MetronomeComponent>();
+            bodyPrefab.AddComponent<HologramController>();
         }
 
         public void AddHitboxes()
@@ -158,6 +160,7 @@ namespace ProjectSynth.Character.Synth
             AddSecondarySkills();
             AddUtilitySkills();
             AddSpecialSkills();
+            AddOverrideSkills();
         }
 
         //skip if you don't have a passive
@@ -225,10 +228,10 @@ namespace ProjectSynth.Character.Synth
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Secondary);
 
-            SkillDef holoNade = SynthSkillDefs.Secondary_HoloNade();
+            SkillDef expoNade = SynthSkillDefs.Secondary_ExpoNade();
             SkillDef sonicBoom = SynthSkillDefs.Secondary_SonicBoom();
 
-            Skills.AddSecondarySkills(bodyPrefab, holoNade, sonicBoom);
+            Skills.AddSecondarySkills(bodyPrefab, expoNade, sonicBoom);
         }
 
         private void AddUtilitySkills()
@@ -295,6 +298,16 @@ namespace ProjectSynth.Character.Synth
 
             Skills.AddSpecialSkills(bodyPrefab, specialSkillDef1);
         }
+
+        private void AddOverrideSkills()
+        {
+            var fam = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "Override", true);
+
+            SkillDef expoShift = SynthSkillDefs.SecondaryOverride_ExpoShift();
+
+            Skills.AddSkillsToFamily(fam.skillFamily, expoShift);
+        }
+
         #endregion skills
 
         #region skins

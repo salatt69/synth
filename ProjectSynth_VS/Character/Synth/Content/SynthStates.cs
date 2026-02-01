@@ -1,4 +1,5 @@
 ﻿using ProjectSynth.Character.Synth.States;
+using ProjectSynth.Character.Synth.States.Override;
 using ProjectSynth.Character.Synth.States.Primary;
 using ProjectSynth.Character.Synth.States.Secondary;
 using ProjectSynth.Character.Synth.States.Special;
@@ -25,7 +26,9 @@ namespace ProjectSynth.Character.Synth.Content
             
             ContentAddition.AddEntityState(typeof(SonicBoom), out _);
 
-            ContentAddition.AddEntityState(typeof(HoloNade), out _);
+            ContentAddition.AddEntityState(typeof(ExpoNade), out _);
+            
+            ContentAddition.AddEntityState(typeof(ExpoShift), out _);
         }
     }
 }

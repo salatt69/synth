@@ -10,7 +10,7 @@ namespace ProjectSynth.Character.Synth.States.Secondary
     public class SonicBoom : BaseSkillState, IMetronomeListener
     {
         public float duration = 0.3f;
-        public float initialDsahSpeedCoefficient = 18f;
+        public float initialDashSpeedCoefficient = 18f;
         public float finalDashSpeedCoefficient = 1.0f;
 
         private float dashSpeed;
@@ -81,7 +81,7 @@ namespace ProjectSynth.Character.Synth.States.Secondary
 
         private void RecalculateDashSpeed()
         {
-            dashSpeed = moveSpeedStat * Mathf.Lerp(initialDsahSpeedCoefficient, finalDashSpeedCoefficient, fixedAge / duration);
+            dashSpeed = moveSpeedStat * Mathf.Lerp(initialDashSpeedCoefficient, finalDashSpeedCoefficient, fixedAge / duration);
         }
 
         public override void OnExit()

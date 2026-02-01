@@ -38,9 +38,6 @@ namespace ProjectSynth.Core
             var harmony = new Harmony(MODUID);
             harmony.PatchAll();
 
-            // optional
-            SyncLib.API.MusicSync.Initialize(true);
-
             // easy to use logger
             Log.Init(Logger);
 

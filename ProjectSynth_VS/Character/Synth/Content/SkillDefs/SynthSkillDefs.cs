@@ -73,7 +73,7 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
                 icon = SynthAssets.tex_SonicBoom,
 
-                activationStateMachineName = "Weapon",
+                activationStateMachineName = "Body",
                 activationState = new SerializableEntityStateType(typeof(States.Secondary.SonicBoom)),
                 interruptPriority = InterruptPriority.PrioritySkill,
 
@@ -113,21 +113,21 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
             // make note of SkillDef.InstantiateNextState()
         }
 
-        public static SkillDef Secondary_HoloNade()
+        public static SkillDef Secondary_ExpoNade()
         {
-            SkillDef holoNade = Skills.CreateSkillDef2(new SkillDefInfo2
+            SkillDef expoNade = Skills.CreateSkillDef2(new SkillDefInfo2
             {
-                skillName = "Holo-Nade",
-                skillNameToken = Prefix + "SECONDARY_HOLO_NADE_NAME",
-                skillDescriptionToken = Prefix + "SECONDARY_HOLO_NADE_DESCRIPTION",
+                skillName = "Expo-Nade",
+                skillNameToken = Prefix + "SECONDARY_EXPO_NADE_NAME",
+                skillDescriptionToken = Prefix + "SECONDARY_EXPO_NADE_DESCRIPTION",
                 keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
-                icon = SynthAssets.tex_HoloNade,
+                icon = SynthAssets.tex_ExpoNade,
 
                 activationStateMachineName = "Weapon2",
-                activationState = new SerializableEntityStateType(typeof(States.Secondary.HoloNade)),
+                activationState = new SerializableEntityStateType(typeof(States.Secondary.ExpoNade)),
                 interruptPriority = InterruptPriority.Skill,
 
-                baseRechargeInterval = 7f,
+                baseRechargeInterval = 12f,
                 baseMaxStock = 1,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -136,12 +136,12 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 attackSpeedBuffsRestockSpeed = false,
                 attackSpeedBuffsRestockSpeed_Multiplier = 1,
 
-                fullRestockOnAssign = true,
+                fullRestockOnAssign = false,
                 dontAllowPastMaxStocks = false,
 
                 resetCooldownTimerOnUse = false,
                 beginSkillCooldownOnSkillEnd = false,
-                isCooldownBlockedUntilManuallyReset = true,
+                isCooldownBlockedUntilManuallyReset = false,
 
                 cancelSprintingOnActivation = true,
                 forceSprintDuringState = false,
@@ -158,10 +158,58 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 hideCooldown = false
             });
 
-            return holoNade;
+            return expoNade;
 
             // TODO: will have two states: first one to throw the nade, second to teleport to it
             // all in one skill. Should search ReplaceSkillDef or something like that
         } 
+
+        public static SkillDef SecondaryOverride_ExpoShift()
+        {
+            SkillDef expoShift = Skills.CreateSkillDef2(new SkillDefInfo2
+            {
+                skillName = "Expo-Shift",
+                skillNameToken = Prefix + "OVERRIDE_EXPO_SHIFT_NAME",
+                skillDescriptionToken = Prefix + "OVERRIDE_EXPO_SHIFT_DESCRIPTION",
+                // keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
+                icon = SynthAssets.tex_ExpoShift,
+
+                activationStateMachineName = "Body",
+                activationState = new SerializableEntityStateType(typeof(States.Override.ExpoShift)),
+                interruptPriority = InterruptPriority.Death,
+
+                baseRechargeInterval = 1f,
+                baseMaxStock = 1,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+                attackSpeedBuffsRestockSpeed = false,
+                attackSpeedBuffsRestockSpeed_Multiplier = 1,
+
+                fullRestockOnAssign = false,
+                dontAllowPastMaxStocks = false,
+
+                resetCooldownTimerOnUse = false,
+                beginSkillCooldownOnSkillEnd = false,
+                isCooldownBlockedUntilManuallyReset = false,
+
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+                canceledFromSprinting = false,
+                isCombatSkill = true,
+
+                mustKeyPress = true,
+                triggeredByPressRelease = false,
+
+                autoHandleLuminousShot = true,
+                suppressSkillActivation = false,
+
+                hideStockCount = false,
+                hideCooldown = false
+            });
+
+            return expoShift;
+        }
     }
 }

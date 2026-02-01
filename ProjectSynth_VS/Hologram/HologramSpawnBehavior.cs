@@ -1,3 +1,4 @@
+using ProjectSynth.Core;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
@@ -13,6 +14,13 @@ namespace ProjectSynth.Hologram
         private Vector3 impactNormal;
         private int groundImpactCount;
         private readonly float force = 20f;
+
+        private ProjectileController projectileController;
+
+        private void Awake()
+        {
+            projectileController = GetComponent<ProjectileController>();
+        }
 
         public void OnProjectileImpact(ProjectileImpactInfo impactInfo)
         {
@@ -46,7 +54,27 @@ namespace ProjectSynth.Hologram
 
                 if (this.objectToSpawn)
                 {
-                    Instantiate(objectToSpawn, impactPoint, rot);
+                    GameObject hologram = Instantiate(objectToSpawn, impactPoint, rot);
+                    NetworkServer.Spawn(hologram);
+
+                    try
+                    {
+                        if (projectileController && projectileController.owner)
+                        {
+                            CharacterBody body = projectileController.owner.GetComponent<CharacterBody>();
+                            if (body)
+                            {
+                                var controller = body.GetComponent<HologramController>();
+                                if (controller)
+                                    controller.SetHologram(hologram);
+                            }
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        Log.Error($"[{this}] failed to notify owner: {e}");
+                    }
+
                     Destroy(gameObject);
                 }
             }
