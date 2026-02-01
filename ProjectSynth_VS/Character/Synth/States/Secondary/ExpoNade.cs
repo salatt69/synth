@@ -16,7 +16,6 @@ namespace ProjectSynth.Character.Synth.States.Secondary
         private float duration; 
         private Animator animator;
         private GameObject nade;
-        private SkillDef expoShift;
 
         public override void OnEnter()
         {
