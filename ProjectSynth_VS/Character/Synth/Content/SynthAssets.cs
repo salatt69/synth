@@ -53,6 +53,9 @@ namespace ProjectSynth.Character.Synth.Content
             
             defaultSprintingCrosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SprintingCrosshair.prefab").WaitForCompletion();
             CreateSynthCrosshair();
+
+            R2API.PrefabAPI.RegisterNetworkPrefab(proj_ExpoNade);
+            R2API.PrefabAPI.RegisterNetworkPrefab(go_hologram);
         }
         
         private static void RegisterTextures()
@@ -66,8 +69,8 @@ namespace ProjectSynth.Character.Synth.Content
         private static void RegisterMisc()
         {
             go_hologram = _ab.LoadAsset<GameObject>("Hologram");
-            go_hologram.AddComponent<DestroyOnTimer>().duration = 20f;
             go_hologram.AddComponent<NetworkIdentity>();
+            go_hologram.AddComponent<DestroyOnTimer>().duration = 20f;
         }
         
         private static void CreateEffects()
@@ -132,6 +135,8 @@ namespace ProjectSynth.Character.Synth.Content
             expo_impact.destroyOnWorld = false;
             expo_impact.destroyOnEnemy = false;
             expo_impact.detonateOnEnemy = false;
+
+            var expo_reporter = proj_ExpoNade.AddComponent<HologramProjectileReporter>();
 
             var expo_hologram = proj_ExpoNade.AddComponent<HologramSpawnBehavior>();
             expo_hologram.objectToSpawn = SynthAssets.go_hologram;

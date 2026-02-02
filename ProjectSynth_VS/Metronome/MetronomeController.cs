@@ -13,7 +13,7 @@ namespace ProjectSynth.Metronome
         Cooldown
     }
 
-    public class MetronomeComponent : MonoBehaviour
+    public class MetronomeController : MonoBehaviour
     {
         public MetronomeState State = MetronomeState.Idle;
 
@@ -72,7 +72,7 @@ namespace ProjectSynth.Metronome
             Body = GetComponent<CharacterBody>();
             if (Body == null)
             {
-                Log.Error($"{nameof(MetronomeComponent)}: CharacterBody missing");
+                Log.Error($"{nameof(MetronomeController)}: CharacterBody missing");
                 enabled = false;
             }
 

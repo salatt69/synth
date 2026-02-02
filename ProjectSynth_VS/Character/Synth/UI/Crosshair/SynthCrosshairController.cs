@@ -31,7 +31,7 @@ namespace ProjectSynth.Character.Synth.UI.Crosshair
         GameObject soundSource;
         GameObject currentBodyObject;
         CharacterBody body;
-        MetronomeComponent metronome;
+        MetronomeController metronome;
 
         HUD hud;
 
@@ -182,7 +182,7 @@ namespace ProjectSynth.Character.Synth.UI.Crosshair
             soundSource = body.gameObject;
 
             // same thing here, should never happen, but who knows
-            metronome = body.GetComponent<MetronomeComponent>();
+            metronome = body.GetComponent<MetronomeController>();
             if (metronome == null)
             {
                 Log.Warning($"{nameof(SynthCrosshairController)}: Target body has no MetronomeComponent");
@@ -210,7 +210,7 @@ namespace ProjectSynth.Character.Synth.UI.Crosshair
             animator.SetBool("Inside", false);
         }
 
-        private void SubscribeToMetronome(MetronomeComponent m)
+        private void SubscribeToMetronome(MetronomeController m)
         {
             if (m == null) return;
 
@@ -218,7 +218,7 @@ namespace ProjectSynth.Character.Synth.UI.Crosshair
             m.OnSourceChanged += HandleMusicChange;
         }
 
-        private void UnsubscribeFromMetronome(MetronomeComponent m)
+        private void UnsubscribeFromMetronome(MetronomeController m)
         {
             if (m == null) return;
 

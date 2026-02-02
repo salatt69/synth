@@ -1,46 +1,73 @@
+using EntityStates;
 using RoR2;
 using RoR2.Skills;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 namespace ProjectSynth.Hologram
 {
-    public class HologramController : MonoBehaviour
+    public class HologramController : NetworkBehaviour
     {
         public SkillDef expoShift;
         public GenericSkill hologramSkillSlot;
-
-        private NetworkInstanceId projectileID;
-        private NetworkInstanceId hologramID;
+        public float maxTeleportDistance;
+        [SyncVar] private NetworkInstanceId projectileID;
+        [SyncVar] private NetworkInstanceId hologramID;
         private bool overrideApplied;
+        private bool allowedToTeleport;
         private CharacterBody body;
+
+        private Indicator indicatorInstance;
+        private GameObject indicatorPrefab;
+        private Transform cachedVisualizerTransform;
+        private SpriteRenderer indicatorSprite;
+
+        private Color validColor, invalidColor, tooFarColor;
 
         void Awake()
         {
             body = GetComponent<CharacterBody>();
             if (!hologramSkillSlot && body && body.skillLocator)
-            {
                 hologramSkillSlot = body.skillLocator.secondary;
-            }
-        }   
+
+            if (!expoShift)
+                expoShift = SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Expo-Shift"));
+
+            if (maxTeleportDistance <= 0f)
+                maxTeleportDistance = 75f;
+
+            indicatorPrefab = Addressables
+                .LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMissileTrackingIndicator.prefab")
+                .WaitForCompletion();
+
+            invalidColor = Color.red;
+            tooFarColor = Color.gray;
+        }
 
         void FixedUpdate()
         {
-            if (!NetworkServer.active) return;
+            if (HasTarget) EnsureOverride();
+            else RemoveOverride();
 
-            if (HasTarget)
+            // client
+            if (NetworkClient.active && IsLocalBody())
             {
-                EnsureOverride();
-            }
-            else
-            {
-                RemoveOverride();
+                UpdateIndicatorClient();
             }
         }
 
         private void EnsureOverride()
         {
             if (overrideApplied) return;
+
+            if (!body) body = GetComponent<CharacterBody>();
+            if (!hologramSkillSlot && body && body.skillLocator)
+                hologramSkillSlot = body.skillLocator.secondary;
+
+            if (!expoShift)
+                expoShift = SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Expo-Shift"));
+
             if (!hologramSkillSlot || !expoShift) return;
 
             hologramSkillSlot.SetSkillOverride(this, expoShift, GenericSkill.SkillOverridePriority.Contextual);
@@ -59,8 +86,97 @@ namespace ProjectSynth.Hologram
         private static GameObject FindNetObject(NetworkInstanceId id)
         {
             if (id == NetworkInstanceId.Invalid) return null;
-            return NetworkServer.active ? NetworkServer.FindLocalObject(id) : null;
+
+            if (NetworkServer.active)
+            {
+                return NetworkServer.FindLocalObject(id);
+            }
+
+            if (NetworkClient.active)
+            {
+                return ClientScene.FindLocalObject(id);
+            }
+
+            return null;
         }
+
+        private void UpdateIndicatorClient()
+        {
+            // 1) draw only when teleport can actually be used
+            if (!hologramSkillSlot || hologramSkillSlot.stock <= 0)
+            {
+                if (indicatorInstance != null) indicatorInstance.active = false;
+                AllowedToTeleport = false;
+                return;
+            }
+
+            Transform target = GetTargetTransform(out bool isProj);
+            if (!target)
+            {
+                if (indicatorInstance != null) indicatorInstance.active = false;
+                AllowedToTeleport = false;
+                return;
+            }
+
+            // Create once
+            if (indicatorInstance == null)
+            {
+                indicatorInstance = new Indicator(gameObject, indicatorPrefab);
+                indicatorInstance.active = true;
+                cachedVisualizerTransform = null; // force sprite reacquire
+            }
+
+            // Keep it alive and pointed at target
+            indicatorInstance.targetTransform = target;
+            indicatorInstance.active = true;
+
+            // 2) Re-acquire the sprite renderer if visualizer got recreated
+            if (indicatorInstance.visualizerTransform != cachedVisualizerTransform)
+            {
+                cachedVisualizerTransform = indicatorInstance.visualizerTransform;
+
+                indicatorSprite = null;
+                if (cachedVisualizerTransform)
+                {
+                    var core = cachedVisualizerTransform.Find("Base Container/Base Core");
+                    if (core) indicatorSprite = core.GetComponent<SpriteRenderer>();
+
+                    // Refresh default "valid" color from prefab visuals
+                    if (indicatorSprite) validColor = indicatorSprite.color;
+                }
+            }
+
+            if (!indicatorSprite) return;
+
+            // Compute LOS + distance
+            Vector3 from = body.inputBank ? body.inputBank.aimOrigin : body.corePosition;
+            Vector3 to = GetLOSPoint(target);
+            float dist = Vector3.Distance(from, to);
+
+            bool inRange = IsValidDistance(dist);
+            bool hasLos = HasLineOfSightToTarget(body, target);
+
+            // Apply
+            Color c = hasLos ? validColor : invalidColor;
+            if (inRange)
+            {
+                c.a = 1f;
+            }
+            else
+            {
+                c = tooFarColor;
+                c.a = 0.4f;
+            }
+            indicatorSprite.color = c;
+
+            AllowedToTeleport = inRange && hasLos;
+        }
+
+        private bool IsLocalBody()
+        {
+            return body && body.hasEffectiveAuthority && body.isPlayerControlled;
+        }
+
 
         #region api
         public void SetProjectile(GameObject proj)
@@ -83,16 +199,14 @@ namespace ProjectSynth.Hologram
         {
             targetIsProjectile = false;
 
-            if (!NetworkServer.active) return null;
-
-            var proj = projectileID != NetworkInstanceId.Invalid ? NetworkServer.FindLocalObject(projectileID) : null;
+            var proj = FindNetObject(projectileID);
             if (proj)
             {
                 targetIsProjectile = true;
                 return proj.transform;
             }
 
-            var holo = hologramID != NetworkInstanceId.Invalid ? NetworkServer.FindLocalObject(hologramID) : null;
+            var holo = FindNetObject(hologramID);
             if (holo)
             {
                 targetIsProjectile = false;
@@ -109,6 +223,12 @@ namespace ProjectSynth.Hologram
                 bool _;
                 return GetTargetTransform(out _) != null;
             }
+        }
+
+        public bool AllowedToTeleport
+        {
+            get => allowedToTeleport;
+            private set => allowedToTeleport = value;
         }
 
         public void ConsumeTargetAndClear()
@@ -137,7 +257,7 @@ namespace ProjectSynth.Hologram
             if (!body || !target) return false;
 
             Vector3 from = body.inputBank ? body.inputBank.aimOrigin : body.corePosition;
-            Vector3 to = GetLosPoint(target);
+            Vector3 to = GetLOSPoint(target);
 
             Vector3 dir = to - from;
             float dist = dir.magnitude;
@@ -146,17 +266,17 @@ namespace ProjectSynth.Hologram
 
             int mask = LayerIndex.world.mask;
 
-            // If we hit world geometry before the point => blocked
+            // if hit world geometry before the point - blocked
             if (Physics.Raycast(from, dir, out RaycastHit hit, dist, mask, QueryTriggerInteraction.Ignore))
             {
-                // "Near-end forgiveness": if the hit is basically at the target, allow it
+                // if the hit is basically at the target, allow it
                 return hit.distance >= dist - 0.20f;
             }
 
             return true;
         }
 
-        public Vector3 GetLosPoint(Transform target)
+        public Vector3 GetLOSPoint(Transform target)
         {
             // Prefer collider bounds (aim near the top so we don't ray into the ground)
             Collider col = target.GetComponentInChildren<Collider>();
@@ -166,9 +286,14 @@ namespace ProjectSynth.Hologram
                 return b.center + Vector3.up * (b.extents.y * 0.9f);
             }
 
-            // Fallback: above pivot
             return target.position + Vector3.up * 1.25f;
         }
+
+        public bool IsValidDistance(float magnitude)
+        {
+            return magnitude <= maxTeleportDistance;
+        }
+
         #endregion
     }
 }

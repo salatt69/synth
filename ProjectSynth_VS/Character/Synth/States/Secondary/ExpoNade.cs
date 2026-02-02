@@ -54,15 +54,7 @@ namespace ProjectSynth.Character.Synth.States.Secondary
                 damageColorIndex = DamageColorIndex.Default,
                 damageTypeOverride = DamageSource.Secondary
             };
-            GameObject proj = ProjectileManager.instance.FireProjectileImmediateServer(info);
-
-            var controller = characterBody.GetComponent<HologramController>();
-            if (controller && proj)
-            {
-                controller.hologramSkillSlot = activatorSkillSlot;
-                controller.expoShift = SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Expo-Shift"));
-                controller.SetProjectile(proj);
-            }
+            ProjectileManager.instance.FireProjectile(info);
         }
 
         public override void FixedUpdate()

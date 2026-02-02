@@ -39,7 +39,7 @@ namespace ProjectSynth.Character.Synth.States.Secondary
 
             if (Passive.HasMetronomePassive(characterBody))
             {
-                var metro = characterBody.GetComponent<MetronomeComponent>();
+                var metro = characterBody.GetComponent<MetronomeController>();
                 if (metro == null) return;
 
                 //metro.StartMetronomeSequence();
