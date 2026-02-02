@@ -220,7 +220,6 @@ namespace ProjectSynth.Hologram
         {
             get
             {
-                bool _;
                 return GetTargetTransform(out _) != null;
             }
         }

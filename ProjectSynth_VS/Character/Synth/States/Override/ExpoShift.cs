@@ -14,7 +14,6 @@ namespace ProjectSynth.Character.Synth.States.Override
 
         private Vector3 startPos;
         private Vector3 destPos;
-        private bool targetIsProjectile;
         private bool canDash;
 
         private Hologram.HologramController controller;
@@ -24,7 +23,7 @@ namespace ProjectSynth.Character.Synth.States.Override
             base.OnEnter();
 
             controller = characterBody.GetComponent<HologramController>();
-            Transform target = controller.GetTargetTransform(out targetIsProjectile);
+            Transform target = controller.GetTargetTransform(out _);
             if (!target) { outer.SetNextStateToMain(); return; }
 
             // client UX gate
