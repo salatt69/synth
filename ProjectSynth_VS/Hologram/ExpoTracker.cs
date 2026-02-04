@@ -2,9 +2,11 @@ using RoR2;
 using RoR2.Skills;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 namespace ProjectSynth.Hologram
 {
+    // TODO: client still can't detect hologram as target, therefore, can't teleport to it
     public class ExpoTracker : MonoBehaviour
     {
         public float maxTeleportDistance = 75f;
@@ -157,12 +159,12 @@ namespace ProjectSynth.Hologram
         {
             if (usedProjectile)
             {
-                if (projectile) Destroy(projectile);
+                if (projectile) NetworkServer.Destroy(projectile);
                 projectile = null;
             }
             else
             {
-                if (hologram) Destroy(hologram);
+                if (hologram) NetworkServer.Destroy(hologram);
                 hologram = null;
             }
 

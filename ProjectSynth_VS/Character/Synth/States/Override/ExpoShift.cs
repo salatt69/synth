@@ -47,13 +47,17 @@ namespace ProjectSynth.Character.Synth.States.Override
             }
 
             startPos = transform.position;
-            destPos = target.position + Vector3.up * yOffset;
             canDash = true;
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if (target)
+            {
+                destPos = target.position + Vector3.up * yOffset;
+            }
 
             if (!canDash)
             {
@@ -78,7 +82,6 @@ namespace ProjectSynth.Character.Synth.States.Override
 
             if (t >= 1f)
             {
-                // SP: consume and destroy the target we teleported to, and unset override
                 if (tracker) tracker.ConsumeAndDestroyTarget(usedProjectile);
 
                 outer.SetNextStateToMain();
