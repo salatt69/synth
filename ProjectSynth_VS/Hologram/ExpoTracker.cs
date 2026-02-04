@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 
 namespace ProjectSynth.Hologram
 {
-    // TODO: client still can't detect hologram as target, therefore, can't teleport to it
     public class ExpoTracker : MonoBehaviour
     {
         public float maxTeleportDistance = 75f;

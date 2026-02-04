@@ -72,7 +72,6 @@ namespace ProjectSynth.Character.Synth.Content
             go_hologram.AddComponent<NetworkIdentity>();
             go_hologram.AddComponent<DestroyOnTimer>().duration = 20f;
             go_hologram.AddComponent<HologramLifetimeNotify>();
-
         }
         
         private static void CreateEffects()
