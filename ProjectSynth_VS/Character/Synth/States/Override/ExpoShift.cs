@@ -2,7 +2,6 @@ using EntityStates;
 using ProjectSynth.Hologram;
 using RoR2;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace ProjectSynth.Character.Synth.States.Override
 {
@@ -16,38 +15,39 @@ namespace ProjectSynth.Character.Synth.States.Override
         private Vector3 destPos;
         private bool canDash;
 
-        private Hologram.HologramController controller;
+        private ExpoTracker tracker;
+        private Transform target;
+        private bool usedProjectile;
 
         public override void OnEnter()
         {
             base.OnEnter();
 
-            controller = characterBody.GetComponent<HologramController>();
-            Transform target = controller.GetTargetTransform(out _);
-            if (!target) { outer.SetNextStateToMain(); return; }
-
-            // client UX gate
-            if (isAuthority && !controller.AllowedToTeleport)
+            tracker = characterBody.GetComponent<ExpoTracker>();
+            if (!tracker)
             {
                 outer.SetNextStateToMain();
                 return;
             }
 
-            Vector3 from = characterBody.inputBank ? characterBody.inputBank.aimOrigin : characterBody.corePosition;
-            Vector3 to = controller.GetLOSPoint(target);
-            float dist = Vector3.Distance(from, to);
+            if (!tracker.TryGetBestTarget(out target, out usedProjectile) || !target)
+            {
+                outer.SetNextStateToMain();
+                return;
+            }
 
-            bool inRange = controller.IsValidDistance(dist);
-            bool hasLos = controller.HasLineOfSightToTarget(characterBody, target);
+            bool blocked;
+            float dist;
+            bool canTeleport = tracker.CanTeleportTo(target.position, out blocked, out dist);
 
-            if (!(inRange && hasLos))
+            if (!canTeleport)
             {
                 outer.SetNextStateToMain();
                 return;
             }
 
             startPos = transform.position;
-            destPos = controller.GetLOSPoint(target) + Vector3.up * yOffset;
+            destPos = target.position + Vector3.up * yOffset;
             canDash = true;
         }
 
@@ -55,7 +55,11 @@ namespace ProjectSynth.Character.Synth.States.Override
         {
             base.FixedUpdate();
 
-            if (!isAuthority || !canDash) return;
+            if (!canDash)
+            {
+                outer.SetNextStateToMain();
+                return;
+            }
 
             float t = Mathf.Clamp01(age / Mathf.Max(0.001f, dashDuration));
             float eased = t * t * (3f - 2f * t);
@@ -74,12 +78,16 @@ namespace ProjectSynth.Character.Synth.States.Override
 
             if (t >= 1f)
             {
-                if (NetworkServer.active)
-                {
-                    controller.ConsumeTargetAndClear();
-                }
+                // SP: consume and destroy the target we teleported to, and unset override
+                if (tracker) tracker.ConsumeAndDestroyTarget(usedProjectile);
+
                 outer.SetNextStateToMain();
             }
+        }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Skill;
         }
     }
 }

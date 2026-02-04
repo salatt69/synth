@@ -8,7 +8,7 @@ namespace ProjectSynth.Hologram
 {
     public class HologramSpawnBehavior : MonoBehaviour, IProjectileImpactBehavior
     {
-        public GameObject objectToSpawn;
+        public GameObject hologramPrefab;
 
         private Vector3 impactPoint;
         private Vector3 impactNormal;
@@ -24,60 +24,55 @@ namespace ProjectSynth.Hologram
 
         public void OnProjectileImpact(ProjectileImpactInfo impactInfo)
         {
-            if (NetworkServer.active)
+            if (!hologramPrefab) return;
+
+            this.impactPoint = impactInfo.estimatedPointOfImpact;
+            this.impactNormal = impactInfo.estimatedImpactNormal;
+            Collider collider = impactInfo.collider;
+
+            HurtBox component = collider.GetComponent<HurtBox>();
+            if (component) return;
+
+            var rot = Quaternion.FromToRotation(Vector3.up, impactNormal);
+
+            groundImpactCount++;
+            if (groundImpactCount > 3)
             {
-                this.impactPoint = impactInfo.estimatedPointOfImpact;
-                this.impactNormal = impactInfo.estimatedImpactNormal;
-                Collider collider = impactInfo.collider;
-
-                HurtBox component = collider.GetComponent<HurtBox>();
-                if (component) return;
-
-                Chat.AddMessage($"Normal: {impactNormal}");
-                var rot = Quaternion.FromToRotation(Vector3.up, impactNormal);
-
-                groundImpactCount++;
-                if (groundImpactCount > 3)
+                Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+                if (rb)
                 {
-                    Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-                    if (rb)
-                    {
-                        rb.AddForce(impactNormal * force, ForceMode.Impulse);
-                    }
-                    else
-                    {
-                        Destroy(gameObject);
-                    }
+                    rb.AddForce(impactNormal * force, ForceMode.Impulse);
                 }
-
-                if (impactNormal.y < 0.65f) return;
-
-                if (this.objectToSpawn)
+                else
                 {
-                    GameObject hologram = Instantiate(objectToSpawn, impactPoint, rot);
-                    NetworkServer.Spawn(hologram);
-
-                    try
-                    {
-                        if (projectileController && projectileController.owner)
-                        {
-                            CharacterBody body = projectileController.owner.GetComponent<CharacterBody>();
-                            if (body)
-                            {
-                                var controller = body.GetComponent<HologramController>();
-                                if (controller)
-                                    controller.SetHologram(hologram);
-                            }
-                        }
-                    }
-                    catch (System.Exception e)
-                    {
-                        Log.Error($"[{this}] failed to notify owner: {e}");
-                    }
-
-                    Destroy(gameObject);
+                    NetworkServer.Destroy(gameObject);
                 }
             }
+
+            if (impactNormal.y < 0.65f) return;
+
+            GameObject hologram = Instantiate(hologramPrefab, impactPoint, rot);
+
+            var notify = hologram.GetComponent<HologramLifetimeNotify>();
+            if (notify && projectileController && projectileController.owner)
+                notify.owner = projectileController.owner;
+
+            NetworkServer.Spawn(hologram);
+
+            try
+            {
+                if (projectileController && projectileController.owner)
+                {
+                    var tracker = projectileController.owner.GetComponent<ExpoTracker>();
+                    if (tracker) tracker.RegisterHologram(hologram);
+                }
+            }
+            catch (System.Exception e)
+            {
+                Log.Error($"[{this}] failed to notify owner: {e}");
+            }
+
+            NetworkServer.Destroy(gameObject);
         }
     }
 }

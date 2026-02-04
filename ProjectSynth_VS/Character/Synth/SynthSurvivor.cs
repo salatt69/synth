@@ -125,7 +125,7 @@ namespace ProjectSynth.Character.Synth
         {
             AddHitboxes();
             bodyPrefab.AddComponent<MetronomeController>();
-            bodyPrefab.AddComponent<HologramController>();
+            bodyPrefab.AddComponent<ExpoTracker>();
         }
 
         public void AddHitboxes()

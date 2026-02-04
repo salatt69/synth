@@ -71,6 +71,8 @@ namespace ProjectSynth.Character.Synth.Content
             go_hologram = _ab.LoadAsset<GameObject>("Hologram");
             go_hologram.AddComponent<NetworkIdentity>();
             go_hologram.AddComponent<DestroyOnTimer>().duration = 20f;
+            go_hologram.AddComponent<HologramLifetimeNotify>();
+
         }
         
         private static void CreateEffects()
@@ -136,10 +138,10 @@ namespace ProjectSynth.Character.Synth.Content
             expo_impact.destroyOnEnemy = false;
             expo_impact.detonateOnEnemy = false;
 
-            var expo_reporter = proj_ExpoNade.AddComponent<HologramProjectileReporter>();
-
             var expo_hologram = proj_ExpoNade.AddComponent<HologramSpawnBehavior>();
-            expo_hologram.objectToSpawn = SynthAssets.go_hologram;
+            expo_hologram.hologramPrefab = SynthAssets.go_hologram;
+
+            var expo_tag = proj_ExpoNade.AddComponent<ProjectileTag>();
 
             var expo_ghost = _ab.LoadAsset<GameObject>("ExpoNadeModel")?
                 .InstantiateClone("ExpoNadeModel", true);
