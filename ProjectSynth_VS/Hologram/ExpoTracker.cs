@@ -138,13 +138,16 @@ namespace ProjectSynth.Hologram
 
             Vector3 dir = (pos - from);
             float len = dir.magnitude;
+            
+            int mask = LayerIndex.world.mask;
+
             if (len > 0.001f)
             {
                 dir /= len;
-                if (Physics.Raycast(from, dir, len, losMask, QueryTriggerInteraction.Ignore))
+                if (Physics.Raycast(from, dir, out RaycastHit hit, dist, mask, QueryTriggerInteraction.Ignore))
                 {
-                    blocked = true;
-                    return false;
+                    // Near-end forgiveness
+                    return hit.distance >= dist - 0.20f;
                 }
             }
             return true;
@@ -194,19 +197,30 @@ namespace ProjectSynth.Hologram
             Vector3 from = body.corePosition;
             float dist = Vector3.Distance(from, targetPos);
 
-            if (dist > maxTeleportDistance) return Color.gray;
+            // Too far
+            if (dist > maxTeleportDistance)
+                return Color.gray;
 
-            Vector3 dir = (targetPos - from);
+            Vector3 dir = targetPos - from;
             float len = dir.magnitude;
-            if (len <= 0.001f) return Color.green;
+
+            if (len <= 0.001f)
+                return Color.green;
 
             dir /= len;
 
-            if (Physics.Raycast(from, dir, len, losMask, QueryTriggerInteraction.Ignore))
-                return Color.red;
+            int mask = LayerIndex.world.mask;
+
+            if (Physics.Raycast(from, dir, out RaycastHit hit, dist, mask, QueryTriggerInteraction.Ignore))
+            {
+                // Near-end forgiveness
+                bool allowed = hit.distance >= dist - 0.20f;
+                return allowed ? Color.green : Color.red;
+            }
 
             return Color.green;
         }
+
 
         private void SetIndicatorColor(Indicator indicator, Color c)
         {
