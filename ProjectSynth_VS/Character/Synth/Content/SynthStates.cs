@@ -1,4 +1,5 @@
 ﻿using ProjectSynth.Character.Synth.States;
+using ProjectSynth.Character.Synth.States.Hologram;
 using ProjectSynth.Character.Synth.States.Override;
 using ProjectSynth.Character.Synth.States.Primary;
 using ProjectSynth.Character.Synth.States.Secondary;
@@ -26,9 +27,15 @@ namespace ProjectSynth.Character.Synth.Content
             
             ContentAddition.AddEntityState(typeof(SonicBoom), out _);
 
-            ContentAddition.AddEntityState(typeof(ExpoNade), out _);
+            ContentAddition.AddEntityState(typeof(Diva), out _);
             
-            ContentAddition.AddEntityState(typeof(ExpoShift), out _);
+            ContentAddition.AddEntityState(typeof(DivaTeleport), out _);
+
+            ContentAddition.AddEntityState(typeof(Arm), out _);
+
+            ContentAddition.AddEntityState(typeof(Lure), out _);
+
+            ContentAddition.AddEntityState(typeof(WaitForStick), out _);
         }
     }
 }

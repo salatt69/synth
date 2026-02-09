@@ -1,8 +1,11 @@
-﻿using ProjectSynth.Character.Synth.UI.Crosshair;
+﻿using Newtonsoft.Json.Utilities;
+using ProjectSynth.Character.Synth.States.Hologram;
+using ProjectSynth.Character.Synth.UI.Crosshair;
 using ProjectSynth.Core;
 using ProjectSynth.Hologram;
 using ProjectSynth.Modules;
 using R2API;
+using R2API.Utils;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.UI;
@@ -10,6 +13,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using static Rewired.Demos.GamepadTemplateUI.GamepadTemplateUI;
 
 namespace ProjectSynth.Character.Synth.Content
 {
@@ -24,20 +28,18 @@ namespace ProjectSynth.Character.Synth.Content
 
         // projectiles
         public static GameObject proj_ThirtyNineMusic;
-        public static GameObject proj_ExpoNade;
+        public static GameObject proj_Diva;
 
         // crosshair
         public static GameObject synthCrosshair;
         public static GameObject defaultSprintingCrosshair;
 
         // textures
-        public static Sprite tex_SonicBoom;
-        public static Sprite tex_ThirtyNineMusic;
-        public static Sprite tex_ExpoNade;
-        public static Sprite tex_ExpoShift;
+        public static Sprite tex_icon_SonicBoom;
+        public static Sprite tex_icon_ThirtyNineMusic;
+        public static Sprite tex_icon_Diva;
+        public static Sprite tex_icon_DivaTeleport;
 
-        // misc
-        public static GameObject go_hologram;
         
         public static void Init(AssetBundle assetBundle)
         {
@@ -53,25 +55,18 @@ namespace ProjectSynth.Character.Synth.Content
             
             defaultSprintingCrosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/SprintingCrosshair.prefab").WaitForCompletion();
             CreateSynthCrosshair();
-
-            R2API.PrefabAPI.RegisterNetworkPrefab(proj_ExpoNade);
-            R2API.PrefabAPI.RegisterNetworkPrefab(go_hologram);
         }
         
         private static void RegisterTextures()
         {
-            tex_SonicBoom = _ab.LoadAsset<Sprite>("texBazookaFireIcon");
-            tex_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
-            tex_ExpoNade = _ab.LoadAsset<Sprite>("texSecondaryIcon");
-            tex_ExpoShift = _ab.LoadAsset<Sprite>("texBazookaIconScepter");
+            tex_icon_SonicBoom = _ab.LoadAsset<Sprite>("texBazookaFireIcon");
+            tex_icon_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
+            tex_icon_Diva = _ab.LoadAsset<Sprite>("texSecondaryIcon");
+            tex_icon_DivaTeleport = _ab.LoadAsset<Sprite>("texBazookaIconScepter");
         }
 
         private static void RegisterMisc()
         {
-            go_hologram = _ab.LoadAsset<GameObject>("Hologram");
-            go_hologram.AddComponent<NetworkIdentity>();
-            go_hologram.AddComponent<DestroyOnTimer>().duration = 20f;
-            go_hologram.AddComponent<HologramLifetimeNotify>();
         }
         
         private static void CreateEffects()
@@ -111,8 +106,8 @@ namespace ProjectSynth.Character.Synth.Content
             var tnm_single = proj_ThirtyNineMusic.GetComponent<ProjectileSingleTargetImpact>();
             tnm_single.hitSound = Sounds.thirtyNineMusicHitSoundEvent;
 
-            var tnm_ghost = _ab.LoadAsset<GameObject>("ThirtyNineMusicModel")?
-                .InstantiateClone("ThirtyNineMusicModel", true);
+            var tnm_ghost = _ab.LoadAsset<GameObject>("ThirtyNineMusicGhost")?
+                .InstantiateClone("ThirtyNineMusicGhost", true);
 
             tnm_ghost.AddComponent<NetworkIdentity>();
             tnm_ghost.AddComponent<ProjectileGhostController>();
@@ -122,36 +117,63 @@ namespace ProjectSynth.Character.Synth.Content
 
             ContentAddition.AddProjectile(proj_ThirtyNineMusic);
 
-            // nade
-            proj_ExpoNade = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/CommandoGrenadeProjectile.prefab")
+            // vd
+            proj_Diva = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMine.prefab")
                 .WaitForCompletion()?
-                .InstantiateClone("ExpoNade", true);
+                .InstantiateClone("DivaProjectile", true);
 
-            var expo_controller = proj_ExpoNade.GetComponent<ProjectileController>();
-            // expo_controller.startSound = 
+            Asset.DestroyChild(proj_Diva, "Ring");
+            Asset.DestroyChild(proj_Diva, "PrepEffect");
+            Asset.DestroyChild(proj_Diva, "WeakIndicator");
+            Asset.DestroyChild(proj_Diva, "StrongIndicator");
 
-            var expo_impact = proj_ExpoNade.GetComponent<ProjectileImpactExplosion>();
-            expo_impact.timerAfterImpact = false;
-            expo_impact.lifetime = 10f;
-            expo_impact.destroyOnWorld = false;
-            expo_impact.destroyOnEnemy = false;
-            expo_impact.detonateOnEnemy = false;
+            var divaVisuals = _ab.LoadAsset<GameObject>("DivaVisuals")!.InstantiateClone("DivaVisuals", false);
+            divaVisuals.transform.SetParent(proj_Diva.transform, false);
 
-            var expo_hologram = proj_ExpoNade.AddComponent<HologramSpawnBehavior>();
-            expo_hologram.hologramPrefab = SynthAssets.go_hologram;
+            foreach (var comp in proj_Diva.GetComponents<MonoBehaviour>())
+            {
+                if (comp is Deployable
+                    || comp is ProjectileDeployToOwner
+                    || comp is ProjectileStickOnImpact
+                    )
+                {
+                    comp.enabled = false;
+                }
+            }
 
-            var expo_tag = proj_ExpoNade.AddComponent<ProjectileTag>();
+            // obliterate existing esm from the engi mine
+            var oldEsms = proj_Diva.GetComponents<EntityStateMachine>();
+            for (int i = 0; i < oldEsms.Length; i++)
+            {
+                UnityEngine.Object.DestroyImmediate(oldEsms[i]);
+            }
 
-            var expo_ghost = _ab.LoadAsset<GameObject>("ExpoNadeModel")?
-                .InstantiateClone("ExpoNadeModel", true);
+            var diva_esm = proj_Diva.AddComponent<EntityStateMachine>();
+            diva_esm.initialStateType = new EntityStates.SerializableEntityStateType(typeof(WaitForStick));
+            diva_esm.mainStateType = new EntityStates.SerializableEntityStateType(typeof(Lure));
+            diva_esm.customName = "Main";
 
-            expo_ghost.AddComponent<NetworkIdentity>();
-            expo_ghost.AddComponent<ProjectileGhostController>();
+            var diva_networkEsm = proj_Diva.GetComponent<NetworkStateMachine>();
+            diva_networkEsm.stateMachines = [diva_esm];
 
-            expo_ghost.AddComponent<VFXAttributes>().DoNotPool = true;
-            expo_controller.ghostPrefab = expo_ghost;
+            var diva_marker = proj_Diva.AddComponent<DivaMarker>();
 
-            ContentAddition.AddProjectile(proj_ExpoNade);
+            var diva_stick = proj_Diva.AddComponent<ProjectileStickOnImpactByNormal>();
+            diva_stick.minGroundNormalY = 0.65f;
+            diva_stick.ignoreCharacters = true;
+            diva_stick.ignoreWorld = false;
+            diva_stick.alignNormals = true;
+            diva_stick.stickParticleSystem = proj_Diva.GetComponentsInChildren<ParticleSystem>(true);
+
+            var diva_controller = proj_Diva.GetComponent<ProjectileController>();
+
+            var diva_ghost = _ab.LoadAsset<GameObject>("DivaGhost")?.InstantiateClone("DivaProjectileGhost", true);
+            diva_controller.ghostPrefab = diva_ghost;
+            diva_ghost.AddComponent<ProjectileGhostController>();
+            diva_ghost.AddComponent<VFXAttributes>().DoNotPool = true;
+            diva_ghost.AddComponent<DivaAnimator>();
+
+            ContentAddition.AddProjectile(proj_Diva);
         }
 
         private static void CreateSynthCrosshair()

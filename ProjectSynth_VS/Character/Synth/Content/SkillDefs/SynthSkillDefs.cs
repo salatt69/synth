@@ -23,7 +23,7 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 skillNameToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_NAME",
                 skillDescriptionToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_DESCRIPTION",
                 keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
-                icon = SynthAssets.tex_ThirtyNineMusic,
+                icon = SynthAssets.tex_icon_ThirtyNineMusic,
 
                 activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(ThirtyNineMusic)),
@@ -71,7 +71,7 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 skillNameToken = Prefix + "SECONDARY_SONIC_BOOM_NAME",
                 skillDescriptionToken = Prefix + "SECONDARY_SONIC_BOOM_DESCRIPTION",
                 keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
-                icon = SynthAssets.tex_SonicBoom,
+                icon = SynthAssets.tex_icon_SonicBoom,
 
                 activationStateMachineName = "Body",
                 activationState = new SerializableEntityStateType(typeof(States.Secondary.SonicBoom)),
@@ -113,18 +113,18 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
             // make note of SkillDef.InstantiateNextState()
         }
 
-        public static SkillDef Secondary_ExpoNade()
+        public static SkillDef Secondary_Diva()
         {
-            SkillDef expoNade = Skills.CreateSkillDef2(new SkillDefInfo2
+            SkillDef diva = Skills.CreateSkillDef2(new SkillDefInfo2
             {
-                skillName = "Expo-Nade",
-                skillNameToken = Prefix + "SECONDARY_EXPO_NADE_NAME",
-                skillDescriptionToken = Prefix + "SECONDARY_EXPO_NADE_DESCRIPTION",
+                skillName = "Virtual Deviation",
+                skillNameToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_NAME",
+                skillDescriptionToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_DESCRIPTION",
                 keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
-                icon = SynthAssets.tex_ExpoNade,
+                icon = SynthAssets.tex_icon_Diva,
 
                 activationStateMachineName = "Weapon2",
-                activationState = new SerializableEntityStateType(typeof(States.Secondary.ExpoNade)),
+                activationState = new SerializableEntityStateType(typeof(States.Secondary.Diva)),
                 interruptPriority = InterruptPriority.Skill,
 
                 baseRechargeInterval = 12f,
@@ -158,24 +158,24 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 hideCooldown = false
             });
 
-            return expoNade;
+            return diva;
 
             // TODO: will have two states: first one to throw the nade, second to teleport to it
             // all in one skill. Should search ReplaceSkillDef or something like that
         } 
 
-        public static SkillDef SecondaryOverride_ExpoShift()
+        public static SkillDef Override_DivaTeleport()
         {
-            SkillDef expoShift = Skills.CreateSkillDef2(new SkillDefInfo2
+            SkillDef divaTeleport = Skills.CreateSkillDef2(new SkillDefInfo2
             {
-                skillName = "Expo-Shift",
-                skillNameToken = Prefix + "OVERRIDE_EXPO_SHIFT_NAME",
-                skillDescriptionToken = Prefix + "OVERRIDE_EXPO_SHIFT_DESCRIPTION",
+                skillName = "Virtual Deviation Teleport",
+                skillNameToken = Prefix + "OVERRIDE_VIRTUAL_DEVIATION_TP_NAME",
+                skillDescriptionToken = Prefix + "OVERRIDE_VIRTUAL_DEVIATION_TP_DESCRIPTION",
                 // keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
-                icon = SynthAssets.tex_ExpoShift,
+                icon = SynthAssets.tex_icon_DivaTeleport,
 
                 activationStateMachineName = "Body",
-                activationState = new SerializableEntityStateType(typeof(States.Override.ExpoShift)),
+                activationState = new SerializableEntityStateType(typeof(States.Override.DivaTeleport)),
                 interruptPriority = InterruptPriority.Death,
 
                 baseRechargeInterval = 1f,
@@ -209,7 +209,7 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 hideCooldown = false
             });
 
-            return expoShift;
+            return divaTeleport;
         }
     }
 }

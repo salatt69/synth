@@ -165,5 +165,12 @@ namespace ProjectSynth.Modules
 
             return newPrefab;
         }
+
+        internal static void DestroyChild(GameObject root, string name)
+        {
+            var t = root.transform.Find(name);
+            if (t)
+                Object.DestroyImmediate(t.gameObject);
+        }
     }
 }

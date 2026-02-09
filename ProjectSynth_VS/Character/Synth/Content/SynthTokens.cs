@@ -67,7 +67,7 @@ namespace ProjectSynth.Character.Synth.Content
 
             #region Secondary
 
-            string expoDesc = "Grenade projectile, upon landing summons a holograph of Miku dancing, which will lure enemies into it. "
+            string divaDesc = "Grenade projectile, upon landing summons a holograph of Miku dancing, which will lure enemies into it. "
                 + "Using second will teleport survivor to a holograph position creating an AOE explosion. "
                 + "Can be teleported to even while projectile not landed. " + Environment.NewLine + Environment.NewLine
                 + "*describes how Backup Magazine will interact with it*";
@@ -75,8 +75,8 @@ namespace ProjectSynth.Character.Synth.Content
             Language.Add(prefix + "SECONDARY_GUN_NAME", "Handgun");
             Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Tokens.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * SynthStaticValues.gunDamageCoefficient}% damage</style>.");
             
-            Language.Add(prefix + "SECONDARY_EXPO_NADE_NAME", "Expo-Nade");
-            Language.Add(prefix + "SECONDARY_EXPO_NADE_DESCRIPTION", expoDesc);
+            Language.Add(prefix + "SECONDARY_VIRTUAL_DEVIATION_NAME", "Virtual Deviation");
+            Language.Add(prefix + "SECONDARY_VIRTUAL_DEVIATION_DESCRIPTION", divaDesc);
             #endregion
 
             #region Utility

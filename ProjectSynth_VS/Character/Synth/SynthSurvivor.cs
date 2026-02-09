@@ -125,7 +125,7 @@ namespace ProjectSynth.Character.Synth
         {
             AddHitboxes();
             bodyPrefab.AddComponent<MetronomeController>();
-            bodyPrefab.AddComponent<ExpoTracker>();
+            bodyPrefab.AddComponent<DivaTracker>();
         }
 
         public void AddHitboxes()
@@ -228,10 +228,10 @@ namespace ProjectSynth.Character.Synth
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Secondary);
 
-            SkillDef expoNade = SynthSkillDefs.Secondary_ExpoNade();
+            SkillDef diva = SynthSkillDefs.Secondary_Diva();
             SkillDef sonicBoom = SynthSkillDefs.Secondary_SonicBoom();
 
-            Skills.AddSecondarySkills(bodyPrefab, expoNade, sonicBoom);
+            Skills.AddSecondarySkills(bodyPrefab, diva, sonicBoom);
         }
 
         private void AddUtilitySkills()
@@ -303,9 +303,9 @@ namespace ProjectSynth.Character.Synth
         {
             var fam = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "Override", true);
 
-            SkillDef expoShift = SynthSkillDefs.SecondaryOverride_ExpoShift();
+            SkillDef divaTeleport = SynthSkillDefs.Override_DivaTeleport();
 
-            Skills.AddSkillsToFamily(fam.skillFamily, expoShift);
+            Skills.AddSkillsToFamily(fam.skillFamily, divaTeleport);
         }
 
         #endregion skills

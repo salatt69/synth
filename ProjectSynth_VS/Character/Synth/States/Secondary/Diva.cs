@@ -2,11 +2,12 @@ using EntityStates;
 using ProjectSynth.Character.Synth.Content;
 using RoR2;
 using RoR2.Projectile;
+using RoR2.Skills;
 using UnityEngine;
 
 namespace ProjectSynth.Character.Synth.States.Secondary
 {
-    public class ExpoNade : BaseSkillState
+    public class Diva : BaseSkillState
     {
         public static float BaseDuration = 0.3f;
         public static float ProjectileSpeed = 60f;
@@ -14,6 +15,7 @@ namespace ProjectSynth.Character.Synth.States.Secondary
         private float duration;
         private Animator animator;
         private GameObject nade;
+        private SkillDef overrideDef;
 
         public override void OnEnter()
         {
@@ -29,7 +31,7 @@ namespace ProjectSynth.Character.Synth.States.Secondary
                 base.PlayAnimation("Gesture, Override", "ThrowBomb", "ThrowBomb.playbackRate", this.duration);
             }
 
-            nade = SynthAssets.proj_ExpoNade;
+            nade = SynthAssets.proj_Diva;
 
             Ray aimRay = base.GetAimRay();
 
