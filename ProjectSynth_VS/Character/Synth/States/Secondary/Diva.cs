@@ -15,7 +15,6 @@ namespace ProjectSynth.Character.Synth.States.Secondary
         private float duration;
         private Animator animator;
         private GameObject nade;
-        private SkillDef overrideDef;
 
         public override void OnEnter()
         {

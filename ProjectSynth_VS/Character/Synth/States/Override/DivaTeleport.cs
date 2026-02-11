@@ -56,7 +56,6 @@ namespace ProjectSynth.Character.Synth.States.Override
             }
 
             startPos = characterMotor ? characterMotor.Motor.TransientPosition : transform.position;
-            destPos = to + Vector3.up * yOffset;
             canDash = true;
 
             // Optional: small animation/sfx here
@@ -80,7 +79,7 @@ namespace ProjectSynth.Character.Synth.States.Override
             }
 
             // (Optional) if you want to "home" to moving targets:
-            // destPos = target.position + Vector3.up * yOffset;
+             destPos = target.position + Vector3.up * yOffset;
 
             float t = Mathf.Clamp01(age / Mathf.Max(0.001f, dashDuration));
             float eased = t * t * (3f - 2f * t);

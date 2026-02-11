@@ -1,12 +1,14 @@
 ﻿using ProjectSynth.Core;
+using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ProjectSynth.Modules
 {
     internal static class Materials
     {
-        private static List<Material> cachedMaterials = new List<Material>();
+        private static readonly List<Material> cachedMaterials = [];
 
         internal static Shader hotpoo = RoR2.LegacyResourcesAPI.Load<Shader>("Shaders/Deferred/HGStandard");
 

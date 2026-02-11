@@ -43,22 +43,26 @@ namespace ProjectSynth.Hologram
                 Bootstrap();
             }
 
-            // Only the local player needs indicator logic
             if (!body || !body.hasAuthority) return;
 
-            // Discover our beacon each frame (cheap via InstanceTracker)
             cachedBeacon = FindOwnedBeacon();
 
-            UpdateIndicator();
+            // --- Indicator rule ---
+            // Show only when:
+            //   - we have a beacon
+            //   - and the override skill is usable (stock > 0)
+            bool hasBeacon = cachedBeacon != null;
+            bool canUse = overrideSlot && overrideSlot.stock > 0;
 
-            // If you want override to be client-driven for now (SP-style),
-            // you can do it here. In MP, server should be truth,
-            // BUT you asked to keep it SP-like.
-            if (cachedBeacon)
+            UpdateIndicator(hasBeacon && canUse);
+
+            // --- Overrides (SP-style) ---
+            if (hasBeacon)
                 EnsureOverrideOn();
             else
                 MaybeUnsetOverride();
         }
+
 
         private void Bootstrap()
         {
@@ -70,8 +74,7 @@ namespace ProjectSynth.Hologram
             if (!overrideSlot && skillLocator) overrideSlot = skillLocator.secondary;
 
             if (!indicatorPrefab)
-                indicatorPrefab = Addressables.LoadAssetAsync<GameObject>(
-                    "RoR2/Junk/Engi/EngiShieldRetractIndicator.prefab").WaitForCompletion();
+                indicatorPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressTrackingIndicator.prefab").WaitForCompletion();
         }
 
         // -------- Beacon discovery (no SyncVars) --------
@@ -174,36 +177,48 @@ namespace ProjectSynth.Hologram
 
         public void ConsumeCurrentTarget()
         {
+            // client UX: clear immediately
+            cachedBeacon = null;
+            if (beaconIndicator != null)
+            {
+                beaconIndicator.targetTransform = null;
+                beaconIndicator.active = false;
+                beaconIndicator.UpdateVisualizer();
+            }
+
             if (!NetworkServer.active) return;
 
-            // Find the owned beacon the same way you target it.
-            var beacon = FindOwnedBeacon(); // your internal scan method that returns DivaMarker
+            var beacon = FindOwnedBeacon();
             if (beacon)
-            {
                 NetworkServer.Destroy(beacon.gameObject);
-            }
 
             if (overrideSlot && blinkSkillDef)
                 overrideSlot.UnsetSkillOverride(this, blinkSkillDef, GenericSkill.SkillOverridePriority.Contextual);
         }
 
         // -------- Indicator --------
-        private void UpdateIndicator()
+        private void UpdateIndicator(bool shouldShow)
         {
             if (beaconIndicator == null) return;
 
-            Transform t = cachedBeacon ? cachedBeacon.transform : null;
+            if (!shouldShow || !cachedBeacon)
+            {
+                beaconIndicator.targetTransform = null;
+                beaconIndicator.active = false;
+                beaconIndicator.UpdateVisualizer();
+                return;
+            }
+
+            var t = cachedBeacon.transform;
 
             beaconIndicator.targetTransform = t;
-            beaconIndicator.active = t != null;
+            beaconIndicator.active = true;
             beaconIndicator.UpdateVisualizer();
 
-            if (t != null)
-            {
-                Color c = GetTeleportColor(t.position);
-                SetIndicatorColor(beaconIndicator, c);
-            }
+            Color c = GetTeleportColor(t.position);
+            SetIndicatorColor(beaconIndicator, c);
         }
+
 
         private Color GetTeleportColor(Vector3 targetPos)
         {

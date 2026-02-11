@@ -13,7 +13,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using static Rewired.Demos.GamepadTemplateUI.GamepadTemplateUI;
 
 namespace ProjectSynth.Character.Synth.Content
 {
@@ -40,6 +39,9 @@ namespace ProjectSynth.Character.Synth.Content
         public static Sprite tex_icon_Diva;
         public static Sprite tex_icon_DivaTeleport;
 
+        // materials
+        public static Material mat_DivaBlink;
+
         
         public static void Init(AssetBundle assetBundle)
         {
@@ -49,7 +51,8 @@ namespace ProjectSynth.Character.Synth.Content
 
             RegisterTextures();
             RegisterMisc();
-            
+
+            CreateParticleSystemMaterials();
             CreateEffects();
             CreateProjectiles();
             
@@ -68,7 +71,47 @@ namespace ProjectSynth.Character.Synth.Content
         private static void RegisterMisc()
         {
         }
-        
+
+        private static void CreateParticleSystemMaterials()
+        {
+            mat_DivaBlink = Particles.CreateHopooCloudRemapMaterial(new Particles.CloudRemapInfo
+            {
+                _TintColor = Color.white,
+                _MainTex = new Particles.TiledTextureInfo
+                {
+                    texture = _ab.LoadAsset<Texture2D>("texDivaBlinkMask"),
+                    tiling = Vector2.one,
+                    offset = Vector2.zero
+                },
+                _RemapTex = new Particles.TiledTextureInfo
+                {
+                    texture = Addressables.LoadAssetAsync<Texture2D>("RoR2/Base/Common/ColorRamps/texRampHuntressSoft.png").WaitForCompletion(),
+                    tiling = Vector2.one,
+                    offset = Vector2.zero
+                },
+
+                _InvFade = 2f,
+                _Boost = 1f,
+                _AlphaBoost = 0.78f,
+                _CloudsOn = 1f,
+                _Cloud1Tex = new Particles.TiledTextureInfo
+                {
+                    texture = Addressables.LoadAssetAsync<Texture2D>("RoR2/Base/Common/TiledTextures/texCloudDifferenceBW2.png").WaitForCompletion(),
+                    tiling = Vector2.one,
+                    offset = Vector2.zero
+                },
+                _CutoffScroll = new Vector4
+                {
+                    x = 15f,
+                    y = 15f,
+                    z = 13f,
+                    w = 13f
+                },
+            },
+            "matDivaBlink"
+            );
+        }
+
         private static void CreateEffects()
         {
             bombExplosionEffect = _ab.LoadEffect("BombExplosionEffect", "HenryBombExplosion");
@@ -122,6 +165,9 @@ namespace ProjectSynth.Character.Synth.Content
                 .WaitForCompletion()?
                 .InstantiateClone("DivaProjectile", true);
 
+            // clone WeakIndicator before obliterating it, since we need it for the blink effect
+            var wiClone = UnityEngine.Object.Instantiate(proj_Diva.transform.Find("WeakIndicator").gameObject);
+
             Asset.DestroyChild(proj_Diva, "Ring");
             Asset.DestroyChild(proj_Diva, "PrepEffect");
             Asset.DestroyChild(proj_Diva, "WeakIndicator");
@@ -130,6 +176,67 @@ namespace ProjectSynth.Character.Synth.Content
             var divaVisuals = _ab.LoadAsset<GameObject>("DivaVisuals")!.InstantiateClone("DivaVisuals", false);
             divaVisuals.transform.SetParent(proj_Diva.transform, false);
 
+            // parent the cloned WeakIndicator as Blink
+            wiClone.transform.SetParent(divaVisuals.transform, false);
+            wiClone.name = "Blink";
+            wiClone.transform.localPosition = Vector3.zero;
+            wiClone.transform.localRotation = Quaternion.identity;
+            wiClone.transform.localScale = Vector3.one;
+            wiClone.SetActive(true);
+
+            var diva_psr = wiClone.GetComponent<ParticleSystemRenderer>();
+            diva_psr.material = mat_DivaBlink;
+
+            var diva_ps = wiClone.GetComponent<ParticleSystem>();
+            var diva_psMain = diva_ps.main;
+            var diva_psEmission = diva_ps.emission;
+            var diva_sot = diva_ps.sizeOverLifetime;
+
+            // main
+            diva_psMain.duration = 1f;
+            diva_psMain.loop = false;
+            diva_psMain.prewarm = false;
+            diva_psMain.startLifetime = 0.4f;
+            diva_psMain.startSize = 2f;
+            diva_psMain.startColor = new Color(0.52f, 0.79f, 0.88f);
+            diva_psMain.maxParticles = 16;
+
+            // burst
+            diva_psEmission.rateOverTime = 0f;
+            diva_psEmission.SetBursts(
+            [
+                new ParticleSystem.Burst
+                {
+                    time = 0f,
+                    count = 1,
+                    probability = 1f
+                }
+            ]);
+
+            // create a custom curve for the size over lifetime to make it look more interesting
+            var k0 = new Keyframe(0f, 0f);
+            var k1 = new Keyframe(0.2f, 0.5f);
+            var k2 = new Keyframe(1f, 1f);
+
+            k0.outTangent = 5f;
+            k1.inTangent = 2f;
+            k1.outTangent = 0.3f;
+            k2.inTangent = 0f;
+
+            k0.m_WeightedMode = (int)WeightedMode.Both;
+            k1.m_WeightedMode = (int)WeightedMode.Both;
+            k2.m_WeightedMode = (int)WeightedMode.Both;
+
+            var curve = new AnimationCurve(k0, k1, k2);
+
+            diva_sot.size = new ParticleSystem.MinMaxCurve(1f, curve);
+
+            diva_ps.Clear();
+
+            var diva_pulse = proj_Diva.AddComponent<DivaPulse>();
+            diva_pulse.particleSystem = diva_ps;
+
+            // --- rest of your pipeline unchanged ---
             foreach (var comp in proj_Diva.GetComponents<MonoBehaviour>())
             {
                 if (comp is Deployable
@@ -137,7 +244,7 @@ namespace ProjectSynth.Character.Synth.Content
                     || comp is ProjectileStickOnImpact
                     )
                 {
-                    comp.enabled = false;
+                    UnityEngine.Object.DestroyImmediate(comp);
                 }
             }
 
@@ -163,9 +270,12 @@ namespace ProjectSynth.Character.Synth.Content
             diva_stick.ignoreCharacters = true;
             diva_stick.ignoreWorld = false;
             diva_stick.alignNormals = true;
-            diva_stick.stickParticleSystem = proj_Diva.GetComponentsInChildren<ParticleSystem>(true);
 
             var diva_controller = proj_Diva.GetComponent<ProjectileController>();
+
+            var diva_lifetime = proj_Diva.AddComponent<DivaLifetime>();
+            diva_lifetime.flyingLifetime = 5f;
+            diva_lifetime.stuckLifetime = 10f;
 
             var diva_ghost = _ab.LoadAsset<GameObject>("DivaGhost")?.InstantiateClone("DivaProjectileGhost", true);
             diva_controller.ghostPrefab = diva_ghost;
