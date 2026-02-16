@@ -3,6 +3,7 @@ using RoR2;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine.Networking;
 
 namespace ProjectSynth.Character.Synth.States.Hologram
 {
@@ -13,12 +14,17 @@ namespace ProjectSynth.Character.Synth.States.Hologram
         public override void OnEnter()
         {
             base.OnEnter();
-            Chat.AddMessage("Arming hologram...");
+
+            //TODO: play animation
+            //PlayAnimation("", "", "", duration);
+
+            Chat.AddMessage($"Playing arm anim for {duration}s");
         }
+
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (Arm.duration <= base.fixedAge)
+            if (NetworkServer.active && duration <= fixedAge)
             {
                 outer.SetNextState(new Lure());
             }

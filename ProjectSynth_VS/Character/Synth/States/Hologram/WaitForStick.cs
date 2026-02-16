@@ -13,7 +13,10 @@ namespace ProjectSynth.Character.Synth.States.Hologram
         public override void OnEnter()
         {
             base.OnEnter();
-            Chat.AddMessage("Waiting for stick...");
+            if (NetworkServer.active)
+            {
+                ArmingStateMachine.SetState(new DivaArmingUnarmed());
+            }
         }
 
         public override void FixedUpdate()

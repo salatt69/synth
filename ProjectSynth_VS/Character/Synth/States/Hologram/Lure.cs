@@ -3,6 +3,7 @@ using RoR2;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine.Networking;
 
 namespace ProjectSynth.Character.Synth.States.Hologram
 {
@@ -11,7 +12,10 @@ namespace ProjectSynth.Character.Synth.States.Hologram
         public override void OnEnter()
         {
             base.OnEnter();
-            Chat.AddMessage("Luring...");
+            if (NetworkServer.active)
+            {
+                ArmingStateMachine.SetState(new DivaArmingArmed());
+            }
         }
 
         public override void FixedUpdate()

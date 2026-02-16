@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using ProjectSynth.Hologram;
+using RoR2;
 using RoR2.Projectile;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,9 @@ namespace ProjectSynth.Character.Synth.States.Hologram
 {
     public class BaseDivaState : BaseState
     {
-        protected ProjectileStickOnImpactByNormal StickOnImpact { get; private set; }
-        protected virtual bool shouldStick
-        {
-            get
-            {
-                return false;
-            }
-        }
-        protected virtual bool shouldRevertToWaitForStickOnSurfaceLost
+        private protected EntityStateMachine ArmingStateMachine { get; private set; }
+        private protected ProjectileStickOnImpactByNormal StickOnImpact { get; private set; }
+        protected virtual bool ShouldRevertToWaitForStickOnSurfaceLost
         {
             get
             {
@@ -33,13 +28,17 @@ namespace ProjectSynth.Character.Synth.States.Hologram
         public override void OnEnter()
         {
             base.OnEnter();
-            StickOnImpact = base.GetComponent<ProjectileStickOnImpactByNormal>();
+            ArmingStateMachine = EntityStateMachine.FindByCustomName(gameObject, "Arming");
+            StickOnImpact = GetComponent<ProjectileStickOnImpactByNormal>();
+
+            // TODO: play sound
+            Util.PlaySound("", gameObject);
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (NetworkServer.active && shouldRevertToWaitForStickOnSurfaceLost && !StickOnImpact.stuck)
+            if (NetworkServer.active && ShouldRevertToWaitForStickOnSurfaceLost && !StickOnImpact.stuck)
             {
                 outer.SetNextState(new WaitForStick());
             }

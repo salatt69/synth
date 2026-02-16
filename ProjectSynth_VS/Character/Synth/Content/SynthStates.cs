@@ -13,29 +13,27 @@ namespace ProjectSynth.Character.Synth.Content
     {
         public static void Init()
         {
+            // Main
             ContentAddition.AddEntityState(typeof(SynthMain), out _);
-            
+
+            // Skills            
             ContentAddition.AddEntityState(typeof(SlashCombo), out _);
-            
             ContentAddition.AddEntityState(typeof(Shoot), out _);
-
             ContentAddition.AddEntityState(typeof(Roll), out _);
-
             ContentAddition.AddEntityState(typeof(ThrowBomb), out _);
-
             ContentAddition.AddEntityState(typeof(ThirtyNineMusic), out _);
-            
             ContentAddition.AddEntityState(typeof(SonicBoom), out _);
-
             ContentAddition.AddEntityState(typeof(Diva), out _);
-            
             ContentAddition.AddEntityState(typeof(DivaTeleport), out _);
 
+            // DivaBase
             ContentAddition.AddEntityState(typeof(Arm), out _);
-
             ContentAddition.AddEntityState(typeof(Lure), out _);
-
             ContentAddition.AddEntityState(typeof(WaitForStick), out _);
+
+            // DivaArming
+            ContentAddition.AddEntityState(typeof(DivaArmingUnarmed), out _);
+            ContentAddition.AddEntityState(typeof(DivaArmingArmed), out _);
         }
     }
 }

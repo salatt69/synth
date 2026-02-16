@@ -12,52 +12,40 @@ namespace ProjectSynth.Hologram
     public class DivaAnimator : MonoBehaviour
     {
         private Animator animator;
-        private EntityStateMachine mainSateMachine;
-        private Transform projectileTransform;
-        private ProjectileStickOnImpactByNormal stickOnImpact;
-        private bool deployed;
+        private EntityStateMachine armingStateMachine;
 
         private void Awake()
         {
-            animator = GetComponentInChildren<Animator>();
+            animator = GetComponentInChildren<Animator>(true);
         }
 
         private void Start()
         {
-            GetMainStateMachine();
+            GetArmingStateMachine();
             if (!animator)
             {
                 Log.Warning($"{this}: No animator found!");
             }
         }
 
-        private void GetMainStateMachine()
+        private void GetArmingStateMachine()
         {
-            if (mainSateMachine && stickOnImpact) return;
+            if (armingStateMachine) return;
 
-            ProjectileGhostController ghostController = GetComponent<ProjectileGhostController>();
-            if (!ghostController) return;
+            armingStateMachine = EntityStateMachine.FindByCustomName(transform.gameObject, "Arming");
+        }
 
-            projectileTransform = ghostController.authorityTransform;
-            if (!projectileTransform) return;
-
-            if (!mainSateMachine)
-                mainSateMachine = EntityStateMachine.FindByCustomName(projectileTransform.gameObject, "Main");
-
-            if (!stickOnImpact)
-                stickOnImpact = projectileTransform.GetComponent<ProjectileStickOnImpactByNormal>();
+        private bool IsArmed()
+        {
+            EntityStateMachine entityStateMachine = armingStateMachine;
+            return (((entityStateMachine?.state) is BaseDivaArmingState baseDivaArmingState) ? baseDivaArmingState.triggerRadius : 0f) > 1f;
         }
 
         private void Update()
         {
-            if (!animator) return;
-
-            // Keep trying until authorityTransform exists (ghost often initializes before it)
-            if (!projectileTransform || !stickOnImpact) GetMainStateMachine();
-
-            if (!deployed && stickOnImpact && stickOnImpact.stuck)
+            GetArmingStateMachine();
+            if (IsArmed())
             {
-                deployed = true;
                 animator.SetTrigger("Deploy");
             }
         }

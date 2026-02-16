@@ -23,14 +23,12 @@ public class DivaLifetime : MonoBehaviour
         extended = false;
         simple.lifetime = flyingLifetime;
         simple.stopwatch = 0f;
-        Chat.AddMessage("flying time in use.");
     }
 
     private void FixedUpdate()
     {
         if (!extended && stick && stick.stuck)
         {
-            Chat.AddMessage("stuck time in use.");
             extended = true;
             simple.lifetime = stuckLifetime;
             simple.stopwatch = 0f;
