@@ -126,6 +126,7 @@ namespace ProjectSynth.Character.Synth
             AddHitboxes();
             bodyPrefab.AddComponent<MetronomeController>();
             bodyPrefab.AddComponent<DivaTracker>();
+            Log.Warning($"{bodyPrefab.gameObject};");
         }
 
         public void AddHitboxes()

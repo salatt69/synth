@@ -10,14 +10,16 @@ namespace ProjectSynth.Character.Synth.States.Override
     {
         public float dashDuration = 0.18f;
         public float yOffset = 1.0f;
-        public float airMomentumMultiplier = 0.3f;
 
         private Vector3 startPos;
         private Vector3 destPos;
+
         private bool canDash;
+        private bool consumed;
 
         private DivaTracker tracker;
         private Transform target;
+
         private bool blocked;
         private float dist;
 
@@ -32,14 +34,12 @@ namespace ProjectSynth.Character.Synth.States.Override
                 return;
             }
 
-            // Resolve target (projectile/holo/beacon)
             if (!tracker.TryGetBestTarget(out target) || !target)
             {
                 outer.SetNextStateToMain();
                 return;
             }
 
-            // Validate (client UX + server truth)
             Vector3 to = target.position;
             bool ok = tracker.CanTeleportTo(to, out blocked, out dist);
 
@@ -57,8 +57,7 @@ namespace ProjectSynth.Character.Synth.States.Override
 
             startPos = characterMotor ? characterMotor.Motor.TransientPosition : transform.position;
             canDash = true;
-
-            // Optional: small animation/sfx here
+            consumed = false;
         }
 
         public override void FixedUpdate()
@@ -71,19 +70,17 @@ namespace ProjectSynth.Character.Synth.States.Override
                 return;
             }
 
-            // If the target got destroyed mid-dash, stop safely
+            // stop if target dies mid-dash
             if (!target)
             {
                 outer.SetNextStateToMain();
                 return;
             }
 
-            // (Optional) if you want to "home" to moving targets:
-             destPos = target.position + Vector3.up * yOffset;
+            destPos = target.position + Vector3.up * yOffset;
 
             float t = Mathf.Clamp01(age / Mathf.Max(0.001f, dashDuration));
             float eased = t * t * (3f - 2f * t);
-
             Vector3 desired = Vector3.LerpUnclamped(startPos, destPos, eased);
 
             if (characterMotor)
@@ -96,15 +93,10 @@ namespace ProjectSynth.Character.Synth.States.Override
                 transform.position = desired;
             }
 
-            if (t >= 1f)
+            if (t >= 1f && !consumed)
             {
-                if (NetworkServer.active)
-                {
-                    // Consume beacon & unset override (server-authoritative)
-                    // Make tracker handle "destroy beacon" + "UnsetSkillOverride"
-                    tracker.ConsumeCurrentTarget();
-                }
-
+                consumed = true;
+                tracker?.ConsumeCurrentTarget();
                 outer.SetNextStateToMain();
             }
         }

@@ -1,5 +1,7 @@
-﻿using RoR2;
-using RoR2.Projectile;
+﻿using R2API.Networking;
+using R2API.Networking.Interfaces;
+using RoR2;
+using RoR2.Networking;
 using RoR2.Skills;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -9,6 +11,27 @@ namespace ProjectSynth.Hologram
 {
     public class DivaTracker : MonoBehaviour
     {
+        public struct ConsumeOwnedBeaconMessage : INetMessage
+        {
+            public NetworkInstanceId bodyNetId;
+
+            public readonly void Serialize(NetworkWriter writer) => writer.Write(bodyNetId);
+            public void Deserialize(NetworkReader reader) => bodyNetId = reader.ReadNetworkId();
+
+            public readonly void OnReceived()
+            {
+                if (!NetworkServer.active) return;
+
+                GameObject bodyObj = Util.FindNetworkObject(bodyNetId);
+                if (!bodyObj) return;
+
+                var tracker = bodyObj.GetComponent<DivaTracker>();
+                if (!tracker) return;
+
+                tracker.ConsumeOwnedBeaconServer();
+            }
+        }
+
         public float maxTeleportDistance = 75f;
         public LayerMask losMask;
         public SkillDef blinkSkillDef;
@@ -47,22 +70,16 @@ namespace ProjectSynth.Hologram
 
             cachedBeacon = FindOwnedBeacon();
 
-            // --- Indicator rule ---
-            // Show only when:
-            //   - we have a beacon
-            //   - and the override skill is usable (stock > 0)
             bool hasBeacon = cachedBeacon != null;
             bool canUse = overrideSlot && overrideSlot.stock > 0;
 
             UpdateIndicator(hasBeacon && canUse);
 
-            // --- Overrides (SP-style) ---
             if (hasBeacon)
                 EnsureOverrideOn();
             else
                 MaybeUnsetOverride();
         }
-
 
         private void Bootstrap()
         {
@@ -74,13 +91,13 @@ namespace ProjectSynth.Hologram
             if (!overrideSlot && skillLocator) overrideSlot = skillLocator.secondary;
 
             if (!indicatorPrefab)
-                indicatorPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressTrackingIndicator.prefab").WaitForCompletion();
+                indicatorPrefab = Addressables.LoadAssetAsync<GameObject>(
+                    "RoR2/Base/Huntress/HuntressTrackingIndicator.prefab"
+                ).WaitForCompletion();
         }
 
-        // -------- Beacon discovery (no SyncVars) --------
         private DivaMarker FindOwnedBeacon()
         {
-            // InstanceTracker returns a static list of active components of that type.
             var list = InstanceTracker.GetInstancesList<DivaMarker>();
             if (list == null || list.Count == 0) return null;
 
@@ -94,12 +111,11 @@ namespace ProjectSynth.Hologram
                 var owner = m.GetOwner();
                 if (!owner) continue;
 
-                // This is the crucial MP-safe ownership filter:
+                // MP-safe ownership filter:
                 if (owner != gameObject) continue;
 
-                // Optionally, prefer stuck/armed beacons:
-                // If your beacon has your custom stick component, prefer stuck ones:
-                var stick = m.GetComponent<ProjectileStickOnImpactByNormal>(); // or your new stick class
+                // Optional prefer stuck ones
+                var stick = m.GetComponent<ProjectileStickOnImpactByNormal>();
                 bool isStuck = stick && stick.stuck;
 
                 if (best == null)
@@ -112,16 +128,12 @@ namespace ProjectSynth.Hologram
                 bool bestStuck = bestStick && bestStick.stuck;
 
                 if (isStuck && !bestStuck)
-                {
                     best = m;
-                }
-                // else keep current
             }
 
             return best;
         }
 
-        // -------- Override (SP-style) --------
         private void EnsureOverrideOn()
         {
             if (!overrideSlot || !blinkSkillDef) return;
@@ -134,51 +146,10 @@ namespace ProjectSynth.Hologram
             overrideSlot.UnsetSkillOverride(this, blinkSkillDef, GenericSkill.SkillOverridePriority.Contextual);
         }
 
-        // -------- Public API for Blink SkillState --------
-        public bool TryGetBestTarget(out Transform t)
+        private void ClearClientUX()
         {
-            if (cachedBeacon)
-            {
-                t = cachedBeacon.GetTransform();
-                return true;
-            }
-
-            t = null;
-            return false;
-        }
-
-        public bool CanTeleportTo(Vector3 pos, out bool blocked, out float dist)
-        {
-            blocked = false;
-            dist = 999f;
-            if (!body) return false;
-
-            Vector3 from = body.corePosition;
-            dist = Vector3.Distance(from, pos);
-            if (dist > maxTeleportDistance) return false;
-
-            Vector3 dir = (pos - from);
-            float len = dir.magnitude;
-            if (len > 0.001f)
-            {
-                dir /= len;
-
-                // Near-end forgiveness like you wanted
-                if (Physics.Raycast(from, dir, out RaycastHit hit, dist, LayerIndex.world.mask, QueryTriggerInteraction.Ignore))
-                {
-                    bool allowed = hit.distance >= dist - 0.20f;
-                    if (!allowed) blocked = true;
-                    return allowed;
-                }
-            }
-
-            return true;
-        }
-
-        public void ConsumeCurrentTarget()
-        {
-            // client UX: clear immediately
             cachedBeacon = null;
+
             if (beaconIndicator != null)
             {
                 beaconIndicator.targetTransform = null;
@@ -186,17 +157,23 @@ namespace ProjectSynth.Hologram
                 beaconIndicator.UpdateVisualizer();
             }
 
-            if (!NetworkServer.active) return;
-
-            var beacon = FindOwnedBeacon();
-            if (beacon)
-                NetworkServer.Destroy(beacon.gameObject);
-
+            // local override cleanup
             if (overrideSlot && blinkSkillDef)
                 overrideSlot.UnsetSkillOverride(this, blinkSkillDef, GenericSkill.SkillOverridePriority.Contextual);
         }
 
-        // -------- Indicator --------
+        private void ConsumeOwnedBeaconServer()
+        {
+            if (!NetworkServer.active) return;
+
+            var beacon = FindOwnedBeacon();
+            if (beacon)
+            {
+                NetworkServer.Destroy(beacon.gameObject);
+            }
+        }
+
+        #region indicator
         private void UpdateIndicator(bool shouldShow)
         {
             if (beaconIndicator == null) return;
@@ -218,7 +195,6 @@ namespace ProjectSynth.Hologram
             Color c = GetTeleportColor(t.position);
             SetIndicatorColor(beaconIndicator, c);
         }
-
 
         private Color GetTeleportColor(Vector3 targetPos)
         {
@@ -247,5 +223,69 @@ namespace ProjectSynth.Hologram
                 if (mr && mr.material) mr.material.color = c;
             }
         }
+        #endregion
+
+        #region api
+        public void ConsumeCurrentTarget()
+        {
+            if (body && body.hasAuthority)
+            {
+                ClearClientUX();
+            }
+
+            if (NetworkServer.active)
+            {
+                ConsumeOwnedBeaconServer();
+                return;
+            }
+
+            if (NetworkClient.active && body && body.hasAuthority)
+            {
+                var ni = body.GetComponent<NetworkIdentity>();
+                if (!ni) return;
+
+                new ConsumeOwnedBeaconMessage { bodyNetId = ni.netId }.Send(NetworkDestination.Server);
+            }
+        }
+
+        public bool CanTeleportTo(Vector3 pos, out bool blocked, out float dist)
+        {
+            blocked = false;
+            dist = 999f;
+            if (!body) return false;
+
+            Vector3 from = body.corePosition;
+            dist = Vector3.Distance(from, pos);
+            if (dist > maxTeleportDistance) return false;
+
+            Vector3 dir = (pos - from);
+            float len = dir.magnitude;
+            if (len > 0.001f)
+            {
+                dir /= len;
+
+                if (Physics.Raycast(from, dir, out RaycastHit hit, dist, LayerIndex.world.mask, QueryTriggerInteraction.Ignore))
+                {
+                    bool allowed = hit.distance >= dist - 0.20f;
+                    if (!allowed) blocked = true;
+                    return allowed;
+                }
+            }
+
+            return true;
+        }
+
+        public bool TryGetBestTarget(out Transform t)
+        {
+            if (cachedBeacon)
+            {
+                t = cachedBeacon.GetTransform();
+                return true;
+            }
+
+            t = null;
+            return false;
+        }
+        #endregion
     }
 }

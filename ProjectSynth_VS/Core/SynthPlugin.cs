@@ -1,11 +1,13 @@
 ﻿using BepInEx;
 using HarmonyLib;
 using R2API;
+using R2API.Networking;
 using R2API.Utils;
 using RoR2;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
+using static ProjectSynth.Hologram.DivaTracker;
 
 [module: UnverifiableCode]
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -35,6 +37,9 @@ namespace ProjectSynth.Core
         {
             instance = this;
 
+            // INetMesages
+            RegisterMessages();
+
             var harmony = new Harmony(MODUID);
             harmony.PatchAll();
 
@@ -49,6 +54,11 @@ namespace ProjectSynth.Core
 
             // add hooks
             new Hooks.SynthHooks().Initialize();
+        }
+
+        private void RegisterMessages()
+        {
+            NetworkingAPI.RegisterMessageType<ConsumeOwnedBeaconMessage>();
         }
     }
 }

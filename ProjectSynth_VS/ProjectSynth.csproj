@@ -36,6 +36,7 @@
 		<PackageReference Include="R2API.Sound" Version="1.0.3" />
 		<PackageReference Include="R2API.Items" Version="1.0.7" />
 		<PackageReference Include="R2API.DamageType" Version="1.1.7" />
+		<PackageReference Include="R2API.Networking" Version="1.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>
