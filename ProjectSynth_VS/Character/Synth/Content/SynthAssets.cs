@@ -113,7 +113,6 @@ namespace ProjectSynth.Character.Synth.Content
         {
             mat_DivaSphere = Materials.Intersection.CreateHopooIntersectionMaterial(new Materials.Intersection.IntersectionInfo
             {
-                _TintColor = Color.grey,
                 _Cloud1Tex =
                 {
                     texture = Addressables.LoadAssetAsync<Texture2D>("RoR2/Base/Engi/texEngiShield.png").WaitForCompletion(),
@@ -136,7 +135,7 @@ namespace ProjectSynth.Character.Synth.Content
                 _CutoffScroll = new Vector4(1f, 3f, 8f, 8f),
                 _InvFade = 0.65f,
                 _SoftPower = 0.1f,
-                _Boost = 0.11f,
+                _Boost = 0.5f,
                 _AlphaBoost = 11f,
                 _IntersectionStrength = 1.4f,
             },
@@ -220,7 +219,7 @@ namespace ProjectSynth.Character.Synth.Content
             sphereClone.transform.SetParent(divaVisuals.transform.Find("Hologram"), false);
             sphereClone.transform.localPosition = Vector3.zero;
             sphereClone.transform.localRotation = Quaternion.identity;
-            sphereClone.transform.localScale = Vector3.one * 25f;
+            sphereClone.transform.localScale = Vector3.one * 28f;
             sphereClone.SetActive(true);
             sphereClone.GetComponent<ObjectScaleCurve>().timeMax = 0.4f;
             sphereClone.GetComponent<MeshRenderer>().material = mat_DivaSphere;
@@ -313,6 +312,9 @@ namespace ProjectSynth.Character.Synth.Content
             diva_stick.alignNormals = true;
 
             var diva_controller = proj_Diva.GetComponent<ProjectileController>();
+
+            var diva_target = proj_Diva.GetComponent<ProjectileSphereTargetFinder>();
+            diva_target.lookRange = 14f;
 
             var diva_lifetime = proj_Diva.AddComponent<DivaLifetime>();
             diva_lifetime.flyingLifetime = 5f;
