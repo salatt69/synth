@@ -38,6 +38,12 @@ namespace ProjectSynth.Character.Synth.Content
         public static Sprite tex_icon_ThirtyNineMusic;
         public static Sprite tex_icon_Diva;
         public static Sprite tex_icon_DivaTeleport;
+        public static Texture tex_DivaBlinkMask;
+        public static Texture tex_RampDivaField;
+        public static Texture tex_DivaCloudPixelMask;
+        public static Texture tex_RampDivaSphere;
+        public static Texture tex_RampDivaSphereMain;
+        public static Texture tex_RampDivaSphereVoid;
 
         // materials
         public static Material mat_DivaBlink;
@@ -69,6 +75,14 @@ namespace ProjectSynth.Character.Synth.Content
             tex_icon_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
             tex_icon_Diva = _ab.LoadAsset<Sprite>("texSecondaryIcon");
             tex_icon_DivaTeleport = _ab.LoadAsset<Sprite>("texBazookaIconScepter");
+
+            tex_DivaBlinkMask = _ab.LoadAsset<Texture>("texDivaBlinkMask");
+            tex_RampDivaField = _ab.LoadAsset<Texture>("texRampDivaField");
+            tex_DivaCloudPixelMask = _ab.LoadAsset<Texture>("texDivaCloudPixelMask");
+
+            tex_RampDivaSphere = _ab.LoadAsset<Texture>("texRampDivaSphere");
+            tex_RampDivaSphereMain = _ab.LoadAsset<Texture>("texRampDivaSphereMain");
+            tex_RampDivaSphereVoid = _ab.LoadAsset<Texture>("texRampDivaSphereVoid");
         }
 
         private static void CreateParticleSystemMaterials()
@@ -78,7 +92,7 @@ namespace ProjectSynth.Character.Synth.Content
                 _TintColor = Color.white,
                 _MainTex = new Materials.TiledTextureInfo
                 {
-                    texture = _ab.LoadAsset<Texture2D>("texDivaBlinkMask"),
+                    texture = tex_DivaBlinkMask,
                     tiling = Vector2.one,
                     offset = Vector2.zero
                 },
@@ -106,37 +120,36 @@ namespace ProjectSynth.Character.Synth.Content
 
         private static void RegisterMisc()
         {
-
         }
 
         private static void CreateIntersectionMaterials()
         {
             mat_DivaSphere = Materials.Intersection.CreateHopooIntersectionMaterial(new Materials.Intersection.IntersectionInfo
             {
+                _TintColor = new Color(1f, 1f, 1f, 0.29f),
                 _Cloud1Tex =
                 {
-                    texture = Addressables.LoadAssetAsync<Texture2D>("RoR2/Base/Engi/texEngiShield.png").WaitForCompletion(),
+                    texture = tex_RampDivaField,
                     tiling = Vector2.one,
                     offset = Vector2.zero
                 },
                 _Cloud2Tex =
                 {
-                    texture = Addressables.LoadAssetAsync<Texture2D>("RoR2/Base/Common/TiledTextures/texMagmaCloud.png").WaitForCompletion(),
-                    tiling = Vector2.one,
+                    texture = tex_DivaCloudPixelMask,
+                    tiling = new Vector2(8f, 8f),
                     offset = Vector2.zero
                 },
                 _RemapTex =
                 {
-                    //texture = _ab.LoadAsset<Texture2D>(""),
-                    texture = Addressables.LoadAssetAsync<Texture2D>("RoR2/DLC3/GroundEnemies/texRampGroundEnemies.png").WaitForCompletion(),
+                    texture = tex_RampDivaSphereVoid,
                     tiling = Vector2.one,
                     offset = Vector2.zero
                 },
-                _CutoffScroll = new Vector4(1f, 3f, 8f, 8f),
-                _InvFade = 0.65f,
+                _CutoffScroll = new Vector4(1f, 4f, 6f, 8f),
+                _InvFade = 0.2f,
                 _SoftPower = 0.1f,
                 _Boost = 0.5f,
-                _AlphaBoost = 11f,
+                _AlphaBoost = 9.12f,
                 _IntersectionStrength = 1.4f,
             },
             "matDivaSphere"
