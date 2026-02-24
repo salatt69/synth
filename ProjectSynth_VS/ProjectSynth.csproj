@@ -40,8 +40,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Character\Synth\Components\" />
 	  <Folder Include="Libs\" />
+	  <Folder Include="EntityStates\" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -13,7 +13,8 @@ namespace ProjectSynth.Metronome
         Cooldown
     }
 
-    public class MetronomeController : MonoBehaviour
+    // TODO: BIGGEST TODO OF ALL TODO's!!! Completly rewrite metronome behavior to use EntityState instead of MetronomeState
+    public class MetronomeController : MonoBehaviour 
     {
         public MetronomeState State = MetronomeState.Idle;
 

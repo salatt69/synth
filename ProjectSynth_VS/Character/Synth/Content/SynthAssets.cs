@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Utilities;
+using ProjectSynth.Character.Synth.Content.SkillDefs;
 using ProjectSynth.Character.Synth.States.Hologram;
 using ProjectSynth.Character.Synth.UI.Crosshair;
 using ProjectSynth.Core;
@@ -8,7 +9,10 @@ using R2API;
 using R2API.Utils;
 using RoR2;
 using RoR2.Projectile;
+using RoR2.Skills;
 using RoR2.UI;
+using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -24,32 +28,48 @@ namespace ProjectSynth.Character.Synth.Content
         public static GameObject swordSwingEffect;
         public static GameObject swordHitImpactEffect;
         public static GameObject bombExplosionEffect;
+        public static GameObject vfx_stunningPerformance; // TODO:
+        public static GameObject vfx_culturallyShocked; // TODO:
+        public static GameObject vfx_divaExplosion; // TODO:
 
         // projectiles
         public static GameObject proj_ThirtyNineMusic;
         public static GameObject proj_Diva;
 
-        // crosshair
+        // UI
         public static GameObject synthCrosshair;
         public static GameObject defaultSprintingCrosshair;
+        public static GameObject divaIndicator; // TODO:
+
+        // Pod
+        public static GameObject synthSurvivorPod; // TODO:
 
         // textures
-        public static Sprite tex_icon_SonicBoom;
-        public static Sprite tex_icon_ThirtyNineMusic;
-        public static Sprite tex_icon_Diva;
-        public static Sprite tex_icon_DivaTeleport;
-        public static Texture tex_DivaBlinkMask;
-        public static Texture tex_RampDivaField;
-        public static Texture tex_DivaCloudPixelMask;
-        public static Texture tex_RampDivaSphere;
+        public static Sprite tex_icon_SonicBoom; // TODO:
+        public static Sprite tex_icon_ThirtyNineMusic; // TODO:
+        public static Sprite tex_icon_Diva; // TODO:
+        public static Sprite tex_icon_DivaTeleport; // TODO:
+        public static Sprite tex_icon_EncoreBuff; // TODO:
+
+        public static Texture tex_synthPortrait; // TODO:
+
         public static Texture tex_RampDivaSphereMain;
         public static Texture tex_RampDivaSphereVoid;
+        public static Texture tex_RampDivaSphereAlt;
+
+        public static Texture tex_RampStunningPerformanceMain;
 
         // materials
         public static Material mat_DivaBlink;
         public static Material mat_DivaSphere;
+        public static Material mat_DivaTrailLine;
+        public static Material mat_DivaTrailParticles;
 
-        
+        public static Material mat_cultureShockOverlayMain; // TODO:
+
+        public static Material mat_DivaStunningPerformaceSphere;
+
+
         public static void Init(AssetBundle assetBundle)
         {
             _ab = assetBundle;
@@ -59,8 +79,7 @@ namespace ProjectSynth.Character.Synth.Content
             RegisterTextures();
             RegisterMisc();
 
-            CreateParticleSystemMaterials();
-            CreateIntersectionMaterials();
+            CreateMaterials();
 
             CreateEffects();
             CreateProjectiles();
@@ -71,89 +90,35 @@ namespace ProjectSynth.Character.Synth.Content
         
         private static void RegisterTextures()
         {
+            tex_synthPortrait = _ab.LoadAsset<Texture>("texHenryIcon");
             tex_icon_SonicBoom = _ab.LoadAsset<Sprite>("texBazookaFireIcon");
             tex_icon_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
             tex_icon_Diva = _ab.LoadAsset<Sprite>("texSecondaryIcon");
             tex_icon_DivaTeleport = _ab.LoadAsset<Sprite>("texBazookaIconScepter");
+            tex_icon_EncoreBuff = Addressables.LoadAssetAsync<Sprite>("RoR2/DLC3/Items/SharedSuffering/texSharedSufferingDebuffIcon.png").WaitForCompletion();
 
-            tex_DivaBlinkMask = _ab.LoadAsset<Texture>("texDivaBlinkMask");
-            tex_RampDivaField = _ab.LoadAsset<Texture>("texRampDivaField");
-            tex_DivaCloudPixelMask = _ab.LoadAsset<Texture>("texDivaCloudPixelMask");
-
-            tex_RampDivaSphere = _ab.LoadAsset<Texture>("texRampDivaSphere");
             tex_RampDivaSphereMain = _ab.LoadAsset<Texture>("texRampDivaSphereMain");
             tex_RampDivaSphereVoid = _ab.LoadAsset<Texture>("texRampDivaSphereVoid");
+            tex_RampDivaSphereAlt = _ab.LoadAsset<Texture>("texRampDivaSphereAlt");
+
+            tex_RampStunningPerformanceMain = _ab.LoadAsset<Texture>("texRampStunningPerformance");
         }
 
-        private static void CreateParticleSystemMaterials()
+        private static void CreateMaterials()
         {
-            mat_DivaBlink = Materials.CloudRemap.CreateHopooCloudRemapMaterial(new Materials.CloudRemap.CloudRemapInfo
-            {
-                _TintColor = Color.white,
-                _MainTex = new Materials.TiledTextureInfo
-                {
-                    texture = tex_DivaBlinkMask,
-                    tiling = Vector2.one,
-                    offset = Vector2.zero
-                },
-                _RemapTex = new Materials.TiledTextureInfo
-                {
-                    texture = Addressables.LoadAssetAsync<Texture2D>("RoR2/Base/Common/ColorRamps/texRampHuntressSoft.png").WaitForCompletion(),
-                    tiling = Vector2.one,
-                    offset = Vector2.zero
-                },
-                _InvFade = 2f,
-                _Boost = 1f,
-                _AlphaBoost = 0.78f,
-                _CloudsOn = 1f,
-                _Cloud1Tex = new Materials.TiledTextureInfo
-                {
-                    texture = Addressables.LoadAssetAsync<Texture2D>("RoR2/Base/Common/TiledTextures/texCloudDifferenceBW2.png").WaitForCompletion(),
-                    tiling = Vector2.one,
-                    offset = Vector2.zero
-                },
-                _CutoffScroll = new Vector4(15f, 15f, 13f, 13f),
-            },
-            "matDivaBlink"
-            );
-        }
+            mat_DivaBlink = _ab.LoadAsset<Material>("matDivaBlink").ConvertStubbedShaderToHopoo_CloudRemap();
+            mat_DivaSphere = _ab.LoadAsset<Material>("matDivaSphere").ConvertStubbedShaderToHopoo_Intersection();
+            mat_DivaTrailLine = _ab.LoadAsset<Material>("matDivaTrailLine").ConvertStubbedShaderToHopoo_CloudRemap();
+            mat_DivaTrailParticles = _ab.LoadAsset<Material>("matDivaTrailParicles").ConvertStubbedShaderToHopoo_CloudRemap();
+            mat_DivaStunningPerformaceSphere = _ab.LoadAsset<Material>("matDivaStunningPerformanceSphere").ConvertStubbedShaderToHopoo_Intersection();
+
+            mat_cultureShockOverlayMain = Addressables.LoadAssetAsync<Material>("RoR2/Base/Common/matIsShocked.mat").WaitForCompletion();
+        }  
 
         private static void RegisterMisc()
         {
-        }
-
-        private static void CreateIntersectionMaterials()
-        {
-            mat_DivaSphere = Materials.Intersection.CreateHopooIntersectionMaterial(new Materials.Intersection.IntersectionInfo
-            {
-                _TintColor = new Color(1f, 1f, 1f, 0.29f),
-                _Cloud1Tex =
-                {
-                    texture = tex_RampDivaField,
-                    tiling = Vector2.one,
-                    offset = Vector2.zero
-                },
-                _Cloud2Tex =
-                {
-                    texture = tex_DivaCloudPixelMask,
-                    tiling = new Vector2(8f, 8f),
-                    offset = Vector2.zero
-                },
-                _RemapTex =
-                {
-                    texture = tex_RampDivaSphereVoid,
-                    tiling = Vector2.one,
-                    offset = Vector2.zero
-                },
-                _CutoffScroll = new Vector4(1f, 4f, 6f, 8f),
-                _InvFade = 0.2f,
-                _SoftPower = 0.1f,
-                _Boost = 0.5f,
-                _AlphaBoost = 9.12f,
-                _IntersectionStrength = 1.4f,
-            },
-            "matDivaSphere"
-            );
+            synthSurvivorPod = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorPod.prefab").WaitForCompletion();
+            divaIndicator = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressTrackingIndicator.prefab").WaitForCompletion();
         }
 
         private static void CreateEffects()
@@ -178,11 +143,18 @@ namespace ProjectSynth.Character.Synth.Content
 
             swordSwingEffect = _ab.LoadEffect("HenrySwordSwingEffect", true);
             swordHitImpactEffect = _ab.LoadEffect("ImpactHenrySlash");
+
+            vfx_stunningPerformance = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Captain/CaptainTazerSupplyDropNova.prefab").WaitForCompletion();
+            vfx_stunningPerformance.transform.Find("Nova Sphere").GetComponent<ParticleSystemRenderer>().material = mat_DivaStunningPerformaceSphere;
+
+            vfx_divaExplosion = Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/Mage/MageLightningBombExplosion.prefab").WaitForCompletion();
+
+            vfx_culturallyShocked = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/VFX/ShockedEffect.prefab").WaitForCompletion();
         }
 
         private static void CreateProjectiles()
         {
-            // tnm
+            // ThirtyNineMusic
             proj_ThirtyNineMusic = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Treebot/SyringeProjectile.prefab")
                 .WaitForCompletion()?
                 .InstantiateClone("ThirtyNineMusic", true);
@@ -204,92 +176,16 @@ namespace ProjectSynth.Character.Synth.Content
 
             ContentAddition.AddProjectile(proj_ThirtyNineMusic);
 
-            // vd
+            // Virtual Deviation (codename: Diva)
             proj_Diva = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMine.prefab")
                 .WaitForCompletion()?
                 .InstantiateClone("DivaProjectile", true);
-
-            // clone WeakIndicator before obliterating it, since we need it for the blink effect
-            var wiClone = UnityEngine.Object.Instantiate(proj_Diva.transform.Find("WeakIndicator").gameObject);
-            var sphereClone = UnityEngine.Object.Instantiate(proj_Diva.transform.Find("StrongIndicator/Sphere").gameObject);
 
             Asset.DestroyChild(proj_Diva, "Ring");
             Asset.DestroyChild(proj_Diva, "PrepEffect");
             Asset.DestroyChild(proj_Diva, "WeakIndicator");
             Asset.DestroyChild(proj_Diva, "StrongIndicator");
 
-            var divaVisuals = _ab.LoadAsset<GameObject>("DivaVisuals")!.InstantiateClone("DivaVisuals", false);
-            divaVisuals.transform.SetParent(proj_Diva.transform, false);
-
-            // parent the cloned WeakIndicator as Blink
-            wiClone.transform.SetParent(divaVisuals.transform, false);
-            wiClone.name = "Blink";
-            wiClone.transform.localPosition = Vector3.zero;
-            wiClone.transform.localRotation = Quaternion.identity;
-            wiClone.transform.localScale = Vector3.one;
-            wiClone.SetActive(true);
-
-            sphereClone.transform.SetParent(divaVisuals.transform.Find("Hologram"), false);
-            sphereClone.transform.localPosition = Vector3.zero;
-            sphereClone.transform.localRotation = Quaternion.identity;
-            sphereClone.transform.localScale = Vector3.one * 28f;
-            sphereClone.SetActive(true);
-            sphereClone.GetComponent<ObjectScaleCurve>().timeMax = 0.4f;
-            sphereClone.GetComponent<MeshRenderer>().material = mat_DivaSphere;
-
-            var diva_psr = wiClone.GetComponent<ParticleSystemRenderer>();
-            diva_psr.material = mat_DivaBlink;
-
-            var diva_ps = wiClone.GetComponent<ParticleSystem>();
-            var diva_psMain = diva_ps.main;
-            var diva_psEmission = diva_ps.emission;
-            var diva_sot = diva_ps.sizeOverLifetime;
-
-            // main
-            diva_psMain.duration = 1f;
-            diva_psMain.loop = false;
-            diva_psMain.prewarm = false;
-            diva_psMain.startLifetime = 0.4f;
-            diva_psMain.startSize = 2f;
-            diva_psMain.startColor = new Color(0.52f, 0.79f, 0.88f);
-            diva_psMain.maxParticles = 16;
-
-            // burst
-            diva_psEmission.rateOverTime = 0f;
-            diva_psEmission.SetBursts(
-            [
-                new ParticleSystem.Burst
-                {
-                    time = 0f,
-                    count = 1,
-                    probability = 1f
-                }
-            ]);
-
-            // create a custom curve for the size over lifetime to make it look more interesting
-            var k0 = new Keyframe(0f, 0f);
-            var k1 = new Keyframe(0.2f, 0.5f);
-            var k2 = new Keyframe(1f, 1f);
-
-            k0.outTangent = 5f;
-            k1.inTangent = 2f;
-            k1.outTangent = 0.3f;
-            k2.inTangent = 0f;
-
-            k0.m_WeightedMode = (int)WeightedMode.Both;
-            k1.m_WeightedMode = (int)WeightedMode.Both;
-            k2.m_WeightedMode = (int)WeightedMode.Both;
-
-            var curve = new AnimationCurve(k0, k1, k2);
-
-            diva_sot.size = new ParticleSystem.MinMaxCurve(1f, curve);
-
-            diva_ps.Clear();
-
-            var diva_pulse = proj_Diva.AddComponent<DivaPulse>();
-            diva_pulse.particleSystem = diva_ps;
-
-            // --- rest of your pipeline unchanged ---
             foreach (var comp in proj_Diva.GetComponents<MonoBehaviour>())
             {
                 if (comp is Deployable
@@ -302,6 +198,15 @@ namespace ProjectSynth.Character.Synth.Content
                 }
             }
 
+            var divaVisuals = _ab.LoadAsset<GameObject>("DivaVisuals")!.InstantiateClone("DivaVisuals", false);
+            Transform diva_sphere = divaVisuals.transform.Find("Hologram/Sphere");
+            Transform diva_blink = divaVisuals.transform.Find("Blink");
+
+            divaVisuals.transform.SetParent(proj_Diva.transform, false);
+
+            var diva_pulse = proj_Diva.AddComponent<ParticlePulseMusicSync>();
+            diva_pulse.particleSystem = diva_blink.GetComponent<ParticleSystem>();
+
             var diva_esm1 = proj_Diva.AddComponent<EntityStateMachine>();
             diva_esm1.initialStateType = new EntityStates.SerializableEntityStateType(typeof(DivaArmingUnarmed));
             diva_esm1.mainStateType = new EntityStates.SerializableEntityStateType(typeof(DivaArmingUnarmed));
@@ -309,13 +214,13 @@ namespace ProjectSynth.Character.Synth.Content
 
             var diva_esm2 = proj_Diva.AddComponent<EntityStateMachine>();
             diva_esm2.initialStateType = new EntityStates.SerializableEntityStateType(typeof(WaitForStick));
-            diva_esm2.mainStateType = new EntityStates.SerializableEntityStateType(typeof(Lure));
+            diva_esm2.mainStateType = new EntityStates.SerializableEntityStateType(typeof(StunningPerformance));
             diva_esm2.customName = "Main";
 
             var diva_networkEsm = proj_Diva.GetComponent<NetworkStateMachine>();
             diva_networkEsm.stateMachines = [diva_esm1, diva_esm2];
 
-            proj_Diva.AddComponent<DivaMarker>();
+            proj_Diva.AddComponent<ProjectileMarker>();
             proj_Diva.AddComponent<DivaAnimator>();
 
             var diva_stick = proj_Diva.AddComponent<ProjectileStickOnImpactByNormal>();
@@ -328,6 +233,7 @@ namespace ProjectSynth.Character.Synth.Content
 
             var diva_target = proj_Diva.GetComponent<ProjectileSphereTargetFinder>();
             diva_target.lookRange = 14f;
+            diva_sphere.localScale *= diva_target.lookRange * 2f;
 
             var diva_lifetime = proj_Diva.AddComponent<DivaLifetime>();
             diva_lifetime.flyingLifetime = 5f;

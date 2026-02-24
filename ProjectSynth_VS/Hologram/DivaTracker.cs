@@ -1,4 +1,5 @@
-﻿using R2API.Networking;
+﻿using ProjectSynth.Character.Synth.Content;
+using R2API.Networking;
 using R2API.Networking.Interfaces;
 using RoR2;
 using RoR2.Networking;
@@ -41,7 +42,7 @@ namespace ProjectSynth.Hologram
         private CharacterBody body;
         private SkillLocator skillLocator;
 
-        private DivaMarker cachedBeacon;
+        private ProjectileMarker cachedBeacon;
         private Indicator beaconIndicator;
 
         private void Awake()
@@ -91,17 +92,15 @@ namespace ProjectSynth.Hologram
             if (!overrideSlot && skillLocator) overrideSlot = skillLocator.secondary;
 
             if (!indicatorPrefab)
-                indicatorPrefab = Addressables.LoadAssetAsync<GameObject>(
-                    "RoR2/Base/Huntress/HuntressTrackingIndicator.prefab"
-                ).WaitForCompletion();
+                indicatorPrefab = SynthAssets.divaIndicator;
         }
 
-        private DivaMarker FindOwnedBeacon()
+        private ProjectileMarker FindOwnedBeacon()
         {
-            var list = InstanceTracker.GetInstancesList<DivaMarker>();
+            var list = InstanceTracker.GetInstancesList<ProjectileMarker>();
             if (list == null || list.Count == 0) return null;
 
-            DivaMarker best = null;
+            ProjectileMarker best = null;
 
             for (int i = 0; i < list.Count; i++)
             {

@@ -338,7 +338,7 @@ namespace ProjectSynth.Modules
                 {
                     Log.Error($"no material for rendererinfo of this renderer: {characterModel.baseRendererInfos[i].renderer}");
                 }
-                characterModel.baseRendererInfos[i].defaultMaterial.ConvertDefaultShaderToHopoo();
+                characterModel.baseRendererInfos[i].defaultMaterial.ConvertStubbedShaderToHopoo_Standart();
             }
         }
 
@@ -376,7 +376,7 @@ namespace ProjectSynth.Modules
                             }
                             else
                             {
-                                mat = rend.sharedMaterial.ConvertDefaultShaderToHopoo();
+                                mat = rend.sharedMaterial.ConvertStubbedShaderToHopoo_Standart();
                             }
                         }
 

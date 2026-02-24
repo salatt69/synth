@@ -54,7 +54,7 @@ namespace ProjectSynth.Character.Synth.States.Utility
 
             if (NetworkServer.active)
             {
-                characterBody.AddTimedBuff(SynthBuffs.ArmorBuff, 3f * duration);
+                //characterBody.AddTimedBuff(SynthBuffs.ArmorBuff, 3f * duration);
                 characterBody.AddTimedBuff(RoR2Content.Buffs.HiddenInvincibility, hiddenInvincibilityDuration * duration);
             }
         }

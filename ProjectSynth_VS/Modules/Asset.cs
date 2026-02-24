@@ -73,7 +73,7 @@ namespace ProjectSynth.Modules
                 {
                     if (i.sharedMaterial)
                     {
-                        i.sharedMaterial.ConvertDefaultShaderToHopoo();
+                        i.sharedMaterial.ConvertStubbedShaderToHopoo_Standart();
                     }
                 }
             }
@@ -84,7 +84,7 @@ namespace ProjectSynth.Modules
                 {
                     if (i.sharedMaterial)
                     {
-                        i.sharedMaterial.ConvertDefaultShaderToHopoo();
+                        i.sharedMaterial.ConvertStubbedShaderToHopoo_Standart();
                     }
                 }
             }

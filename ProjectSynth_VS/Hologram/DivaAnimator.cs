@@ -38,7 +38,7 @@ namespace ProjectSynth.Hologram
         private bool IsArmed()
         {
             EntityStateMachine entityStateMachine = armingStateMachine;
-            return (((entityStateMachine?.state) is BaseDivaArmingState baseDivaArmingState) ? baseDivaArmingState.triggerRadius : 0f) > 1f;
+            return (((entityStateMachine?.state) is BaseDivaArmingState baseDivaArmingState) ? baseDivaArmingState.ShockFieldRadius : 0f) > 1f;
         }
 
         private void Update()

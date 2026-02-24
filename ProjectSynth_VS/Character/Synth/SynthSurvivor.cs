@@ -39,12 +39,12 @@ namespace ProjectSynth.Character.Synth
             bodyNameToken = SYNTH_PREFIX + "NAME",
             subtitleNameToken = SYNTH_PREFIX + "SUBTITLE",
 
-            characterPortrait = assetBundle.LoadAsset<Texture>("texHenryIcon"),
-            bodyColor = new Color(67.0f, 243.0f, 255.0f),
+            characterPortrait = SynthAssets.tex_synthPortrait,
+            bodyColor = new Color(0.26f, 0.95f, 1f),
             sortPosition = 100,
 
-            crosshair = assetBundle.LoadAsset<GameObject>("SynthCrosshair"),
-            podPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorPod.prefab").WaitForCompletion(),
+            crosshair = SynthAssets.synthCrosshair,
+            podPrefab = SynthAssets.synthSurvivorPod,
 
             maxHealth = 110f,
             healthRegen = 1.5f,
@@ -53,12 +53,12 @@ namespace ProjectSynth.Character.Synth
             jumpCount = 1,
         };
 
-        public override CustomRendererInfo[] customRendererInfos => new CustomRendererInfo[]
-        {
+        public override CustomRendererInfo[] customRendererInfos =>
+        [
             new CustomRendererInfo
             {
                 childName = "SwordModel",
-                material = assetBundle.LoadMaterial("matHenry"),
+                material = assetBundle.LoadAsset<Material>("matHenry").ConvertStubbedShaderToHopoo_Standart(),
             },
             new CustomRendererInfo
             {
@@ -68,7 +68,7 @@ namespace ProjectSynth.Character.Synth
             {
                 childName = "Model",
             }
-        };
+        ];
 
         public override UnlockableDef characterUnlockableDef => SynthUnlockables.characterUnlockableDef;
 
@@ -90,6 +90,8 @@ namespace ProjectSynth.Character.Synth
 
             //if (!characterEnabled.Value)
             //    return;
+            assetBundle = Asset.LoadAssetBundle(assetBundleName);
+            SynthAssets.Init(assetBundle);
 
             base.Initialize();
         }
@@ -109,8 +111,7 @@ namespace ProjectSynth.Character.Synth
             // it only has items for passive skills
             Passive.Initialize();
             
-            SynthAssets.Init(assetBundle);
-            SynthBuffs.Init(assetBundle);
+            SynthBuffs.Init();
             SynthDamageTypes.Register();
 
             InitializeEntityStateMachines();
@@ -167,6 +168,8 @@ namespace ProjectSynth.Character.Synth
         //also skip if this is your first look at skills
         private void AddPassiveSkill()
         {
+            // TODO: make it into Skills module
+
             //option 2. a new SkillFamily for a passive, used if you want multiple selectable passives
             GenericSkill passiveGenericSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "PassiveSkill");
 
@@ -230,7 +233,6 @@ namespace ProjectSynth.Character.Synth
 
             SkillDef diva = SynthSkillDefs.Secondary_Diva();
             SkillDef sonicBoom = SynthSkillDefs.Secondary_SonicBoom();
-
             Skills.AddSecondarySkills(bodyPrefab, diva, sonicBoom);
         }
 
@@ -304,7 +306,6 @@ namespace ProjectSynth.Character.Synth
             var fam = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "Override", true);
 
             SkillDef divaTeleport = SynthSkillDefs.Override_DivaTeleport();
-
             Skills.AddSkillsToFamily(fam.skillFamily, divaTeleport);
         }
 

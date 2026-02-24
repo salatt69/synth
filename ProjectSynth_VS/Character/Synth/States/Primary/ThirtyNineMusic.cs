@@ -107,7 +107,7 @@ namespace ProjectSynth.Character.Synth.States.Primary
         {
             fireDouble = true;
             
-            dmg.damageType.AddModdedDamageType(SynthDamageTypes.EncoreDamage);
+            dmg.damageType.AddModdedDamageType(SynthDamageTypes.Encore);
 
             //damageCoefficient = SynthStaticValues.boosted_thirtyNineMusicDamageCoefficient;
         }

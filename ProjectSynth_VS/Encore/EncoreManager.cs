@@ -52,7 +52,7 @@ public static class EncoreManager
 
                 if (s.remaining <= 0)
                 {
-                    s.victim.ClearTimedBuffs(SynthBuffs.EncoreDebuff);
+                    s.victim.ClearTimedBuffs(SynthBuffs.EncoreBuff);
                     active.RemoveAt(i);
                 }
             } 

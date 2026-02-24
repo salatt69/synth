@@ -18,7 +18,7 @@ namespace ProjectSynth.Character.Synth.States.Override
         private bool consumed;
 
         private DivaTracker tracker;
-        private Transform target;
+        private Transform beacon;
 
         private bool blocked;
         private float dist;
@@ -34,13 +34,13 @@ namespace ProjectSynth.Character.Synth.States.Override
                 return;
             }
 
-            if (!tracker.TryGetBestTarget(out target) || !target)
+            if (!tracker.TryGetBestTarget(out beacon) || !beacon)
             {
                 outer.SetNextStateToMain();
                 return;
             }
 
-            Vector3 to = target.position;
+            Vector3 to = beacon.position;
             bool ok = tracker.CanTeleportTo(to, out blocked, out dist);
 
             if (isAuthority && !ok)
@@ -71,13 +71,13 @@ namespace ProjectSynth.Character.Synth.States.Override
             }
 
             // stop if target dies mid-dash
-            if (!target)
+            if (!beacon)
             {
                 outer.SetNextStateToMain();
                 return;
             }
 
-            destPos = target.position + Vector3.up * yOffset;
+            destPos = beacon.position + Vector3.up * yOffset;
 
             float t = Mathf.Clamp01(age / Mathf.Max(0.001f, dashDuration));
             float eased = t * t * (3f - 2f * t);

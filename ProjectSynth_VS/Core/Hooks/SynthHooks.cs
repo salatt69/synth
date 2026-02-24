@@ -1,6 +1,7 @@
 ﻿using ProjectSynth.Character.Synth.Content;
 using ProjectSynth.Character.Synth.Content.Items;
 using ProjectSynth.Core.Patches;
+using ProjectSynth.Hologram;
 using R2API;
 using RoR2;
 using SyncLib.API;
@@ -47,28 +48,30 @@ namespace ProjectSynth.Core.Hooks
             if (sender.inventory?.GetItemCountEffective(Passive.Another) >= 1)
             {
             }
-            if (sender.HasBuff(SynthBuffs.ArmorBuff))
-            {
-                args.armorAdd += 300;
-            }
-            if (sender.HasBuff(SynthBuffs.EncoreDebuff))
-            {
-                args.moveSpeedMultAdd -= 0.5f;
-                args.attackSpeedMultAdd -= 0.5f;
-            }
+            //if (sender.HasBuff(SynthBuffs.ArmorBuff))
+            //{
+            //    args.armorAdd += 300;
+            //}
         }
 
         private void OnServerDamageDealt(DamageReport report)
         {
-            if (report.damageInfo.HasModdedDamageType(SynthDamageTypes.EncoreDamage))
+            if (report.damageInfo.HasModdedDamageType(SynthDamageTypes.Encore))
             {
                 CharacterBody victim = report.victimBody;
                 CharacterBody attacker = report.attackerBody;
 
-                if (!victim || !attacker) return;
-
-                victim.AddBuff(SynthBuffs.EncoreDebuff);
+                victim.AddBuff(SynthBuffs.EncoreBuff);
                 EncoreManager.Start(victim, attacker, 0f);
+            }
+            if (report.damageInfo.HasModdedDamageType(SynthDamageTypes.CultureShock))
+            {
+                CharacterBody victim = report.victimBody;
+
+                victim?.GetComponent<SetStateOnHurt>().SetCustomState(
+                    EntityStateCatalog.GetStateIndex(typeof(CultureShockState)),
+                    EntityStates.InterruptPriority.Stun
+                    );
             }
         }
     }

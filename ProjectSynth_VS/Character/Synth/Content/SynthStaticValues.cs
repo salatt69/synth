@@ -13,5 +13,10 @@
         public const float boosted_thirtyNineMusicDamageCoefficient = 20.2f;
 
         public const float CRIT_CHANCE_PER_ATTACK_SPEED = 0.005f; // 0.5%
+
+        // Diva numbers
+        public const float divaExplosionCoeficient = 6.0f;
+        public const float boosted_divaExplosionCoeficient = 12.0f;
+
     }
 }

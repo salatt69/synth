@@ -4,6 +4,7 @@ using R2API;
 using R2API.Networking;
 using R2API.Utils;
 using RoR2;
+using SyncLib.API;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
@@ -42,6 +43,8 @@ namespace ProjectSynth.Core
 
             var harmony = new Harmony(MODUID);
             harmony.PatchAll();
+
+            MusicSync.Initialize(true);
 
             // easy to use logger
             Log.Init(Logger);

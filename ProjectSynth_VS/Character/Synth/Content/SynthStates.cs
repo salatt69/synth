@@ -5,6 +5,7 @@ using ProjectSynth.Character.Synth.States.Primary;
 using ProjectSynth.Character.Synth.States.Secondary;
 using ProjectSynth.Character.Synth.States.Special;
 using ProjectSynth.Character.Synth.States.Utility;
+using ProjectSynth.Hologram;
 using R2API;
 
 namespace ProjectSynth.Character.Synth.Content
@@ -23,17 +24,20 @@ namespace ProjectSynth.Character.Synth.Content
             ContentAddition.AddEntityState(typeof(ThrowBomb), out _);
             ContentAddition.AddEntityState(typeof(ThirtyNineMusic), out _);
             ContentAddition.AddEntityState(typeof(SonicBoom), out _);
-            ContentAddition.AddEntityState(typeof(Diva), out _);
+            ContentAddition.AddEntityState(typeof(DeployDiva), out _);
             ContentAddition.AddEntityState(typeof(DivaTeleport), out _);
 
             // DivaBase
             ContentAddition.AddEntityState(typeof(Arm), out _);
-            ContentAddition.AddEntityState(typeof(Lure), out _);
+            ContentAddition.AddEntityState(typeof(StunningPerformance), out _);
             ContentAddition.AddEntityState(typeof(WaitForStick), out _);
 
             // DivaArming
             ContentAddition.AddEntityState(typeof(DivaArmingUnarmed), out _);
             ContentAddition.AddEntityState(typeof(DivaArmingArmed), out _);
+
+            // DivaStunning
+            ContentAddition.AddEntityState(typeof(CultureShockState), out _);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth.States.Primary;
 using ProjectSynth.Modules;
+using R2API;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 hideStockCount = false,
                 hideCooldown = false
             });
-
+            ContentAddition.AddSkillDef(tnm);
             return tnm;
         }
 
@@ -107,10 +108,8 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 hideStockCount = false,
                 hideCooldown = false
             });
-
+            ContentAddition.AddSkillDef(sonicBoom);
             return sonicBoom;
-
-            // make note of SkillDef.InstantiateNextState()
         }
 
         public static SkillDef Secondary_Diva()
@@ -124,7 +123,7 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 icon = SynthAssets.tex_icon_Diva,
 
                 activationStateMachineName = "Weapon2",
-                activationState = new SerializableEntityStateType(typeof(States.Secondary.Diva)),
+                activationState = new SerializableEntityStateType(typeof(States.Secondary.DeployDiva)),
                 interruptPriority = InterruptPriority.Skill,
 
                 baseRechargeInterval = 12f,
@@ -157,11 +156,8 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 hideStockCount = false,
                 hideCooldown = false
             });
-
+            ContentAddition.AddSkillDef(diva);
             return diva;
-
-            // TODO: will have two states: first one to throw the nade, second to teleport to it
-            // all in one skill. Should search ReplaceSkillDef or something like that
         } 
 
         public static SkillDef Override_DivaTeleport()
@@ -174,7 +170,7 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 // keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
                 icon = SynthAssets.tex_icon_DivaTeleport,
 
-                activationStateMachineName = "Body",
+                activationStateMachineName = "Weapon2",
                 activationState = new SerializableEntityStateType(typeof(States.Override.DivaTeleport)),
                 interruptPriority = InterruptPriority.Death,
 
@@ -208,8 +204,56 @@ namespace ProjectSynth.Character.Synth.Content.SkillDefs
                 hideStockCount = false,
                 hideCooldown = false
             });
-
+            ContentAddition.AddSkillDef(divaTeleport);
             return divaTeleport;
+        }
+
+        public static SkillDef Diva_Primary()
+        {
+            SkillDef diva = Skills.CreateSkillDef2(new SkillDefInfo2
+            {
+                skillName = "diva",
+                skillNameToken = Prefix + "DIVA_VIRTUAL_DEVIATION_TP_NAME",
+                skillDescriptionToken = Prefix + "DIVA_VIRTUAL_DEVIATION_TP_DESCRIPTION",
+                // keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
+                icon = SynthAssets.tex_icon_DivaTeleport,
+
+                activationStateMachineName = "Weapon",
+                activationState = new SerializableEntityStateType(typeof(States.Override.DivaTeleport)),
+                interruptPriority = InterruptPriority.Death,
+
+                baseRechargeInterval = 1f,
+                baseMaxStock = 1,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+                attackSpeedBuffsRestockSpeed = false,
+                attackSpeedBuffsRestockSpeed_Multiplier = 1,
+
+                fullRestockOnAssign = false,
+                dontAllowPastMaxStocks = false,
+
+                resetCooldownTimerOnUse = false,
+                beginSkillCooldownOnSkillEnd = false,
+                isCooldownBlockedUntilManuallyReset = false,
+
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+                canceledFromSprinting = false,
+                isCombatSkill = true,
+
+                mustKeyPress = true,
+                triggeredByPressRelease = false,
+
+                autoHandleLuminousShot = true,
+                suppressSkillActivation = false,
+
+                hideStockCount = false,
+                hideCooldown = false
+            });
+            ContentAddition.AddSkillDef(diva);
+            return diva;
         }
     }
 }
