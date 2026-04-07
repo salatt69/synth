@@ -38,12 +38,14 @@ namespace ProjectSynth.Components
         public SkillDef blinkSkillDef;
         public GenericSkill overrideSlot;
         public GameObject indicatorPrefab;
+        public GameObject indicatorLookingPrefab;
 
         private CharacterBody body;
         private SkillLocator skillLocator;
 
         private ProjectileMarker cachedBeacon;
         private Indicator beaconIndicator;
+        private Indicator beaconIndicatorLooking;
 
         private void Awake()
         {
@@ -53,16 +55,18 @@ namespace ProjectSynth.Components
             Bootstrap();
 
             beaconIndicator = new Indicator(gameObject, indicatorPrefab);
+            beaconIndicatorLooking = new Indicator(gameObject, indicatorLookingPrefab);
         }
 
         private void OnDestroy()
         {
             beaconIndicator?.DestroyVisualizer();
+            beaconIndicatorLooking?.DestroyVisualizer();
         }
 
         private void Update()
         {
-            if (losMask.value == 0 || !blinkSkillDef || !indicatorPrefab || !overrideSlot)
+            if (losMask.value == 0 || !blinkSkillDef || !indicatorPrefab || !indicatorLookingPrefab || !overrideSlot)
             {
                 Bootstrap();
             }
@@ -93,6 +97,9 @@ namespace ProjectSynth.Components
 
             if (!indicatorPrefab)
                 indicatorPrefab = SynthAssets.divaIndicator;
+
+            if (!indicatorLookingPrefab)
+                indicatorLookingPrefab = SynthAssets.divaIndicatorLooking;
         }
 
         private ProjectileMarker FindOwnedBeacon()
@@ -175,25 +182,24 @@ namespace ProjectSynth.Components
         #region indicator
         private void UpdateIndicator(bool shouldShow)
         {
-            if (beaconIndicator == null) return;
+            if (beaconIndicator == null || beaconIndicatorLooking == null) return;
 
             if (!shouldShow || !cachedBeacon)
             {
                 beaconIndicator.targetTransform = null;
                 beaconIndicator.active = false;
                 beaconIndicator.UpdateVisualizer();
-                return;
-            }
 
-            if (!IsLookingAt(cachedBeacon.transform.position))
-            {
-                beaconIndicator.targetTransform = null;
-                beaconIndicator.active = false;
-                beaconIndicator.UpdateVisualizer();
+                beaconIndicatorLooking.targetTransform = null;
+                beaconIndicatorLooking.active = false;
+                beaconIndicatorLooking.UpdateVisualizer();
                 return;
             }
 
             var t = cachedBeacon.transform;
+            bool lookingAt = IsLookingAt(t.position);
+            float dist = Vector3.Distance(body.corePosition, t.position);
+            bool inRange = dist <= maxTeleportDistance;
 
             beaconIndicator.targetTransform = t;
             beaconIndicator.active = true;
@@ -201,6 +207,20 @@ namespace ProjectSynth.Components
 
             Color c = GetTeleportColor(t.position);
             SetIndicatorColor(beaconIndicator, c);
+
+            if (inRange && lookingAt)
+            {
+                beaconIndicatorLooking.targetTransform = t;
+                beaconIndicatorLooking.active = true;
+                beaconIndicatorLooking.UpdateVisualizer();
+                SetIndicatorColor(beaconIndicatorLooking, c);
+            }
+            else
+            {
+                beaconIndicatorLooking.targetTransform = null;
+                beaconIndicatorLooking.active = false;
+                beaconIndicatorLooking.UpdateVisualizer();
+            }
         }
 
         private Color GetTeleportColor(Vector3 targetPos)
@@ -260,6 +280,8 @@ namespace ProjectSynth.Components
             blocked = false;
             dist = 999f;
             if (!body) return false;
+
+            if (!IsLookingAt(cachedBeacon.transform.position)) return false;
 
             Vector3 from = body.corePosition;
             dist = Vector3.Distance(from, pos);
