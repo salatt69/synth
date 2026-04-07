@@ -1,5 +1,5 @@
 ﻿using BepInEx.Configuration;
-using ProjectSynth.Core;
+using ProjectSynth.Mod;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 

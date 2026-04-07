@@ -1,4 +1,4 @@
-﻿using ProjectSynth.Core;
+﻿using ProjectSynth.Mod;
 using R2API;
 using RoR2;
 using RoR2.Skills;

@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="393143179" Type="User" Language="SFX" Hash="{74A698D7-3244-C384-7178-3EC9D4FEB548}">
+		<SoundBank Id="393143179" Type="User" Language="SFX" Hash="{D6265EA7-A3E3-F048-004B-5648EDCBB4EB}">
 			<ShortName>SynthDJ</ShortName>
 			<Path>SynthDJ.bnk</Path>
 			<Media>
@@ -300,13 +300,29 @@
 				</StateGroup>
 			</StateGroups>
 		</SoundBank>
-		<SoundBank Id="2800900469" Type="User" Language="SFX" Hash="{5CFA5434-D85A-B501-63E4-B41CEC52F3B4}">
+		<SoundBank Id="2800900469" Type="User" Language="SFX" Hash="{94396FCE-AE85-1068-D5C1-C09DF53FB245}">
 			<ShortName>SynthSounds</ShortName>
 			<Path>SynthSounds.bnk</Path>
 			<Media>
+				<File Id="49601886" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CultureShockStart_7.wav</ShortName>
+					<CachePath>SFX/CultureShockStart_7_8E324C96.wem</CachePath>
+				</File>
 				<File Id="85850594" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>MetronomeSustain.wav</ShortName>
 					<CachePath>SFX/MetronomeSustain_1956D230.wem</CachePath>
+				</File>
+				<File Id="204212231" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CultureShockStart_5.wav</ShortName>
+					<CachePath>SFX/CultureShockStart_5_8E324C96.wem</CachePath>
+				</File>
+				<File Id="206552028" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CultureShockStart_1.wav</ShortName>
+					<CachePath>SFX/CultureShockStart_1_8E324C96.wem</CachePath>
+				</File>
+				<File Id="217505848" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CultureShockStart_3.wav</ShortName>
+					<CachePath>SFX/CultureShockStart_3_8E324C96.wem</CachePath>
 				</File>
 				<File Id="306217552" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>MetronomeRecharge_3.wav</ShortName>
@@ -316,9 +332,17 @@
 					<ShortName>MetronomeRecharge_1.wav</ShortName>
 					<CachePath>SFX/MetronomeRecharge_1_258792A0.wem</CachePath>
 				</File>
+				<File Id="478402023" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CultureShockStart_6.wav</ShortName>
+					<CachePath>SFX/CultureShockStart_6_8E324C96.wem</CachePath>
+				</File>
 				<File Id="586801430" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>MetronomeRecharge_4.wav</ShortName>
 					<CachePath>SFX/MetronomeRecharge_4_258792A0.wem</CachePath>
+				</File>
+				<File Id="631903087" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CultureShockStart_2.wav</ShortName>
+					<CachePath>SFX/CultureShockStart_2_8E324C96.wem</CachePath>
 				</File>
 				<File Id="641344601" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>MetronomeSustain_End.wav</ShortName>
@@ -332,12 +356,51 @@
 					<ShortName>MetronomeRecharge_2.wav</ShortName>
 					<CachePath>SFX/MetronomeRecharge_2_258792A0.wem</CachePath>
 				</File>
+				<File Id="915630853" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CultureShockStart_4.wav</ShortName>
+					<CachePath>SFX/CultureShockStart_4_8E324C96.wem</CachePath>
+				</File>
 				<File Id="966266746" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>[MS] DnB Perc - 2 [Instict].wav</ShortName>
 					<CachePath>SFX/[MS] DnB Perc - 2 [Instict]_8E324C96.wem</CachePath>
 				</File>
 			</Media>
 			<Events>
+				<Event Id="3291968442" Name="Play_CultureShockStart_1" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="206552028"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3291968441" Name="Play_CultureShockStart_2" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="631903087"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3291968440" Name="Play_CultureShockStart_3" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="217505848"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3291968447" Name="Play_CultureShockStart_4" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="915630853"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3291968446" Name="Play_CultureShockStart_5" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="204212231"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3291968445" Name="Play_CultureShockStart_6" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="478402023"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3291968444" Name="Play_CultureShockStart_7" MaxAttenuation="100">
+					<MediaRefs>
+						<MediaRef Id="49601886"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="3990587749" Name="Play_MetronomeRecharge_1" MaxAttenuation="100">
 					<MediaRefs>
 						<MediaRef Id="417519357"/>
@@ -385,5 +448,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{C8133640-3A50-AE7C-7370-0390EBF74F0F}</FileHash>
+	<FileHash>{261CDC32-18E5-B87B-1EA4-616F33A90FCD}</FileHash>
 </SoundBanksInfo>

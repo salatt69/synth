@@ -1,4 +1,4 @@
-﻿using ProjectSynth.Core;
+﻿using ProjectSynth.Mod;
 using R2API;
 using System;
 using System.Collections.Generic;

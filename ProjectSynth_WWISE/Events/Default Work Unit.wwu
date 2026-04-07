@@ -171,6 +171,104 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_CultureShockStart_1" ID="{EB734AD6-616D-425A-B953-DF67C17ECBEC}">
+					<ChildrenList>
+						<Action Name="" ID="{1DFFA542-AA5A-49D9-9C39-9268774B8D78}" ShortID="758912387">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CultureShockStart_1" ID="{3095CD32-0186-4471-AB15-13417DA40842}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_CultureShockStart_2" ID="{32CB5F94-4F68-4C7E-89E8-2DDAA836C9D6}">
+					<ChildrenList>
+						<Action Name="" ID="{562CD2CB-75B4-4828-9017-2D395F28A91A}" ShortID="196401114">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CultureShockStart_2" ID="{3D1D4D09-E6BA-4079-965E-2A8E6474DED5}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_CultureShockStart_3" ID="{7FA0BBD9-4488-41EA-9C59-8BCFBC1A8BAD}">
+					<ChildrenList>
+						<Action Name="" ID="{9C26A3E2-DA31-468A-BE2C-C91696096738}" ShortID="17942331">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CultureShockStart_3" ID="{B3435C77-682D-4F65-99F1-0E5EAF098143}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_CultureShockStart_4" ID="{8B3795CC-FB48-4540-A439-28D9D98A6656}">
+					<ChildrenList>
+						<Action Name="" ID="{F00FDBDC-38FE-43F9-B12D-14B5E3C53197}" ShortID="37139713">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CultureShockStart_4" ID="{CB90572D-203D-418D-994A-47BD84B7829D}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_CultureShockStart_5" ID="{6C40000B-17F6-4742-8432-65DECD108E2C}">
+					<ChildrenList>
+						<Action Name="" ID="{DDF75426-7562-4612-8FE4-C1ECE1F52B69}" ShortID="479597317">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CultureShockStart_5" ID="{09A57728-2C46-43C0-84D2-831106AC2421}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_CultureShockStart_6" ID="{91DCCD2C-C604-482E-A9AB-58B863DCEC02}">
+					<ChildrenList>
+						<Action Name="" ID="{E701D2D1-9BB1-45B4-B746-6FB7380F6094}" ShortID="975960810">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CultureShockStart_6" ID="{8DFE425D-4000-470C-A167-542086B437AE}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_CultureShockStart_7" ID="{D83F7A4E-DAC9-4BD0-931E-C72A951ACF2E}">
+					<ChildrenList>
+						<Action Name="" ID="{366DC452-CB96-4108-90F5-8752F4DA7BC8}" ShortID="810509502">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CultureShockStart_7" ID="{35F8AFB2-40BC-4104-88B5-8BBD40E07E8A}" WorkUnitID="{315E31CC-AAB1-49A5-9940-6434E05AE0A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

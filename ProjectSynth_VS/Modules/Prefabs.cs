@@ -1,4 +1,4 @@
-﻿using ProjectSynth.Core;
+﻿using ProjectSynth.Mod;
 using ProjectSynth.Modules.BaseContent.Characters;
 using R2API;
 using RoR2;
@@ -265,7 +265,7 @@ namespace ProjectSynth.Modules
         private static void SetupCameraTargetParams(GameObject prefab, BodyInfo bodyInfo)
         {
             CameraTargetParams cameraTargetParams = prefab.GetComponent<CameraTargetParams>();
-            cameraTargetParams.cameraParams = bodyInfo.cameraParams;
+            cameraTargetParams.cameraParams = bodyInfo.CameraParams;
             cameraTargetParams.cameraPivotTransform = prefab.transform.Find("CameraPivot");
         }
 
@@ -649,7 +649,7 @@ namespace ProjectSynth.Modules
         /// Creates an EntityStateMachine, and adds it to the NetworkStateMachine, CharacterDeathBehavior, and SetStateOnHurt components. 
         /// <para>See AddMainEntityStateMachine for typically your "Body" state machine.</para>
         /// </summary>
-        public static EntityStateMachine AddEntityStateMachine(GameObject prefab, string machineName, Type mainStateType = null, Type initalStateType = null, bool addToHurt = true, bool addToDeath = true)
+        public static EntityStateMachine AddEntityStateMachine(GameObject prefab, string machineName, Type initalStateType = null, Type mainStateType = null, bool addToHurt = true, bool addToDeath = true)
         {
             EntityStateMachine entityStateMachine = EntityStateMachine.FindByCustomName(prefab, machineName);
             if (entityStateMachine == null)
@@ -663,17 +663,17 @@ namespace ProjectSynth.Modules
             //Set up entitystatemachine
             entityStateMachine.customName = machineName;
 
-            if (mainStateType == null)
-            {
-                mainStateType = typeof(EntityStates.Idle);
-            }
-            entityStateMachine.mainStateType = new EntityStates.SerializableEntityStateType(mainStateType);
-
             if (initalStateType == null)
             {
                 initalStateType = typeof(EntityStates.Idle);
             }
             entityStateMachine.initialStateType = new EntityStates.SerializableEntityStateType(initalStateType);
+
+            if (mainStateType == null)
+            {
+                mainStateType = typeof(EntityStates.Idle);
+            }
+            entityStateMachine.mainStateType = new EntityStates.SerializableEntityStateType(mainStateType);
 
             //Add to NetworkStateMachine so it is networked, as it sounds
             NetworkStateMachine networkMachine = prefab.GetComponent<NetworkStateMachine>();
@@ -705,7 +705,7 @@ namespace ProjectSynth.Modules
         /// Creates an EntityStateMachine, and adds it to the NetworkStateMachine, CharacterDeathBehavior, and SetStateOnHurt components.
         /// <para>Similar to AddEntityStateMachine, however when adding to these components, what we'll consider the "main state machine" (typically the "Body" state machine) has to be set in certain fields.</para>
         /// </summary>
-        public static EntityStateMachine AddMainEntityStateMachine(GameObject bodyPrefab, string machineName = "Body", Type mainStateType = null, Type initalStateType = null)
+        public static EntityStateMachine AddMainEntityStateMachine(GameObject bodyPrefab, string machineName = "Body", Type initalStateType = null, Type mainStateType = null)
         {
             EntityStateMachine entityStateMachine = EntityStateMachine.FindByCustomName(bodyPrefab, machineName);
             if (entityStateMachine == null)
@@ -720,17 +720,17 @@ namespace ProjectSynth.Modules
             //Create entitystatemachine
             entityStateMachine.customName = machineName;
 
-            if (mainStateType == null)
-            {
-                mainStateType = typeof(EntityStates.GenericCharacterMain);
-            }
-            entityStateMachine.mainStateType = new EntityStates.SerializableEntityStateType(mainStateType);
-
             if (initalStateType == null)
             {
                 initalStateType = typeof(EntityStates.SpawnTeleporterState);
             }
             entityStateMachine.initialStateType = new EntityStates.SerializableEntityStateType(initalStateType);
+
+            if (mainStateType == null)
+            {
+                mainStateType = typeof(EntityStates.GenericCharacterMain);
+            }
+            entityStateMachine.mainStateType = new EntityStates.SerializableEntityStateType(mainStateType);
 
             //Add to NetworkStateMachine so it is networked, as it sounds
             NetworkStateMachine networkMachine = bodyPrefab.GetComponent<NetworkStateMachine>();

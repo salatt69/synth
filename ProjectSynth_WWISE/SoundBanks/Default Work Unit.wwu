@@ -13,13 +13,20 @@
 				<SoundBank Name="SynthSounds" ID="{E1AA2BDA-F70D-4C4B-9181-9A851DC6DD62}">
 					<ObjectInclusionList>
 						<ObjectRef Name="Play_synth_MetronomeSustain" ID="{B2D824F0-05C1-41C1-9443-1A175D2AD115}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_CultureShockStart_3" ID="{7FA0BBD9-4488-41EA-9C59-8BCFBC1A8BAD}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_CultureShockStart_1" ID="{EB734AD6-616D-425A-B953-DF67C17ECBEC}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_synth_ThirtyNineMusic_shot" ID="{7D408CF4-88CF-4288-BB80-18FA4953D151}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_synth_MetronomeTick" ID="{8A2E32EC-1672-42D3-8ACC-910603C9FC15}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_CultureShockStart_4" ID="{8B3795CC-FB48-4540-A439-28D9D98A6656}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_MetronomeRecharge_2" ID="{3FAD3798-DEE9-4551-B4C0-61A8E58C0957}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_MetronomeRecharge_3" ID="{62D22CFA-DD6D-4588-B3B2-7299944559BE}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_MetronomeRecharge_1" ID="{A30BC7B3-0AFE-4678-8648-AAED2CBD76F1}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_CultureShockStart_5" ID="{6C40000B-17F6-4742-8432-65DECD108E2C}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_MetronomeRecharge_4" ID="{28F0A1BB-99AB-47D1-8278-2CBDC9A60485}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_CultureShockStart_6" ID="{91DCCD2C-C604-482E-A9AB-58B863DCEC02}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Stop_synth_MetronomeSustain" ID="{171C3868-2E8E-497F-AD82-A87571F70A5F}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_CultureShockStart_7" ID="{D83F7A4E-DAC9-4BD0-931E-C72A951ACF2E}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_CultureShockStart_2" ID="{32CB5F94-4F68-4C7E-89E8-2DDAA836C9D6}" WorkUnitID="{686BE294-1EAF-4EEC-8E17-1B0AE9EFE044}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>

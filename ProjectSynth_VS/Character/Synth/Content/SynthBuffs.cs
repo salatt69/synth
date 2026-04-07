@@ -7,18 +7,18 @@ namespace ProjectSynth.Character.Synth.Content
 {
     public static class SynthBuffs
     {
-        public static BuffDef EncoreBuff { get; private set; }
+        public static BuffDef Encore { get; private set; }
 
         public static void Init()
         {
-            EncoreBuff = ScriptableObject.CreateInstance<BuffDef>();
-            EncoreBuff.name = "Encore";
-            EncoreBuff.buffColor = Color.magenta;
-            EncoreBuff.canStack = false;
-            EncoreBuff.isDebuff = true;
-            EncoreBuff.eliteDef = null;
-            EncoreBuff.iconSprite = SynthAssets.tex_icon_EncoreBuff;
-            ContentAddition.AddBuffDef(EncoreBuff);
+            Encore = ScriptableObject.CreateInstance<BuffDef>();
+            Encore.name = "Encore";
+            Encore.buffColor = Color.magenta;
+            Encore.canStack = true;
+            Encore.isDebuff = true;
+            Encore.eliteDef = null;
+            Encore.iconSprite = SynthAssets.tex_icon_EncoreBuff;
+            ContentAddition.AddBuffDef(Encore);
         }
     }
 }

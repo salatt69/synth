@@ -1,6 +1,6 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth;
-using ProjectSynth.Core;
+using ProjectSynth.Mod;
 using R2API;
 using RoR2;
 using RoR2.Skills;
@@ -154,6 +154,11 @@ namespace ProjectSynth.Modules
             return CreateSkillDef<SkillDef>(skillDefInfo);
         }
 
+        public static PassiveItemSkillDef CreateSkillDef2(PassiveItemSkillDefInfo skillDefInfo)
+        {
+            return CreateSkillDef2<PassiveItemSkillDef>(skillDefInfo);
+        }
+
         public static SkillDef CreateSkillDef2(SkillDefInfo2 skillDefInfo)
         {
             return CreateSkillDef2<SkillDef>(skillDefInfo);
@@ -165,6 +170,7 @@ namespace ProjectSynth.Modules
             T skillDef = ScriptableObject.CreateInstance<T>();
 
             skillDef.skillName = skillDefInfo.skillName;
+            (skillDef as ScriptableObject).name = skillDefInfo.skillName;
             skillDef.skillNameToken = skillDefInfo.skillNameToken;
             skillDef.skillDescriptionToken = skillDefInfo.skillDescriptionToken;
             skillDef.keywordTokens = skillDefInfo.keywordTokens;
@@ -204,7 +210,13 @@ namespace ProjectSynth.Modules
             skillDef.hideStockCount = skillDefInfo.hideStockCount;
             skillDef.hideCooldown = skillDefInfo.hideCooldown;
 
-            ContentAddition.AddSkillDef(skillDef);
+            if (skillDefInfo is PassiveItemSkillDefInfo passiveItemSkillDefInfo)
+            {
+                if (skillDef is PassiveItemSkillDef passiveItemSkillDef)
+                {
+                    passiveItemSkillDef.passiveItem = passiveItemSkillDefInfo.passiveItem;
+                }
+            }
 
             return skillDef;
         }
@@ -271,45 +283,32 @@ namespace ProjectSynth.Modules
         public bool attackSpeedBuffsRestockSpeed = false;
         public float attackSpeedBuffsRestockSpeed_Multiplier = 1.0f;
 
+        public bool resetCooldownTimerOnUse = false;
         public bool fullRestockOnAssign = true;
         public bool dontAllowPastMaxStocks = false;
-
-        public bool resetCooldownTimerOnUse = false;
         public bool beginSkillCooldownOnSkillEnd = true;
         public bool isCooldownBlockedUntilManuallyReset = false;
 
         public bool cancelSprintingOnActivation = true;
         public bool forceSprintDuringState = false;
         public bool canceledFromSprinting = true;
-        public bool isCombatSkill = false;
 
+        public bool isCombatSkill = false;
         public bool mustKeyPress = true;
         public bool triggeredByPressRelease = false;
-
         public bool autoHandleLuminousShot = true;
         public bool suppressSkillActivation = false;
-
         public bool hideStockCount = false;
         public bool hideCooldown = false;
 
         public SkillDefInfo2() { }
+    }
 
-        //public SkillDefInfo2(string skillName,
-        //                     string skillNameToken, 
-        //                     string skillDescriptionToken, 
-        //                     string[] keywordTokens, 
-        //                     Sprite icon, 
-        //                     string activationStateMachineName, 
-        //                     SerializableEntityStateType activationState)
-        //{
-        //    this.skillName = skillName;
-        //    this.skillNameToken = SynthSurvivor.SYNTH_PREFIX + skillNameToken;
-        //    this.skillDescriptionToken = SynthSurvivor.SYNTH_PREFIX + skillDescriptionToken;
-        //    this.keywordTokens = keywordTokens;
-        //    this.icon = icon;
-        //    this.activationStateMachineName = activationStateMachineName;
-        //    this.activationState = activationState;
-        //}
+    internal class PassiveItemSkillDefInfo : SkillDefInfo2
+    {
+        public ItemDef passiveItem;
+
+        public PassiveItemSkillDefInfo() { }
     }
 
     /// <summary>

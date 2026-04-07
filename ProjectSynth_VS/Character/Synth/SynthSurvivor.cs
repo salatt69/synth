@@ -1,16 +1,12 @@
 ﻿using ProjectSynth.Character.Synth.Content;
-using ProjectSynth.Character.Synth.Content.Items;
-using ProjectSynth.Character.Synth.Content.SkillDefs;
-using ProjectSynth.Character.Synth.States;
-using ProjectSynth.Character.Synth.States.Primary;
-using ProjectSynth.Character.Synth.States.Secondary;
 using ProjectSynth.Character.Synth.States.Special;
 using ProjectSynth.Character.Synth.States.Utility;
-using ProjectSynth.Core;
-using ProjectSynth.Hologram;
-using ProjectSynth.Metronome;
+using ProjectSynth.Components;
+using ProjectSynth.Mod;
 using ProjectSynth.Modules;
 using ProjectSynth.Modules.BaseContent.Characters;
+using ProjectSynth.States.Synth;
+using ProjectSynth.States.Synth.Metro;
 using R2API;
 using RoR2;
 using RoR2.Skills;
@@ -25,15 +21,15 @@ namespace ProjectSynth.Character.Synth
         public override string assetBundleName => SynthPlugin.MODNAME.ToLower() + "_bundle";
         public override string bodyName => "SynthBody";
         public override string masterName => "SynthMonsterMaster";
-        public override string modelPrefabName => "mdlHenry";
-        public override string displayPrefabName => "HenryDisplay";
+        public override string modelPrefabName => "mdlSynth";
+        public override string displayPrefabName => "SynthDisplay";
 
         public const string SYNTH_PREFIX = SynthPlugin.DEVELOPER_PREFIX + "_SYNTH_";
 
         //used when registering your survivor's language tokens
         public override string survivorTokenPrefix => SYNTH_PREFIX;
 
-        public override BodyInfo bodyInfo => new BodyInfo
+        public override BodyInfo bodyInfo => new()
         {
             bodyName = bodyName,
             bodyNameToken = SYNTH_PREFIX + "NAME",
@@ -107,12 +103,10 @@ namespace ProjectSynth.Character.Synth
             SynthStates.Init();
             SynthTokens.Init();
 
-            // it is here and not in SynthPlugin.Awake(), bc this mod has no items to pickup
-            // it only has items for passive skills
-            Passive.Initialize();
-            
             SynthBuffs.Init();
             SynthDamageTypes.Register();
+
+            SynthPassive.Initialize();
 
             InitializeEntityStateMachines();
             InitializeSkills();
@@ -125,8 +119,9 @@ namespace ProjectSynth.Character.Synth
         private void AdditionalBodySetup()
         {
             AddHitboxes();
-            bodyPrefab.AddComponent<MetronomeController>();
             bodyPrefab.AddComponent<DivaTracker>();
+            bodyPrefab.AddComponent<SynthSurvivorController>();
+            bodyPrefab.AddComponent<SynthMetroRuntime>();
         }
 
         public void AddHitboxes()
@@ -142,12 +137,13 @@ namespace ProjectSynth.Character.Synth
             Prefabs.ClearEntityStateMachines(bodyPrefab);
 
             //the main "Body" state machine has some special properties
-            Prefabs.AddMainEntityStateMachine(bodyPrefab, "Body", typeof(SynthMain), typeof(EntityStates.SpawnTeleporterState));
+            Prefabs.AddMainEntityStateMachine(bodyPrefab, "Body", typeof(EntityStates.SpawnTeleporterState), typeof(SynthMain));
             //if you set up a custom main characterstate, set it up here
             //don't forget to register custom entitystates in your HenryStates.cs
 
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon");
-            Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon2");
+            Prefabs.AddEntityStateMachine(bodyPrefab, "DivaDeploy");
+            Prefabs.AddEntityStateMachine(bodyPrefab, "Metro", typeof(MetroWaitForInputState), typeof(MetroWaitForInputState));
         }
 
         #region skills
@@ -161,7 +157,6 @@ namespace ProjectSynth.Character.Synth
             AddSecondarySkills();
             AddUtilitySkills();
             AddSpecialSkills();
-            AddOverrideSkills();
         }
 
         //skip if you don't have a passive
@@ -169,83 +164,33 @@ namespace ProjectSynth.Character.Synth
         private void AddPassiveSkill()
         {
             // TODO: make it into Skills module
+            // TODO: or rather just rethink how passives are set up entirely. (no item needed)
 
-            //option 2. a new SkillFamily for a passive, used if you want multiple selectable passives
-            GenericSkill passiveGenericSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "PassiveSkill");
+            GenericSkill passiveGenericSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "Passive");
 
-            PassiveItemSkillDef passiveSkillDef1 = ScriptableObject.CreateInstance<PassiveItemSkillDef>();
-            passiveSkillDef1.skillName = "M1K-U";
-            passiveSkillDef1.skillNameToken = SYNTH_PREFIX + "METRONOME_PASSIVE_NAME";
-            passiveSkillDef1.skillDescriptionToken = SYNTH_PREFIX + "METRONOME_PASSIVE_DESCRIPTION";
-            passiveSkillDef1.icon = assetBundle.LoadAsset<Sprite>("texPassiveIcon");
-            passiveSkillDef1.passiveItem = Passive.Metronome;
+            PassiveItemSkillDef metro = SynthSkillDefs.Passive_Metro();
+            PassiveItemSkillDef another = SynthSkillDefs.Passive_Another();
 
-            passiveSkillDef1.activationState = new EntityStates.SerializableEntityStateType(typeof(SynthMain));
-            passiveSkillDef1.activationStateMachineName = "Body";
-
-            PassiveItemSkillDef passiveSkillDef2 = ScriptableObject.CreateInstance<PassiveItemSkillDef>();
-            passiveSkillDef2.skillName = "M1K-U v2.0";
-            passiveSkillDef2.skillNameToken = SYNTH_PREFIX + "ANOTHER_PASSIVE_NAME";
-            passiveSkillDef2.skillDescriptionToken = SYNTH_PREFIX + "ANOTHER_PASSIVE_DESCRIPTION";
-            passiveSkillDef2.icon = assetBundle.LoadAsset<Sprite>("texPassiveIcon");
-            passiveSkillDef2.passiveItem = Passive.Another;
-
-            passiveSkillDef2.activationState = new EntityStates.SerializableEntityStateType(typeof(SynthMain));
-            passiveSkillDef2.activationStateMachineName = "Body";
-
-            ContentAddition.AddSkillDef(passiveSkillDef1);
-            ContentAddition.AddSkillDef(passiveSkillDef2);
-
-            Skills.AddSkillsToFamily(passiveGenericSkill.skillFamily, passiveSkillDef1);
-            Skills.AddSkillsToFamily(passiveGenericSkill.skillFamily, passiveSkillDef2);
+            Skills.AddSkillsToFamily(passiveGenericSkill.skillFamily, metro, another);
         }
 
-        //if this is your first look at skilldef creation, take a look at Secondary first
         private void AddPrimarySkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Primary);
 
-            //the primary skill is created using a constructor for a typical primary
-            //it is also a SteppedSkillDef. Custom Skilldefs are very useful for custom behaviors related to casting a skill. see ror2's different skilldefs for reference
-
-            SkillDef primarySkillDef1 = SynthSkillDefs.Primary_ThirtyNineMusic();
-
-            SteppedSkillDef primarySkillDef2 = Skills.CreateSkillDef<SteppedSkillDef>(new SkillDefInfo
-                (
-                    "HenrySlash",
-                    SYNTH_PREFIX + "PRIMARY_SLASH_NAME",
-                    SYNTH_PREFIX + "PRIMARY_SLASH_DESCRIPTION",
-                    assetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
-                    new EntityStates.SerializableEntityStateType(typeof(SlashCombo)),
-                    "Weapon",
-                    true
-                ));
-            //custom Skilldefs can have additional fields that you can set manually
-            primarySkillDef2.stepCount = 2;
-            primarySkillDef2.stepGraceDuration = 0.5f;
-
-            Skills.AddPrimarySkills(bodyPrefab, primarySkillDef1, primarySkillDef2);
+            SkillDef tnm = SynthSkillDefs.Primary_ThirtyNineMusic();
+            Skills.AddPrimarySkills(bodyPrefab, tnm);
         }
 
         private void AddSecondarySkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Secondary);
 
-            SkillDef diva = SynthSkillDefs.Secondary_Diva();
-            SkillDef sonicBoom = SynthSkillDefs.Secondary_SonicBoom();
-            Skills.AddSecondarySkills(bodyPrefab, diva, sonicBoom);
-        }
-
-        private void AddUtilitySkills()
-        {
-            Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Utility);
-
-            //here's a skilldef of a typical movement skill.
             SkillDef utilitySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "HenryRoll",
-                skillNameToken = SYNTH_PREFIX + "UTILITY_ROLL_NAME",
-                skillDescriptionToken = SYNTH_PREFIX + "UTILITY_ROLL_DESCRIPTION",
+                skillNameToken = SYNTH_PREFIX + "SECONDARY_ROLL_NAME",
+                skillDescriptionToken = SYNTH_PREFIX + "SECONDARY_ROLL_DESCRIPTION",
                 skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Roll)),
@@ -271,7 +216,18 @@ namespace ProjectSynth.Character.Synth
                 forceSprintDuringState = true,
             });
 
-            Skills.AddUtilitySkills(bodyPrefab, utilitySkillDef1);
+            SkillDef diva = SynthSkillDefs.Secondary_DeployDiva();
+            SynthSkillDefs.Secondary_TeleportToDiva();
+
+            Skills.AddSecondarySkills(bodyPrefab, diva, utilitySkillDef1);
+        }
+
+        private void AddUtilitySkills()
+        {
+            Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Utility);
+
+            SkillDef sonicBoom = SynthSkillDefs.Utility_SonicBoom();
+            Skills.AddUtilitySkills(bodyPrefab, sonicBoom);
         }
 
         private void AddSpecialSkills()
@@ -288,7 +244,7 @@ namespace ProjectSynth.Character.Synth
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(ThrowBomb)),
                 //setting this to the "weapon2" EntityStateMachine allows us to cast this skill at the same time primary, which is set to the "weapon" EntityStateMachine
-                activationStateMachineName = "Weapon2",
+                activationStateMachineName = "DivaDeploy",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
                 baseMaxStock = 1,
@@ -298,17 +254,10 @@ namespace ProjectSynth.Character.Synth
                 mustKeyPress = false,
             });
 
-            Skills.AddSpecialSkills(bodyPrefab, specialSkillDef1);
+            SkillDef mikuBeam = SynthSkillDefs.Special_MikuBeam();
+
+            Skills.AddSpecialSkills(bodyPrefab, specialSkillDef1, mikuBeam);
         }
-
-        private void AddOverrideSkills()
-        {
-            var fam = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "Override", true);
-
-            SkillDef divaTeleport = SynthSkillDefs.Override_DivaTeleport();
-            Skills.AddSkillsToFamily(fam.skillFamily, divaTeleport);
-        }
-
         #endregion skills
 
         #region skins

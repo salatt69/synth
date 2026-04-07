@@ -153,13 +153,14 @@ namespace ProjectSynth.Modules.BaseContent.Characters
         public float cameraParamsDepth = -10;
 
         private CharacterCameraParams _cameraParams;
-        public CharacterCameraParams cameraParams
+        public CharacterCameraParams CameraParams
         {
             get
             {
                 if (_cameraParams == null)
                 {
                     _cameraParams = ScriptableObject.CreateInstance<CharacterCameraParams>();
+                    _cameraParams.name = "ccp" + bodyName;
                     _cameraParams.data.minPitch = -70;
                     _cameraParams.data.maxPitch = 70;
                     _cameraParams.data.wallCushion = 0.1f;

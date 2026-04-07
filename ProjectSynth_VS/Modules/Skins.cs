@@ -1,4 +1,4 @@
-﻿using ProjectSynth.Core;
+﻿using ProjectSynth.Mod;
 using RoR2;
 using System;
 using System.Collections.Generic;

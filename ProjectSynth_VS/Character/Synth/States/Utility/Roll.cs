@@ -1,13 +1,12 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth.Content;
-using ProjectSynth.Metronome;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace ProjectSynth.Character.Synth.States.Utility
 {
-    public class Roll : BaseSkillState, IMetronomeListener
+    public class Roll : BaseSkillState
     {
         public static float duration = 0.5f;
         public static float initialSpeedCoefficient = 5f;

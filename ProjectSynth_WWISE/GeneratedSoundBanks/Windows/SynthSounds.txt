@@ -2,6 +2,13 @@ Event	ID	Name			Wwise Object Path	Notes
 	950680430	Stop_synth_MetronomeSustain			\Default Work Unit\Stop_synth_MetronomeSustain	
 	2177578824	Play_synth_MetronomeSustain			\Default Work Unit\Play_synth_MetronomeSustain	
 	2888092107	Play_synth_ThirtyNineMusic_shot			\Default Work Unit\Play_synth_ThirtyNineMusic_shot	
+	3291968440	Play_CultureShockStart_3			\Default Work Unit\Play_CultureShockStart_3	
+	3291968441	Play_CultureShockStart_2			\Default Work Unit\Play_CultureShockStart_2	
+	3291968442	Play_CultureShockStart_1			\Default Work Unit\Play_CultureShockStart_1	
+	3291968444	Play_CultureShockStart_7			\Default Work Unit\Play_CultureShockStart_7	
+	3291968445	Play_CultureShockStart_6			\Default Work Unit\Play_CultureShockStart_6	
+	3291968446	Play_CultureShockStart_5			\Default Work Unit\Play_CultureShockStart_5	
+	3291968447	Play_CultureShockStart_4			\Default Work Unit\Play_CultureShockStart_4	
 	3990587744	Play_MetronomeRecharge_4			\Default Work Unit\Play_MetronomeRecharge_4	
 	3990587749	Play_MetronomeRecharge_1			\Default Work Unit\Play_MetronomeRecharge_1	
 	3990587750	Play_MetronomeRecharge_2			\Default Work Unit\Play_MetronomeRecharge_2	
@@ -13,12 +20,19 @@ Game Parameter	ID	Name			Wwise Object Path	Notes
 	3846151963	SyncMusicToTempo			\Default Work Unit\SyncMusicToTempo	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	49601886	CultureShockStart_7	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\CultureShockStart_7_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\CultureShockStart_7		4265
 	85850594	MetronomeSustain	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeSustain_1956D230.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeSustain		66492
+	204212231	CultureShockStart_5	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\CultureShockStart_5_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\CultureShockStart_5		6334
+	206552028	CultureShockStart_1	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\CultureShockStart_1_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\CultureShockStart_1		6178
+	217505848	CultureShockStart_3	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\CultureShockStart_3_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\CultureShockStart_3		5988
 	306217552	MetronomeRecharge_3	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeRecharge_3_258792A0.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeRecharge_3		3079
 	417519357	MetronomeRecharge_1	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeRecharge_1_258792A0.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeRecharge_1		3163
+	478402023	CultureShockStart_6	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\CultureShockStart_6_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\CultureShockStart_6		4007
 	586801430	MetronomeRecharge_4	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeRecharge_4_258792A0.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeRecharge_4		3365
+	631903087	CultureShockStart_2	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\CultureShockStart_2_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\CultureShockStart_2		6425
 	641344601	MetronomeSustain_End	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeSustain_End_D407CDF3.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeSustain_End		3941
 	663363815	MetronomeTick	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeTick_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeTick		51648
 	786092481	MetronomeRecharge_2	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\MetronomeRecharge_2_258792A0.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\MetronomeRecharge_2		3128
+	915630853	CultureShockStart_4	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\CultureShockStart_4_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\CultureShockStart_4		6268
 	966266746	[MS] DnB Perc - 2 [Instict]	D:\Projects\ProjectSynth\ProjectSynth_WWISE\.cache\Windows\SFX\[MS] DnB Perc - 2 [Instict]_8E324C96.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\[MS] DnB Perc - 2 [Instict]		2370
 

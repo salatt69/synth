@@ -1,11 +1,12 @@
-﻿using ProjectSynth.Character.Synth.States;
-using ProjectSynth.Character.Synth.States.Hologram;
-using ProjectSynth.Character.Synth.States.Override;
-using ProjectSynth.Character.Synth.States.Primary;
-using ProjectSynth.Character.Synth.States.Secondary;
-using ProjectSynth.Character.Synth.States.Special;
+﻿using ProjectSynth.Character.Synth.States.Special;
 using ProjectSynth.Character.Synth.States.Utility;
-using ProjectSynth.Hologram;
+using ProjectSynth.Junk;
+using ProjectSynth.States;
+using ProjectSynth.States.Synth;
+using ProjectSynth.States.Synth.Diva;
+using ProjectSynth.States.Synth.DivaDeploy;
+using ProjectSynth.States.Synth.Metro;
+using ProjectSynth.States.Synth.Weapon;
 using R2API;
 
 namespace ProjectSynth.Character.Synth.Content
@@ -17,15 +18,15 @@ namespace ProjectSynth.Character.Synth.Content
             // Main
             ContentAddition.AddEntityState(typeof(SynthMain), out _);
 
-            // Skills            
-            ContentAddition.AddEntityState(typeof(SlashCombo), out _);
-            ContentAddition.AddEntityState(typeof(Shoot), out _);
+            // Skills
             ContentAddition.AddEntityState(typeof(Roll), out _);
             ContentAddition.AddEntityState(typeof(ThrowBomb), out _);
-            ContentAddition.AddEntityState(typeof(ThirtyNineMusic), out _);
+            ContentAddition.AddEntityState(typeof(TNM), out _);
             ContentAddition.AddEntityState(typeof(SonicBoom), out _);
             ContentAddition.AddEntityState(typeof(DeployDiva), out _);
-            ContentAddition.AddEntityState(typeof(DivaTeleport), out _);
+            ContentAddition.AddEntityState(typeof(TeleportToDiva), out _);
+            ContentAddition.AddEntityState(typeof(MikuBeamLeap), out _);
+            ContentAddition.AddEntityState(typeof(MikuBeamSustain), out _);
 
             // DivaBase
             ContentAddition.AddEntityState(typeof(Arm), out _);
@@ -38,6 +39,11 @@ namespace ProjectSynth.Character.Synth.Content
 
             // DivaStunning
             ContentAddition.AddEntityState(typeof(CultureShockState), out _);
+
+            // Metro
+            ContentAddition.AddEntityState(typeof(MetroWaitForInputState), out _);
+            ContentAddition.AddEntityState(typeof(MetroCooldownState), out _);
+            ContentAddition.AddEntityState(typeof(MetroMissedState), out _);
         }
     }
 }

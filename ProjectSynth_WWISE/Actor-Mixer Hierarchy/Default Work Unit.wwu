@@ -423,6 +423,202 @@
 										<ActiveSource Name="MetronomeRecharge_4" ID="{2023DBA7-05F5-4D3E-B605-5575F5A293EC}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="CultureShockStart_1" ID="{3095CD32-0186-4471-AB15-13417DA40842}" ShortID="526309021">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{907D3CE7-24D0-42E4-BE6C-261E21939723}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{4E69B6C5-F0CD-4548-B9CC-5337E4ABE66B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="CultureShockStart_1" ID="{8876506F-E309-4752-8EB9-E7AACB593B99}">
+											<PropertyList>
+												<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>CultureShockStart_1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="206552028"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="CultureShockStart_1" ID="{8876506F-E309-4752-8EB9-E7AACB593B99}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="CultureShockStart_2" ID="{3D1D4D09-E6BA-4079-965E-2A8E6474DED5}" ShortID="585032398">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{907D3CE7-24D0-42E4-BE6C-261E21939723}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{4E69B6C5-F0CD-4548-B9CC-5337E4ABE66B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="CultureShockStart_2" ID="{80DA8A85-9576-4F62-811A-473DA6A76479}">
+											<PropertyList>
+												<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>CultureShockStart_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="631903087"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="CultureShockStart_2" ID="{80DA8A85-9576-4F62-811A-473DA6A76479}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="CultureShockStart_3" ID="{B3435C77-682D-4F65-99F1-0E5EAF098143}" ShortID="586434485">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{907D3CE7-24D0-42E4-BE6C-261E21939723}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{4E69B6C5-F0CD-4548-B9CC-5337E4ABE66B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="CultureShockStart_3" ID="{DE7B2F6D-4333-416F-9072-B4F67C8A9AB6}">
+											<PropertyList>
+												<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>CultureShockStart_3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="217505848"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="CultureShockStart_3" ID="{DE7B2F6D-4333-416F-9072-B4F67C8A9AB6}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="CultureShockStart_4" ID="{CB90572D-203D-418D-994A-47BD84B7829D}" ShortID="43563123">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{907D3CE7-24D0-42E4-BE6C-261E21939723}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{4E69B6C5-F0CD-4548-B9CC-5337E4ABE66B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="CultureShockStart_4" ID="{EC683D30-F5BF-4264-8481-56B73112F0EC}">
+											<PropertyList>
+												<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>CultureShockStart_4.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="915630853"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="CultureShockStart_4" ID="{EC683D30-F5BF-4264-8481-56B73112F0EC}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="CultureShockStart_5" ID="{09A57728-2C46-43C0-84D2-831106AC2421}" ShortID="200029201">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{907D3CE7-24D0-42E4-BE6C-261E21939723}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{4E69B6C5-F0CD-4548-B9CC-5337E4ABE66B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="CultureShockStart_5" ID="{886F4E77-8A6A-4531-82D3-901A578A3110}">
+											<PropertyList>
+												<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>CultureShockStart_5.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="204212231"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="CultureShockStart_5" ID="{886F4E77-8A6A-4531-82D3-901A578A3110}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="CultureShockStart_6" ID="{8DFE425D-4000-470C-A167-542086B437AE}" ShortID="959921184">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{907D3CE7-24D0-42E4-BE6C-261E21939723}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{4E69B6C5-F0CD-4548-B9CC-5337E4ABE66B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="CultureShockStart_6" ID="{DE3561C5-E231-4CF0-9E6D-FB77B0682C43}">
+											<PropertyList>
+												<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>CultureShockStart_6.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="478402023"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="CultureShockStart_6" ID="{DE3561C5-E231-4CF0-9E6D-FB77B0682C43}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="CultureShockStart_7" ID="{35F8AFB2-40BC-4104-88B5-8BBD40E07E8A}" ShortID="244521728">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{907D3CE7-24D0-42E4-BE6C-261E21939723}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{4E69B6C5-F0CD-4548-B9CC-5337E4ABE66B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="CultureShockStart_7" ID="{B44986FA-AF47-419F-B6B3-11D7F574B832}">
+											<PropertyList>
+												<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+												<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>CultureShockStart_7.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="49601886"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="CultureShockStart_7" ID="{B44986FA-AF47-419F-B6B3-11D7F574B832}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 							<ObjectLists>
 								<ObjectList Name="RTPC">

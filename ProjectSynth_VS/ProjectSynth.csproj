@@ -40,11 +40,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Libs\" />
-	  <Folder Include="EntityStates\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Reference Include="SyncLib">
 	    <HintPath>Libs\SyncLib.dll</HintPath>
 	  </Reference>

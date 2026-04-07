@@ -9,10 +9,10 @@
 
         public const float bombDamageCoefficient = 16.0f;
 
-        public const float thirtyNineMusicDamageCoefficient = 2.2f;
+        public const float thirtyNineMusicDamageCoefficient = 1.6f;
         public const float boosted_thirtyNineMusicDamageCoefficient = 20.2f;
 
-        public const float CRIT_CHANCE_PER_ATTACK_SPEED = 0.005f; // 0.5%
+        public const float mikuBeamDamageCoefficient = 16.0f;
 
         // Diva numbers
         public const float divaExplosionCoeficient = 6.0f;
