@@ -38,14 +38,12 @@ namespace ProjectSynth.Components
         public SkillDef blinkSkillDef;
         public GenericSkill overrideSlot;
         public GameObject indicatorPrefab;
-        public GameObject indicatorLookingPrefab;
 
         private CharacterBody body;
         private SkillLocator skillLocator;
 
         private ProjectileMarker cachedBeacon;
         private Indicator beaconIndicator;
-        private Indicator beaconIndicatorLooking;
 
         private void Awake()
         {
@@ -55,13 +53,11 @@ namespace ProjectSynth.Components
             Bootstrap();
 
             beaconIndicator = new Indicator(gameObject, indicatorPrefab);
-            beaconIndicatorLooking = new Indicator(gameObject, indicatorLookingPrefab);
         }
 
         private void OnDestroy()
         {
             beaconIndicator?.DestroyVisualizer();
-            beaconIndicatorLooking?.DestroyVisualizer();
         }
 
         private void Update()
@@ -96,15 +92,7 @@ namespace ProjectSynth.Components
             if (!overrideSlot && skillLocator) overrideSlot = skillLocator.secondary;
 
             if (!indicatorPrefab)
-                indicatorPrefab = SynthAssets.divaIndicatorNotLooking;
-
-            if (!indicatorLookingPrefab)
-            {
-                if (SynthAssets.divaIndicatorLooking)
-                    indicatorLookingPrefab = SynthAssets.divaIndicatorLooking;
-                else
-                    indicatorLookingPrefab = SynthAssets.divaIndicatorNotLooking;
-            }
+                indicatorPrefab = SynthAssets.divaIndicator;
         }
 
         private ProjectileMarker FindOwnedBeacon()
@@ -187,49 +175,32 @@ namespace ProjectSynth.Components
         #region indicator
         private void UpdateIndicator(bool shouldShow)
         {
-            if (beaconIndicator == null || beaconIndicatorLooking == null) return;
+            if (beaconIndicator == null) return;
 
             if (!shouldShow || !cachedBeacon)
             {
                 beaconIndicator.targetTransform = null;
                 beaconIndicator.active = false;
                 beaconIndicator.UpdateVisualizer();
-                beaconIndicatorLooking.targetTransform = null;
-                beaconIndicatorLooking.active = false;
-                beaconIndicatorLooking.UpdateVisualizer();
+                return;
+            }
+
+            if (!IsLookingAt(cachedBeacon.transform.position))
+            {
+                beaconIndicator.targetTransform = null;
+                beaconIndicator.active = false;
+                beaconIndicator.UpdateVisualizer();
                 return;
             }
 
             var t = cachedBeacon.transform;
-            bool isLookingAt = IsLookingAt(t);
 
-            var activeIndicator = isLookingAt ? beaconIndicatorLooking : beaconIndicator;
-            var inactiveIndicator = isLookingAt ? beaconIndicator : beaconIndicatorLooking;
-
-            inactiveIndicator.targetTransform = null;
-            inactiveIndicator.active = false;
-            inactiveIndicator.UpdateVisualizer();
-
-            activeIndicator.targetTransform = t;
-            activeIndicator.active = true;
-            activeIndicator.UpdateVisualizer();
+            beaconIndicator.targetTransform = t;
+            beaconIndicator.active = true;
+            beaconIndicator.UpdateVisualizer();
 
             Color c = GetTeleportColor(t.position);
-            SetIndicatorColor(activeIndicator, c);
-        }
-
-        private bool IsLookingAt(Transform target)
-        {
-            if (!body || !target) return false;
-
-            var inputBank = body.inputBank;
-            if (!inputBank) return false;
-
-            Vector3 toTarget = target.position - body.corePosition;
-            Vector3 aimDir = inputBank.aimDirection;
-
-            float dot = Vector3.Dot(toTarget.normalized, aimDir);
-            return dot > 0.95f;
+            SetIndicatorColor(beaconIndicator, c);
         }
 
         private Color GetTeleportColor(Vector3 targetPos)
@@ -309,6 +280,22 @@ namespace ProjectSynth.Components
             }
 
             return true;
+        }
+
+        private bool IsLookingAt(Vector3 targetPos)
+        {
+            if (!body) return false;
+
+            Vector3 direction = targetPos - body.inputBank.aimOrigin;
+            direction.y = 0;
+            if (direction.magnitude < 0.001f) return false;
+
+            Vector3 forward = body.inputBank.aimDirection;
+            forward.y = 0;
+            if (forward.magnitude < 0.001f) return false;
+
+            float dot = Vector3.Dot(direction.normalized, forward.normalized);
+            return dot > 0.9f;
         }
 
         public bool TryGetBestTarget(out Transform t)

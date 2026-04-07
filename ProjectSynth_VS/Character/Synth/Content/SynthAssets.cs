@@ -48,7 +48,7 @@ namespace ProjectSynth.Character.Synth.Content
         public static GameObject synthMetroOverlay; // TODO:
         public static GameObject synthRushOverlay; // TODO:
         public static GameObject defaultSprintingCrosshair;
-        public static GameObject divaIndicatorNotLooking; // TODO:
+        public static GameObject divaIndicator; // TODO:
         public static GameObject divaIndicatorLooking; // TODO:
 
         // Pod
@@ -155,8 +155,8 @@ namespace ProjectSynth.Character.Synth.Content
         private static void RegisterMisc()
         {
             synthSurvivorPod = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorPod.prefab").WaitForCompletion();
-            divaIndicatorNotLooking = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressTargetIndicator.prefab").WaitForCompletion();
-            divaIndicatorLooking = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMissileTrackingIndicator.prefab").WaitForCompletion();
+            divaIndicator = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMissileTrackingIndicator.prefab").WaitForCompletion();
+            divaIndicatorLooking = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressTargetIndicator.prefab").WaitForCompletion();
 
             ccpMikuBeam = ScriptableObject.CreateInstance<CharacterCameraParams>();
             ccpMikuBeam.name = "ccpMikuBeam";
