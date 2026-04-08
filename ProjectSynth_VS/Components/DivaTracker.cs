@@ -99,7 +99,7 @@ namespace ProjectSynth.Components
                 indicatorPrefab = SynthAssets.divaIndicator;
 
             if (!indicatorLookingPrefab)
-                indicatorLookingPrefab = SynthAssets.divaIndicatorLooking;
+                indicatorLookingPrefab = SynthAssets.divaIndicatorFocused;
         }
 
         private ProjectileMarker FindOwnedBeacon()

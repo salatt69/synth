@@ -17,6 +17,7 @@ using UnityEngine.UI;
 using ProjectSynth.States.Synth.Metro;
 using ProjectSynth.States.Synth.Diva;
 using ProjectSynth.Components;
+using Rewired.ComponentControls.Effects;
 
 namespace ProjectSynth.Character.Synth.Content
 {
@@ -48,7 +49,7 @@ namespace ProjectSynth.Character.Synth.Content
         public static GameObject synthMetroOverlay; // TODO:
         public static GameObject synthRushOverlay; // TODO:
         public static GameObject divaIndicator; // TODO:
-        public static GameObject divaIndicatorLooking; // TODO:
+        public static GameObject divaIndicatorFocused; // TODO:
 
         // Pod
         public static GameObject synthSurvivorPod; // TODO:
@@ -153,8 +154,12 @@ namespace ProjectSynth.Character.Synth.Content
         private static void RegisterMisc()
         {
             synthSurvivorPod = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorPod.prefab").WaitForCompletion();
-            divaIndicator = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMissileTrackingIndicator.prefab").WaitForCompletion();
-            divaIndicatorLooking = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressTrackingIndicator.prefab").WaitForCompletion();
+
+            divaIndicator = _ab.LoadAsset<GameObject>("DivaIndicator");
+            divaIndicatorFocused = _ab.LoadAsset<GameObject>("DivaIndicatorFocused");
+            var raa = divaIndicatorFocused.transform.Find("BaseContainer").gameObject.AddComponent<RotateAroundAxis>();
+            raa.SetSpeed(RotateAroundAxis.Speed.Fast);
+            raa.SetSpeed(64);
 
             ccpMikuBeam = ScriptableObject.CreateInstance<CharacterCameraParams>();
             ccpMikuBeam.name = "ccpMikuBeam";
