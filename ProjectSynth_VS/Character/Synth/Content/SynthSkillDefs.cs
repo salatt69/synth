@@ -218,7 +218,7 @@ namespace ProjectSynth.Character.Synth.Content
                 activationState = new SerializableEntityStateType(typeof(TeleportToDiva)),
                 interruptPriority = InterruptPriority.Death,
 
-                baseRechargeInterval = 1f,
+                baseRechargeInterval = 0f,
                 baseMaxStock = 1,
                 rechargeStock = 1,
                 requiredStock = 1,

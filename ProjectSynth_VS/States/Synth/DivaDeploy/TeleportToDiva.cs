@@ -95,8 +95,8 @@ namespace ProjectSynth.States.Synth.DivaDeploy
 
             if (t >= 1f && !consumed)
             {
-                consumed = true;
-                tracker?.ConsumeCurrentTarget();
+                //consumed = true;
+                //tracker?.ConsumeCurrentTarget();
                 outer.SetNextStateToMain();
             }
         }

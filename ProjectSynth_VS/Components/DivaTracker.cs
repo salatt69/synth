@@ -1,9 +1,11 @@
 ﻿using ProjectSynth.Character.Synth.Content;
 using R2API.Networking;
 using R2API.Networking.Interfaces;
+using Rewired.Utils;
 using RoR2;
 using RoR2.Networking;
 using RoR2.Skills;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -43,9 +45,10 @@ namespace ProjectSynth.Components
         private CharacterBody body;
         private SkillLocator skillLocator;
 
-        private ProjectileMarker cachedBeacon;
-        private Indicator beaconIndicator;
-        private Indicator beaconIndicatorLooking;
+        private readonly List<ProjectileMarker> cachedBeacons = [];
+        private ProjectileMarker focusedBeacon;
+        private readonly List<Indicator> defaultIndicators = [];
+        private Indicator focusedIndicator;
 
         private void Awake()
         {
@@ -54,14 +57,14 @@ namespace ProjectSynth.Components
 
             Bootstrap();
 
-            beaconIndicator = new Indicator(gameObject, indicatorPrefab);
-            beaconIndicatorLooking = new Indicator(gameObject, indicatorLookingPrefab);
+            focusedIndicator = new Indicator(gameObject, indicatorLookingPrefab);
         }
 
         private void OnDestroy()
         {
-            beaconIndicator?.DestroyVisualizer();
-            beaconIndicatorLooking?.DestroyVisualizer();
+            focusedIndicator?.DestroyVisualizer();
+            foreach (var ind in defaultIndicators)
+                ind?.DestroyVisualizer();
         }
 
         private void Update()
@@ -73,14 +76,15 @@ namespace ProjectSynth.Components
 
             if (!body || !body.hasAuthority) return;
 
-            cachedBeacon = FindOwnedBeacon();
+            FindOwnedBeacons();
 
-            bool hasBeacon = cachedBeacon != null;
-            bool canUse = overrideSlot && overrideSlot.stock > 0;
+            bool hasBeacons = cachedBeacons.Count > 0;
+            bool lookingAtBeacon = focusedBeacon != null && GetDot(focusedBeacon.transform.position) > 0.9f;
+            bool inRange = focusedBeacon != null && Vector3.Distance(body.corePosition, focusedBeacon.transform.position) <= maxTeleportDistance;
 
-            UpdateIndicator(hasBeacon && canUse);
+            UpdateIndicators();
 
-            if (hasBeacon)
+            if (hasBeacons && lookingAtBeacon && inRange)
                 EnsureOverrideOn();
             else
                 MaybeUnsetOverride();
@@ -102,12 +106,16 @@ namespace ProjectSynth.Components
                 indicatorLookingPrefab = SynthAssets.divaIndicatorFocused;
         }
 
-        private ProjectileMarker FindOwnedBeacon()
+        private void FindOwnedBeacons()
         {
-            var list = InstanceTracker.GetInstancesList<ProjectileMarker>();
-            if (list == null || list.Count == 0) return null;
+            cachedBeacons.Clear();
+            focusedBeacon = null;
 
-            ProjectileMarker best = null;
+            var list = InstanceTracker.GetInstancesList<ProjectileMarker>();
+            if (list == null || list.Count == 0) return;
+
+            ProjectileMarker bestLooking = null;
+            float bestDot = 0f;
 
             for (int i = 0; i < list.Count; i++)
             {
@@ -117,27 +125,34 @@ namespace ProjectSynth.Components
                 var owner = m.GetOwner();
                 if (!owner) continue;
 
-                // MP-safe ownership filter:
                 if (owner != gameObject) continue;
 
-                // Optional prefer stuck ones
-                var stick = m.GetComponent<ProjectileStickOnImpactByNormal>();
-                bool isStuck = stick && stick.stuck;
+                cachedBeacons.Add(m);
 
-                if (best == null)
+                float dot = GetDot(m.transform.position);
+                if (dot > bestDot)
                 {
-                    best = m;
-                    continue;
+                    bestDot = dot;
+                    bestLooking = m;
                 }
-
-                var bestStick = best.GetComponent<ProjectileStickOnImpactByNormal>();
-                bool bestStuck = bestStick && bestStick.stuck;
-
-                if (isStuck && !bestStuck)
-                    best = m;
             }
 
-            return best;
+            focusedBeacon = bestLooking;
+        }
+
+        private float GetDot(Vector3 targetPos)
+        {
+            if (!body) return 0f;
+
+            Vector3 direction = targetPos - body.inputBank.aimOrigin;
+            direction.y = 0;
+            if (direction.magnitude < 0.001f) return 0f;
+
+            Vector3 forward = body.inputBank.aimDirection;
+            forward.y = 0;
+            if (forward.magnitude < 0.001f) return 0f;
+
+            return Vector3.Dot(direction.normalized, forward.normalized);
         }
 
         private void EnsureOverrideOn()
@@ -154,13 +169,21 @@ namespace ProjectSynth.Components
 
         private void ClearClientUX()
         {
-            cachedBeacon = null;
+            cachedBeacons.Clear();
+            focusedBeacon = null;
 
-            if (beaconIndicator != null)
+            foreach (var ind in defaultIndicators)
             {
-                beaconIndicator.targetTransform = null;
-                beaconIndicator.active = false;
-                beaconIndicator.UpdateVisualizer();
+                ind.targetTransform = null;
+                ind.active = false;
+                ind.UpdateVisualizer();
+            }
+
+            if (focusedIndicator != null)
+            {
+                focusedIndicator.targetTransform = null;
+                focusedIndicator.active = false;
+                focusedIndicator.UpdateVisualizer();
             }
 
             // local override cleanup
@@ -172,70 +195,97 @@ namespace ProjectSynth.Components
         {
             if (!NetworkServer.active) return;
 
-            var beacon = FindOwnedBeacon();
-            if (beacon)
+            foreach (var beacon in cachedBeacons)
             {
-                NetworkServer.Destroy(beacon.gameObject);
+                if (beacon)
+                {
+                    NetworkServer.Destroy(beacon.gameObject);
+                }
             }
         }
 
         #region indicator
-        private void UpdateIndicator(bool shouldShow)
+        private void UpdateIndicators()
         {
-            if (beaconIndicator == null || beaconIndicatorLooking == null) return;
-
-            if (!shouldShow || !cachedBeacon)
+            while (defaultIndicators.Count < cachedBeacons.Count)
             {
-                beaconIndicator.targetTransform = null;
-                beaconIndicator.active = false;
-                beaconIndicator.UpdateVisualizer();
-
-                beaconIndicatorLooking.targetTransform = null;
-                beaconIndicatorLooking.active = false;
-                beaconIndicatorLooking.UpdateVisualizer();
-                return;
+                var ind = new Indicator(gameObject, indicatorPrefab);
+                defaultIndicators.Add(ind);
             }
 
-            var t = cachedBeacon.transform;
-            bool lookingAt = IsLookingAt(t.position);
-            float dist = Vector3.Distance(body.corePosition, t.position);
-            bool inRange = dist <= maxTeleportDistance;
-
-            beaconIndicator.targetTransform = t;
-            beaconIndicator.active = true;
-            beaconIndicator.UpdateVisualizer();
-
-            Color c = GetTeleportColor(t.position);
-            SetIndicatorColor(beaconIndicator, c);
-
-            if (inRange && lookingAt)
+            while (defaultIndicators.Count > cachedBeacons.Count)
             {
-                beaconIndicatorLooking.targetTransform = t;
-                beaconIndicatorLooking.active = true;
-                beaconIndicatorLooking.UpdateVisualizer();
-                SetIndicatorColor(beaconIndicatorLooking, c);
+                var ind = defaultIndicators[defaultIndicators.Count - 1];
+                defaultIndicators.RemoveAt(defaultIndicators.Count - 1);
+                ind?.DestroyVisualizer();
             }
-            else
+
+            for (int i = 0; i < cachedBeacons.Count; i++)
             {
-                beaconIndicatorLooking.targetTransform = null;
-                beaconIndicatorLooking.active = false;
-                beaconIndicatorLooking.UpdateVisualizer();
+                var beacon = cachedBeacons[i];
+                var ind = defaultIndicators[i];
+
+                if (!beacon || ind.IsNullOrDestroyed())
+                {
+                    ind.targetTransform = null;
+                    ind.active = false;
+                    ind.UpdateVisualizer();
+                    continue;
+                }
+
+                ind.targetTransform = beacon.transform;
+                ind.active = true;
+                ind.UpdateVisualizer();
+
+                Color c = GetBeaconColor(beacon.transform.position);
+                SetIndicatorColor(ind, c);
+            }
+
+            if (focusedIndicator != null)
+            {
+                bool inRange = focusedBeacon != null && Vector3.Distance(body.corePosition, focusedBeacon.transform.position) <= maxTeleportDistance;
+                bool lookingAtBeacon = focusedBeacon != null && GetDot(focusedBeacon.transform.position) > 0.9f;
+
+                if (inRange && lookingAtBeacon)
+                {
+                    focusedIndicator.targetTransform = focusedBeacon.transform;
+                    focusedIndicator.active = true;
+                    focusedIndicator.UpdateVisualizer();
+
+                    Color c = GetBeaconColor(focusedBeacon.transform.position);
+                    SetIndicatorColor(focusedIndicator, c);
+                }
+                else
+                {
+                    focusedIndicator.targetTransform = null;
+                    focusedIndicator.active = false;
+                    focusedIndicator.UpdateVisualizer();
+                }
             }
         }
 
-        private Color GetTeleportColor(Vector3 targetPos)
+        private Color GetBeaconColor(Vector3 targetPos)
         {
             if (!body) return Color.gray;
 
             float dist = Vector3.Distance(body.corePosition, targetPos);
             if (dist > maxTeleportDistance) return Color.gray;
 
-            bool blocked;
-            float d;
-            bool ok = CanTeleportTo(targetPos, out blocked, out d);
+            Vector3 from = body.corePosition;
+            Vector3 dir = targetPos - from;
+            float len = dir.magnitude;
+            if (len > 0.001f)
+            {
+                dir /= len;
 
-            if (!ok && blocked) return Color.red;
-            if (!ok) return Color.gray;
+                if (Physics.Raycast(from, dir, out RaycastHit hit, dist, LayerIndex.world.mask, QueryTriggerInteraction.Ignore))
+                {
+                    bool allowed = hit.distance >= dist - 0.20f;
+                    if (!allowed) return Color.red;
+                    return Color.green;
+                }
+            }
+
             return Color.green;
         }
 
@@ -244,36 +294,53 @@ namespace ProjectSynth.Components
             if (indicator?.visualizerInstance)
             {
                 var sr = indicator.visualizerInstance.GetComponentInChildren<SpriteRenderer>();
-                if (sr) sr.color = c;
+                if (sr)
+                {
+                    if (sr.material != null && !sr.material.name.EndsWith("(Instance)"))
+                    {
+                        sr.material = UnityEngine.Object.Instantiate(sr.material);
+                    }
+                    sr.color = c;
+                }
 
                 var mr = indicator.visualizerInstance.GetComponentInChildren<MeshRenderer>();
-                if (mr && mr.material) mr.material.color = c;
+                if (mr)
+                {
+                    if (mr.material != null && !mr.material.name.EndsWith("(Instance)"))
+                    {
+                        mr.material = UnityEngine.Object.Instantiate(mr.material);
+                    }
+                    if (mr.material != null)
+                    {
+                        mr.material.color = c;
+                    }
+                }
             }
         }
         #endregion
 
         #region api
-        public void ConsumeCurrentTarget()
-        {
-            if (body && body.hasAuthority)
-            {
-                ClearClientUX();
-            }
+        //public void ConsumeCurrentTarget()
+        //{
+        //    if (body && body.hasAuthority)
+        //    {
+        //        ClearClientUX();
+        //    }
 
-            if (NetworkServer.active)
-            {
-                ConsumeOwnedBeaconServer();
-                return;
-            }
+        //    if (NetworkServer.active)
+        //    {
+        //        ConsumeOwnedBeaconServer();
+        //        return;
+        //    }
 
-            if (NetworkClient.active && body && body.hasAuthority)
-            {
-                var ni = body.GetComponent<NetworkIdentity>();
-                if (!ni) return;
+        //    if (NetworkClient.active && body && body.hasAuthority)
+        //    {
+        //        var ni = body.GetComponent<NetworkIdentity>();
+        //        if (!ni) return;
 
-                new ConsumeOwnedBeaconMessage { bodyNetId = ni.netId }.Send(NetworkDestination.Server);
-            }
-        }
+        //        new ConsumeOwnedBeaconMessage { bodyNetId = ni.netId }.Send(NetworkDestination.Server);
+        //    }
+        //}
 
         public bool CanTeleportTo(Vector3 pos, out bool blocked, out float dist)
         {
@@ -281,7 +348,7 @@ namespace ProjectSynth.Components
             dist = 999f;
             if (!body) return false;
 
-            if (!IsLookingAt(cachedBeacon.transform.position)) return false;
+            if (!focusedBeacon || GetDot(focusedBeacon.transform.position) <= 0.9f) return false;
 
             Vector3 from = body.corePosition;
             dist = Vector3.Distance(from, pos);
@@ -304,27 +371,11 @@ namespace ProjectSynth.Components
             return true;
         }
 
-        private bool IsLookingAt(Vector3 targetPos)
-        {
-            if (!body) return false;
-
-            Vector3 direction = targetPos - body.inputBank.aimOrigin;
-            direction.y = 0;
-            if (direction.magnitude < 0.001f) return false;
-
-            Vector3 forward = body.inputBank.aimDirection;
-            forward.y = 0;
-            if (forward.magnitude < 0.001f) return false;
-
-            float dot = Vector3.Dot(direction.normalized, forward.normalized);
-            return dot > 0.9f;
-        }
-
         public bool TryGetBestTarget(out Transform t)
         {
-            if (cachedBeacon)
+            if (focusedBeacon)
             {
-                t = cachedBeacon.GetTransform();
+                t = focusedBeacon.GetTransform();
                 return true;
             }
 
