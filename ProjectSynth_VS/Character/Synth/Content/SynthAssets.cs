@@ -48,8 +48,8 @@ namespace ProjectSynth.Character.Synth.Content
         public static GameObject synthCrosshair; // TODO:
         public static GameObject synthMetroOverlay; // TODO:
         public static GameObject synthRushOverlay; // TODO:
-        public static GameObject divaIndicator; // TODO:
-        public static GameObject divaIndicatorFocused; // TODO:
+        public static GameObject divaIndicator;
+        public static GameObject divaIndicatorFocused;
 
         // Pod
         public static GameObject synthSurvivorPod; // TODO:
