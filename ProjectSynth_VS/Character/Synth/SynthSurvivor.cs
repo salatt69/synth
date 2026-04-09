@@ -217,7 +217,7 @@ namespace ProjectSynth.Character.Synth
             });
 
             SkillDef diva = SynthSkillDefs.Secondary_DeployDiva();
-            SynthSkillDefs.Secondary_TeleportToDiva();
+            SynthSkillDefs.Secondary_LeapTowardsDiva();
 
             Skills.AddSecondarySkills(bodyPrefab, diva, utilitySkillDef1);
         }

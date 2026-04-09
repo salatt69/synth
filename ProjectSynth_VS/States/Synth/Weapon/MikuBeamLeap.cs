@@ -13,6 +13,7 @@ using UnityEngine.Networking;
 
 namespace ProjectSynth.States.Synth.Weapon
 {
+    // TODO: how to not use any other skill when in this (or sustain) state? 
     public class MikuBeamLeap : BaseSkillState
     {
         public float upwardSpeed = 25f;

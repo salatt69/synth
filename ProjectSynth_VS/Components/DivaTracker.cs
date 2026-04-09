@@ -95,7 +95,7 @@ namespace ProjectSynth.Components
             if (losMask.value == 0) losMask = LayerIndex.world.mask;
 
             if (!blinkSkillDef)
-                blinkSkillDef = SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Virtual Deviation Teleport"));
+                blinkSkillDef = SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Virtual Deviation Leap")); // TODO: this is fragile af
 
             if (!overrideSlot && skillLocator) overrideSlot = skillLocator.secondary;
 
@@ -320,28 +320,6 @@ namespace ProjectSynth.Components
         #endregion
 
         #region api
-        //public void ConsumeCurrentTarget()
-        //{
-        //    if (body && body.hasAuthority)
-        //    {
-        //        ClearClientUX();
-        //    }
-
-        //    if (NetworkServer.active)
-        //    {
-        //        ConsumeOwnedBeaconServer();
-        //        return;
-        //    }
-
-        //    if (NetworkClient.active && body && body.hasAuthority)
-        //    {
-        //        var ni = body.GetComponent<NetworkIdentity>();
-        //        if (!ni) return;
-
-        //        new ConsumeOwnedBeaconMessage { bodyNetId = ni.netId }.Send(NetworkDestination.Server);
-        //    }
-        //}
-
         public bool CanTeleportTo(Vector3 pos, out bool blocked, out float dist)
         {
             blocked = false;

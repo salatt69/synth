@@ -24,7 +24,7 @@ namespace ProjectSynth.Character.Synth.Content
             ContentAddition.AddEntityState(typeof(TNM), out _);
             ContentAddition.AddEntityState(typeof(SonicBoom), out _);
             ContentAddition.AddEntityState(typeof(DeployDiva), out _);
-            ContentAddition.AddEntityState(typeof(TeleportToDiva), out _);
+            ContentAddition.AddEntityState(typeof(LeapTowardsDiva), out _);
             ContentAddition.AddEntityState(typeof(MikuBeamLeap), out _);
             ContentAddition.AddEntityState(typeof(MikuBeamSustain), out _);
 

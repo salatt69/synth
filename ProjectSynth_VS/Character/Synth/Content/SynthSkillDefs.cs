@@ -204,19 +204,19 @@ namespace ProjectSynth.Character.Synth.Content
             return diva;
         }
 
-        public static SkillDef Secondary_TeleportToDiva()
+        public static SkillDef Secondary_LeapTowardsDiva()
         {
             SkillDef divaTeleport = Skills.CreateSkillDef2(new SkillDefInfo2
             {
-                skillName = "Virtual Deviation Teleport",
-                skillNameToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_TP_NAME",
-                skillDescriptionToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_TP_DESCRIPTION",
+                skillName = "Virtual Deviation Leap",
+                skillNameToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_LEAP_NAME",
+                skillDescriptionToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_LEAP_DESCRIPTION",
                 // keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
                 icon = SynthAssets.tex_icon_DivaTeleport,
 
                 activationStateMachineName = "DivaDeploy",
-                activationState = new SerializableEntityStateType(typeof(TeleportToDiva)),
-                interruptPriority = InterruptPriority.Death,
+                activationState = new SerializableEntityStateType(typeof(LeapTowardsDiva)),
+                interruptPriority = InterruptPriority.Skill,
 
                 baseRechargeInterval = 0f,
                 baseMaxStock = 1,
