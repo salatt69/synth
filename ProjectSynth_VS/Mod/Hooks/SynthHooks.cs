@@ -16,7 +16,7 @@ namespace ProjectSynth.Mod.Hooks
         {
             On.RoR2.Run.FixedUpdate += HookFixedUpdate;
             On.RoR2.Run.Update += HookUpdate;
-            R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             GlobalEventManager.onServerDamageDealt += OnServerDamageDealt;
         }
 

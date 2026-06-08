@@ -62,7 +62,7 @@ namespace ProjectSynth.States.Synth.Weapon
             if (MusicSync.OnBeat() && !process)
             {
                 process = true;
-                OverrideCameraParams((float)peakTime);
+                StartHoverParamsOverride((float)peakTime);
             }
 
             if (stopwatch >= peakTime - MusicSync.BeatInterval * 0.5f && MusicSync.OnBeat())
@@ -90,7 +90,7 @@ namespace ProjectSynth.States.Synth.Weapon
             }
         }
 
-        private void OverrideCameraParams(float transitionDuration)
+        private void StartHoverParamsOverride(float transitionDuration)
         { 
             if (cameraParamsOverrideHandle.isValid) return;
 
@@ -99,6 +99,11 @@ namespace ProjectSynth.States.Synth.Weapon
                 cameraParamsData = SynthAssets.ccpMikuBeam.data,
                 priority = 1.0f
             }, transitionDuration);
+        }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Stun;
         }
     }
 }

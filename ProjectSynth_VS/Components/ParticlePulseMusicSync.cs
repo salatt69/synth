@@ -40,7 +40,7 @@ namespace ProjectSynth.Components
                     "\n [particleSystem.emission.burstCount >= 1]" +
                     "\n [particleSystem.emission.rateOverTime.constant <= 0]" +
                     "\n [particleSystem.emission.rateOverDistance.constant <= 0]" +
-                    "\nNot following them will not break the component, you just might not see what you expected to see. But if you know what you are doing, then i apologise.");
+                    "\nNot following them will not break the component, you just might not see what you expected to see. But if you know what you are doing, then I apologise.");
             }
 
             BuildDelegate();

@@ -1,6 +1,4 @@
 ﻿using ProjectSynth.Character.Synth.Content;
-using ProjectSynth.Character.Synth.States.Special;
-using ProjectSynth.Character.Synth.States.Utility;
 using ProjectSynth.Components;
 using ProjectSynth.Mod;
 using ProjectSynth.Modules;
@@ -142,7 +140,6 @@ namespace ProjectSynth.Character.Synth
             //don't forget to register custom entitystates in your HenryStates.cs
 
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon");
-            Prefabs.AddEntityStateMachine(bodyPrefab, "DivaDeploy");
             Prefabs.AddEntityStateMachine(bodyPrefab, "Metro", typeof(MetroWaitForInputState), typeof(MetroWaitForInputState));
         }
 
@@ -163,14 +160,10 @@ namespace ProjectSynth.Character.Synth
         //also skip if this is your first look at skills
         private void AddPassiveSkill()
         {
-            // TODO: make it into Skills module
-            // TODO: or rather just rethink how passives are set up entirely. (no item needed)
-
             GenericSkill passiveGenericSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "Passive");
 
             PassiveItemSkillDef metro = SynthSkillDefs.Passive_Metro();
             PassiveItemSkillDef another = SynthSkillDefs.Passive_Another();
-
             Skills.AddSkillsToFamily(passiveGenericSkill.skillFamily, metro, another);
         }
 
@@ -186,77 +179,25 @@ namespace ProjectSynth.Character.Synth
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Secondary);
 
-            SkillDef utilitySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "HenryRoll",
-                skillNameToken = SYNTH_PREFIX + "SECONDARY_ROLL_NAME",
-                skillDescriptionToken = SYNTH_PREFIX + "SECONDARY_ROLL_DESCRIPTION",
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(Roll)),
-                activationStateMachineName = "Body",
-                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
-
-                baseRechargeInterval = 4f,
-                baseMaxStock = 1,
-
-                rechargeStock = 1,
-                requiredStock = 1,
-                stockToConsume = 1,
-
-                resetCooldownTimerOnUse = false,
-                fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = false,
-                mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
-
-                isCombatSkill = false,
-                canceledFromSprinting = false,
-                cancelSprintingOnActivation = false,
-                forceSprintDuringState = true,
-            });
-
             SkillDef diva = SynthSkillDefs.Secondary_DeployDiva();
             SynthSkillDefs.Secondary_LeapTowardsDiva();
-
-            Skills.AddSecondarySkills(bodyPrefab, diva, utilitySkillDef1);
+            Skills.AddSecondarySkills(bodyPrefab, diva);
         }
 
         private void AddUtilitySkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Utility);
 
-            SkillDef sonicBoom = SynthSkillDefs.Utility_SonicBoom();
-            Skills.AddUtilitySkills(bodyPrefab, sonicBoom);
+            SkillDef rollingGirl = SynthSkillDefs.Utility_RollingGirl();
+            Skills.AddUtilitySkills(bodyPrefab, rollingGirl);
         }
 
         private void AddSpecialSkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Special);
 
-            //a basic skill. some fields are omitted and will just have default values
-            SkillDef specialSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "HenryBomb",
-                skillNameToken = SYNTH_PREFIX + "SPECIAL_BOMB_NAME",
-                skillDescriptionToken = SYNTH_PREFIX + "SPECIAL_BOMB_DESCRIPTION",
-                skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(ThrowBomb)),
-                //setting this to the "weapon2" EntityStateMachine allows us to cast this skill at the same time primary, which is set to the "weapon" EntityStateMachine
-                activationStateMachineName = "DivaDeploy",
-                interruptPriority = EntityStates.InterruptPriority.Skill,
-
-                baseMaxStock = 1,
-                baseRechargeInterval = 10f,
-
-                isCombatSkill = true,
-                mustKeyPress = false,
-            });
-
             SkillDef mikuBeam = SynthSkillDefs.Special_MikuBeam();
-
-            Skills.AddSpecialSkills(bodyPrefab, specialSkillDef1, mikuBeam);
+            Skills.AddSpecialSkills(bodyPrefab, mikuBeam);
         }
         #endregion skills
 

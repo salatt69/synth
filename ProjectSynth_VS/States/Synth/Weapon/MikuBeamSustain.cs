@@ -144,13 +144,18 @@ namespace ProjectSynth.States.Synth.Weapon
             base.OnExit();
         }
 
-        protected void EndHoverParamsOverride(float transitionDuration)
+        private void EndHoverParamsOverride(float transitionDuration)
         {
             if (cameraParamsOverrideHandle.isValid)
             {
                 base.cameraTargetParams.RemoveParamsOverride(cameraParamsOverrideHandle, transitionDuration);
                 cameraParamsOverrideHandle = default;
             }
+        }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Stun;
         }
     }
 }

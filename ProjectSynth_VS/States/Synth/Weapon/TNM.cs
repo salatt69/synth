@@ -1,115 +1,167 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth.Content;
+using ProjectSynth.Components;
 using ProjectSynth.Mod;
 using ProjectSynth.Modules.BaseContent.BaseStates.Metro;
 using ProjectSynth.States.Synth.Metro;
-using R2API;
+using Rewired.Utils;
 using RoR2;
+using RoR2.Projectile;
+using RoR2.Skills;
 using SyncLib.API;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ProjectSynth.States.Synth.Weapon
 {
-    public class TNM : BaseMetroSkillState
+    public class TNM : BaseSkillState, SteppedSkillDef.IStepSetter
     {
-        public float baseDuration = 1f;
+        public GameObject projectilePrefab = SynthAssets.proj_ThirtyNineMusic;
+        public GameObject projectilePrefabAlt = SynthAssets.proj_ThirtyNineMusicAlt;
+        public GameObject muzzleFlashPrefab = SynthAssets.vfx_tnmMuzzleFlash;
         public float damageCoefficient = SynthStaticValues.thirtyNineMusicDamageCoefficient;
-        public GameObject muzzleflashEffectPrefab = SynthAssets.vfx_tnmMuzzleFlash;
-        public GameObject tracerEffectPrefab = SynthAssets.vfx_tnmTracer;
-        public string muzzle = "SwingCenter";
+        public double duration = MusicSync.BeatInterval;
+        public float force = 20f;
+        public float bloom = 5f;
+        public float recoilAmplitude = 1.2f;
+        public string attackSoundString;
+        public string attackSoundStringAlt;
 
-        private float duration;
+        private SoundWave soundWave;
+        private bool hasFired;
+        private Animator animator;
+        private ChildLocator childLocator;
+        private Transform muzzleTransform;
+        private string muzzleString;
+
+        private Vector3 originalScale;
+        private Vector3 originalScaleAlt;
+
+        public enum SoundWave
+        {
+            Left,
+            Right,
+            Center,
+            Circle
+        }
+
+        public void SetStep(int i)
+        {
+            soundWave = (SoundWave)i;
+        }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            ResetDuration();
-            FireBullet();
+
+            float scaleFactor = attackSpeedStat * 0.75f;
+
+            var scale = projectilePrefab.GetComponent<ScaleObjectOverTime>();
+            if (scale.additionalScale != scaleFactor)
+            {
+                scale.additionalScale = scaleFactor;
+            }
+
+            var scaleAlt = projectilePrefabAlt.GetComponent<ScaleObjectOverTime>();
+            if (scaleAlt.additionalScale != scaleFactor)
+            {
+                scaleAlt.additionalScale = scaleFactor;
+            }
+
+            characterBody.SetAimTimer(2f);
+            animator = GetModelAnimator();
+            if (animator)
+            {
+                childLocator = animator.GetComponent<ChildLocator>();
+            }
+            switch (soundWave)
+            {
+                case SoundWave.Left:
+                    muzzleString = "HandL";
+                    break;
+                case SoundWave.Right:
+                    muzzleString = "HandR";
+                    break;
+                case SoundWave.Center:
+                    muzzleString = "Tie";
+                    break;
+                case SoundWave.Circle:
+                    muzzleString = "Skirt";
+                    break;
+            }
         }
 
-        private void FireBullet()
+        public override void OnExit()
         {
-            Ray aimRay = base.GetAimRay();
-            //base.PlayAnimation(this.animationLayerName, this.animationStateName, this.animationPlaybackRateParam, this.duration, 0f);
-            base.AddRecoil(-1f, -2f, -0.5f, 0.5f);
-            base.StartAimMode(aimRay, duration, false);
-            //Util.PlaySound(this.attackSoundString, base.gameObject);
-            if (muzzleflashEffectPrefab)
+            base.OnExit();
+        }
+
+        private void Fire()
+        {
+            if (hasFired) return;
+
+            characterBody.AddSpreadBloom(bloom);
+            Ray aimRay = GetAimRay();
+            if (soundWave == SoundWave.Circle)
             {
-                EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, muzzle, false);
+                Vector3 flat = new Vector3(aimRay.direction.x, 0f, aimRay.direction.z).normalized;
+                aimRay = new Ray(aimRay.origin, flat);
             }
-            if (base.isAuthority)
+            if (childLocator)
             {
-                BulletAttack ba = new()
+                muzzleTransform = childLocator.FindChild(muzzleString);
+            }
+            if (muzzleFlashPrefab)
+            {
+                //EffectManager.SimpleMuzzleFlash(muzzleFlashPrefab, gameObject, muzzleString, false);
+            }
+            if (isAuthority)
+            {
+                float damage = damageStat * damageCoefficient;
+                FireProjectileInfo fireProjectileInfo = new()
                 {
-                    owner = base.gameObject,
-                    weapon = base.gameObject,
-                    origin = aimRay.origin,
-                    aimVector = aimRay.direction,
-                    muzzleName = muzzle,
-                    maxDistance = 100.0f,
-                    minSpread = 0.0f,
-                    maxSpread = base.characterBody.spreadBloomAngle,
-                    radius = 1.0f,
-                    falloffModel = BulletAttack.FalloffModel.None,
-                    smartCollision = true,
-                    damage = damageCoefficient * this.damageStat,
-                    procCoefficient = 1.0f,
-                    force = 1000.0f,
-                    isCrit = Util.CheckRoll(this.critStat, base.characterBody.master),
-                    damageType = DamageType.Generic,
-                    tracerEffectPrefab = tracerEffectPrefab,
-                    //hitEffectPrefab = this.hitEffectPrefab,
-                    trajectoryAimAssistMultiplier = 0.75f
+                    projectilePrefab = projectilePrefab,
+                    position = muzzleTransform.position,
+                    rotation = Util.QuaternionSafeLookRotation(aimRay.direction),
+                    owner = this.gameObject,
+                    target = null,
+                    useSpeedOverride = false,
+                    useFuseOverride = false,
+                    damage = damage,
+                    force = force,
+                    crit = RollCrit(),
+                    damageColorIndex = DamageColorIndex.Default,
+                    damageTypeOverride = DamageSource.Primary
                 };
-                ba.damageType.damageSource = DamageSource.Primary;
-
-                if (IsMetronomeHit)
-                {
-                    ba.damageType.AddModdedDamageType(SynthDamageTypes.Encore);
-                }
-
-                ba.Fire();
+                ProjectileManager.instance.FireProjectile(fireProjectileInfo);
             }
-            base.characterBody.AddSpreadBloom(0.5f);
-            activatorSkillSlot.DeductStock(1);
-
-            Log.Warning(age);
-        }
-
-        private void ResetDuration()
-        {
-            duration = baseDuration / attackSpeedStat;
+            AddRecoil(-0.1f * recoilAmplitude, 0.1f * recoilAmplitude, -1.0f * recoilAmplitude, 1.0f * recoilAmplitude);
         }
 
         public override void Update()
         {
             base.Update();
-
-            if (IsMetronomeHit && inputBank.skill1.down && activatorSkillSlot.stock > 0)
+            if (MusicSync.OnBeat())
             {
-                if (MusicSync.OnBeat() && !inputBank.skill1.justPressed && age > 0.05f)
+                if (soundWave == SoundWave.Circle && !hasFired)
                 {
-                    FireBullet();
+                    //Util.PlaySound()
+                    projectilePrefab = projectilePrefabAlt;
+                    damageCoefficient *= 3f;
+                    Fire();
+                    hasFired = true;
+                }
+                else if (!hasFired)
+                {
+                    //Util.PlaySound()
+                    Fire();
+                    hasFired = true;
                 }
             }
-            else
-            {
-                ResetDuration();
-            }
-        }
 
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-
-            if (base.fixedAge >= this.duration && base.isAuthority)
+            if (isAuthority && hasFired)
             {
-                this.outer.SetNextStateToMain();
-                return;
+                outer.SetNextStateToMain();
             }
         }
 
@@ -118,16 +170,16 @@ namespace ProjectSynth.States.Synth.Weapon
             return InterruptPriority.Skill;
         }
 
-        public override void OnMetronomeHit(BaseMetroState metroState)
+        public override void OnSerialize(NetworkWriter writer)
         {
-            base.OnMetronomeHit(metroState);
-            baseDuration = activatorSkillSlot.stock * (float)MusicSync.BeatInterval + 1.0f;
-            Log.Warning($"Metronome hit! New BaseDuration = {baseDuration}");
+            base.OnSerialize(writer);
+            writer.Write((byte)soundWave);
         }
 
-        public override void OnMetronomeMiss(BaseMetroState metroState)
+        public override void OnDeserialize(NetworkReader reader)
         {
-            base.OnMetronomeMiss(metroState);
+            base.OnDeserialize(reader);
+            soundWave = (SoundWave)reader.ReadByte();
         }
     }
 }

@@ -5,7 +5,7 @@ using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ProjectSynth.States.Synth.DivaDeploy
+namespace ProjectSynth.States.Synth.Weapon
 {
     // TODO: figure out how to make sprinting leap to as far as it is now
     public class LeapTowardsDiva : BaseSkillState

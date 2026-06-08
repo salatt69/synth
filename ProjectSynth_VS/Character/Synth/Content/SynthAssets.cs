@@ -38,10 +38,10 @@ namespace ProjectSynth.Character.Synth.Content
         public static GameObject vfx_encoreExplosion; // TODO:
         public static GameObject vfx_mikuBeamEffect; // TODO:
         public static GameObject vfx_tnmMuzzleFlash; // TODO:
-        public static GameObject vfx_tnmTracer; // TODO:
 
         // projectiles
         public static GameObject proj_ThirtyNineMusic;
+        public static GameObject proj_ThirtyNineMusicAlt;
         public static GameObject proj_Diva;
 
         // UI
@@ -242,34 +242,67 @@ namespace ProjectSynth.Character.Synth.Content
             var tnmMuzzleFlash_destroyOnTimer = vfx_tnmMuzzleFlash.AddComponent<DestroyOnTimer>();
             tnmMuzzleFlash_destroyOnTimer.duration = 1.0f;
             ContentAddition.AddEffect(vfx_tnmMuzzleFlash);
-
-            vfx_tnmTracer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
-
         }
 
         private static void CreateProjectiles()
         {
             // ThirtyNineMusic
-            //proj_ThirtyNineMusic = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Treebot/SyringeProjectile.prefab")
-            //    .WaitForCompletion()?
-            //    .InstantiateClone("ThirtyNineMusic", true);
+            proj_ThirtyNineMusic = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC2/Seeker/SpiritPunchProjectile.prefab")
+                .WaitForCompletion()?
+                .InstantiateClone("ThirtyNineMusicProjectile", true);
+            var tnm_simple = proj_ThirtyNineMusic.GetComponent<ProjectileSimple>();
+            tnm_simple.desiredForwardSpeed = 70f;
+            tnm_simple.lifetime = 2f;
+            tnm_simple.lifetimeExpiredEffect = null;
 
-            //var tnm_controller = proj_ThirtyNineMusic.GetComponent<ProjectileController>();
-            //tnm_controller.startSound = Sounds.ThirtyNineMusicShot;
+            var tnm_damage = proj_ThirtyNineMusic.GetComponent<ProjectileDamage>();
+            tnm_damage.damageType = DamageType.Generic;
 
-            //var tnm_single = proj_ThirtyNineMusic.GetComponent<ProjectileSingleTargetImpact>();
-            //tnm_single.hitSound = Sounds.thirtyNineMusicHitSoundEvent;
+            var tnm_hitBox = proj_ThirtyNineMusic.GetComponentInChildren<HitBox>();
+            tnm_hitBox.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
 
-            //var tnm_ghost = _ab.LoadAsset<GameObject>("ThirtyNineMusicGhost")?
-            //    .InstantiateClone("ThirtyNineMusicGhost", true);
+            var tnm_scaler = proj_ThirtyNineMusic.AddComponent<ScaleObjectOverTime>();
+            tnm_scaler.finalScale = new Vector3(4f, 1f, 1f);
+            tnm_scaler.time = tnm_simple.lifetime / 2f;
 
-            //tnm_ghost.AddComponent<NetworkIdentity>();
-            //tnm_ghost.AddComponent<ProjectileGhostController>();
+            var tnm_controller = proj_ThirtyNineMusic.GetComponent<ProjectileController>();
+            GameObject tnm_ghost = tnm_controller.ghostPrefab = _ab.LoadAsset<GameObject>("ThirtyNineMusicGhost")
+                .InstantiateClone("ThirtyNineMusicGhost", true);
+            var tnm_ghostController = tnm_ghost.AddComponent<ProjectileGhostController>();
+            tnm_ghostController.inheritScaleFromProjectile = true;
+            tnm_ghost.AddComponent<VFXAttributes>();
 
-            //tnm_ghost.AddComponent<VFXAttributes>().DoNotPool = true;
-            //tnm_controller.ghostPrefab = tnm_ghost;
+            ContentAddition.AddProjectile(proj_ThirtyNineMusic);
 
-            //ContentAddition.AddProjectile(proj_ThirtyNineMusic);
+            // ThirtyNineMusic (alt)
+            proj_ThirtyNineMusicAlt = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC2/Seeker/SpiritPunchProjectile.prefab")
+                .WaitForCompletion()?
+                .InstantiateClone("ThirtyNineMusicProjectileAlt", true);
+            var tnm_alt_simple = proj_ThirtyNineMusicAlt.GetComponent<ProjectileSimple>();
+            tnm_alt_simple.desiredForwardSpeed = 0f;
+            tnm_alt_simple.lifetime = 4f;
+            tnm_alt_simple.lifetimeExpiredEffect = null;
+
+            var tnm_alt_damage = proj_ThirtyNineMusicAlt.GetComponent<ProjectileDamage>();
+            tnm_alt_damage.damageType = DamageType.Generic;
+
+            var tnm_alt_hitBox = proj_ThirtyNineMusicAlt.GetComponentInChildren<HitBox>();
+            tnm_alt_hitBox.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+            tnm_alt_hitBox.showAsSphere = true;
+
+            var tnm_alt_scaler = proj_ThirtyNineMusicAlt.AddComponent<ScaleObjectOverTime>();
+            tnm_alt_scaler.finalScale  = new Vector3(100f, 5f, 100f);
+            tnm_alt_scaler.time = tnm_alt_simple.lifetime;
+
+            var tnm_alt_controller = proj_ThirtyNineMusicAlt.GetComponent<ProjectileController>();
+            GameObject tnm_alt_ghost = tnm_alt_controller.ghostPrefab = _ab.LoadAsset<GameObject>("ThirtyNineMusicGhostAlt")
+                .InstantiateClone("ThirtyNineMusicGhostAlt", true);
+
+            var tnm_alt_ghostController = tnm_alt_ghost.AddComponent<ProjectileGhostController>();
+            tnm_alt_ghostController.inheritScaleFromProjectile = true;
+            tnm_alt_ghost.AddComponent<VFXAttributes>();
+
+            ContentAddition.AddProjectile(proj_ThirtyNineMusicAlt);
 
             // Virtual Deviation (codename: Diva)
             proj_Diva = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMine.prefab")
@@ -294,7 +327,7 @@ namespace ProjectSynth.Character.Synth.Content
                 }
             }
 
-            var divaVisuals = _ab.LoadAsset<GameObject>("DivaVisuals")!.InstantiateClone("DivaVisuals", false);
+            var divaVisuals = _ab.LoadAsset<GameObject>("DivaVisuals").InstantiateClone("DivaVisuals", true);
             Transform diva_sphere = divaVisuals.transform.Find("Hologram/Sphere");
             Transform diva_blink = divaVisuals.transform.Find("Blink");
 

@@ -1,10 +1,7 @@
-﻿using ProjectSynth.Character.Synth.States.Special;
-using ProjectSynth.Character.Synth.States.Utility;
-using ProjectSynth.Junk;
+﻿using ProjectSynth.Junk;
 using ProjectSynth.States;
 using ProjectSynth.States.Synth;
 using ProjectSynth.States.Synth.Diva;
-using ProjectSynth.States.Synth.DivaDeploy;
 using ProjectSynth.States.Synth.Metro;
 using ProjectSynth.States.Synth.Weapon;
 using R2API;
@@ -19,10 +16,9 @@ namespace ProjectSynth.Character.Synth.Content
             ContentAddition.AddEntityState(typeof(SynthMain), out _);
 
             // Skills
-            ContentAddition.AddEntityState(typeof(Roll), out _);
-            ContentAddition.AddEntityState(typeof(ThrowBomb), out _);
             ContentAddition.AddEntityState(typeof(TNM), out _);
-            ContentAddition.AddEntityState(typeof(SonicBoom), out _);
+            ContentAddition.AddEntityState(typeof(RollingGirl), out _);
+            ContentAddition.AddEntityState(typeof(RollingGirlImpact), out _);
             ContentAddition.AddEntityState(typeof(DeployDiva), out _);
             ContentAddition.AddEntityState(typeof(LeapTowardsDiva), out _);
             ContentAddition.AddEntityState(typeof(MikuBeamLeap), out _);

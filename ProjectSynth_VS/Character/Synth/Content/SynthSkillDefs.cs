@@ -2,7 +2,6 @@
 using ProjectSynth.Junk;
 using ProjectSynth.Modules;
 using ProjectSynth.States.Synth;
-using ProjectSynth.States.Synth.DivaDeploy;
 using ProjectSynth.States.Synth.Weapon;
 using R2API;
 using RoR2;
@@ -23,7 +22,7 @@ namespace ProjectSynth.Character.Synth.Content
 
         public static PassiveItemSkillDef Passive_Metro()
         {
-            PassiveItemSkillDef metro = Skills.CreateSkillDef2(new PassiveItemSkillDefInfo
+            PassiveItemSkillDef metro = Skills.CreateSkillDef(new PassiveItemSkillDefInfo
             {
                 skillName = "M1K-U",
                 skillNameToken = Prefix + "PASSIVE_METRO_NAME",
@@ -69,7 +68,7 @@ namespace ProjectSynth.Character.Synth.Content
 
         public static PassiveItemSkillDef Passive_Another()
         {
-            PassiveItemSkillDef another = Skills.CreateSkillDef2(new PassiveItemSkillDefInfo
+            PassiveItemSkillDef another = Skills.CreateSkillDef(new PassiveItemSkillDefInfo
             {
                 skillName = "M1K-U v2.0",
                 skillNameToken = Prefix + "PASSIVE_ANOTHER_NAME",
@@ -113,9 +112,9 @@ namespace ProjectSynth.Character.Synth.Content
             return another;
         }
 
-        public static SkillDef Primary_ThirtyNineMusic()
+        public static SteppedSkillDef Primary_ThirtyNineMusic()
         {
-            SkillDef tnm = Skills.CreateSkillDef2(new SkillDefInfo2
+            SteppedSkillDef tnm = Skills.CreateSkillDef(new SteppedSkillDefInfo
             {
                 skillName = "39 Music!",
                 skillNameToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_NAME",
@@ -127,15 +126,14 @@ namespace ProjectSynth.Character.Synth.Content
                 activationState = new SerializableEntityStateType(typeof(TNM)),
                 interruptPriority = InterruptPriority.Any,
 
-                // TODO: make intervals different depending on current BPM
-                baseRechargeInterval = 1f,
-                baseMaxStock = 4,
-                rechargeStock = 1,
-                requiredStock = 1,
+                baseRechargeInterval = 0,
+                baseMaxStock = 0, 
+                rechargeStock = 0,
+                requiredStock = 0,
                 stockToConsume = 0,
 
-                attackSpeedBuffsRestockSpeed = true,
-                attackSpeedBuffsRestockSpeed_Multiplier = 0.5f,
+                attackSpeedBuffsRestockSpeed = false,
+                attackSpeedBuffsRestockSpeed_Multiplier = 1,
 
                 resetCooldownTimerOnUse = false,
                 fullRestockOnAssign = true,
@@ -143,17 +141,21 @@ namespace ProjectSynth.Character.Synth.Content
                 beginSkillCooldownOnSkillEnd = false,
                 isCooldownBlockedUntilManuallyReset = false,
 
-                cancelSprintingOnActivation = false,
+                cancelSprintingOnActivation = true,
                 forceSprintDuringState = false,
                 canceledFromSprinting = false,
 
                 isCombatSkill = true,
-                mustKeyPress = true,
+                mustKeyPress = false,
                 triggeredByPressRelease = false,
                 autoHandleLuminousShot = true,
                 suppressSkillActivation = false,
                 hideStockCount = false,
-                hideCooldown = false
+                hideCooldown = false,
+
+                stepCount = 4,
+                stepGraceDuration = 0.1f,
+                stepResetTimer = 0.75f
             });
             ContentAddition.AddSkillDef(tnm);
             return tnm;
@@ -161,7 +163,7 @@ namespace ProjectSynth.Character.Synth.Content
 
         public static SkillDef Secondary_DeployDiva()
         {
-            SkillDef diva = Skills.CreateSkillDef2(new SkillDefInfo2
+            SkillDef diva = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "Virtual Deviation",
                 skillNameToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_NAME",
@@ -169,7 +171,7 @@ namespace ProjectSynth.Character.Synth.Content
                 keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
                 icon = SynthAssets.tex_icon_Diva,
 
-                activationStateMachineName = "DivaDeploy",
+                activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(DeployDiva)),
                 interruptPriority = InterruptPriority.Skill,
 
@@ -206,7 +208,7 @@ namespace ProjectSynth.Character.Synth.Content
 
         public static SkillDef Secondary_LeapTowardsDiva()
         {
-            SkillDef divaTeleport = Skills.CreateSkillDef2(new SkillDefInfo2
+            SkillDef divaTeleport = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "Virtual Deviation Leap",
                 skillNameToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_LEAP_NAME",
@@ -214,7 +216,7 @@ namespace ProjectSynth.Character.Synth.Content
                 // keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
                 icon = SynthAssets.tex_icon_DivaTeleport,
 
-                activationStateMachineName = "DivaDeploy",
+                activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(LeapTowardsDiva)),
                 interruptPriority = InterruptPriority.Skill,
 
@@ -249,19 +251,19 @@ namespace ProjectSynth.Character.Synth.Content
             return divaTeleport;
         }
 
-        public static SkillDef Utility_SonicBoom()
+        public static SkillDef Utility_RollingGirl()
         {
-            SkillDef sonicBoom = Skills.CreateSkillDef2(new SkillDefInfo2
+            SkillDef sonicBoom = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = "Sonic Boom",
-                skillNameToken = Prefix + "UTILITY_SONIC_BOOM_NAME",
-                skillDescriptionToken = Prefix + "UTILITY_SONIC_BOOM_DESCRIPTION",
-                keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
-                icon = SynthAssets.tex_icon_SonicBoom,
+                skillName = "Rolling Girl",
+                skillNameToken = Prefix + "UTILITY_ROLLING_GIRL_NAME",
+                skillDescriptionToken = Prefix + "UTILITY_ROLLING_GIRL_DESCRIPTION",
+                keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
+                icon = SynthAssets.tex_icon_ThirtyNineMusic,
 
-                activationStateMachineName = "Body",
-                activationState = new SerializableEntityStateType(typeof(SonicBoom)),
-                interruptPriority = InterruptPriority.Skill,
+                activationStateMachineName = "Weapon",
+                activationState = new SerializableEntityStateType(typeof(RollingGirl)),
+                interruptPriority = InterruptPriority.PrioritySkill,
 
                 baseRechargeInterval = 4f,
                 baseMaxStock = 1,
@@ -275,11 +277,11 @@ namespace ProjectSynth.Character.Synth.Content
                 resetCooldownTimerOnUse = false,
                 fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = false,
-                beginSkillCooldownOnSkillEnd = true,
+                beginSkillCooldownOnSkillEnd = false,
                 isCooldownBlockedUntilManuallyReset = false,
 
                 cancelSprintingOnActivation = false,
-                forceSprintDuringState = true,
+                forceSprintDuringState = false,
                 canceledFromSprinting = false,
 
                 isCombatSkill = false,
@@ -296,7 +298,7 @@ namespace ProjectSynth.Character.Synth.Content
 
         public static SkillDef Special_MikuBeam()
         {
-            SkillDef mikuBeam = Skills.CreateSkillDef2(new SkillDefInfo2
+            SkillDef mikuBeam = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "Miku Miku Beam!",
                 skillNameToken = Prefix + "SPECIAL_MIKU_BEAM_NAME",

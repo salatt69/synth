@@ -1465,6 +1465,50 @@ Transform:
   m_Father: {fileID: 7059224596543926758}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2676018342481598803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4302849876439341154}
+  - component: {fileID: 5146075179269124307}
+  m_Layer: 0
+  m_Name: RollingHitBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4302849876439341154
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2676018342481598803}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.435, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 5624978495175143675}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5146075179269124307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2676018342481598803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63dc2c00bc45234bab375db0c723d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2711344188611837211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1911,6 +1955,37 @@ Transform:
   m_Father: {fileID: 6599664985543507488}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4286457157518890543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9118552268181070079}
+  m_Layer: 0
+  m_Name: BlackholeCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9118552268181070079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286457157518890543}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5624978495175143675}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4297988208617456852
 GameObject:
   m_ObjectHideFlags: 0
@@ -2177,6 +2252,7 @@ GameObject:
   - component: {fileID: 5624978495175143675}
   - component: {fileID: -4767352402475635572}
   - component: {fileID: -4130880450403621293}
+  - component: {fileID: 2221104243759177838}
   m_Layer: 0
   m_Name: mdlSynth
   m_TagString: Untagged
@@ -2200,6 +2276,8 @@ Transform:
   - {fileID: 5715910201528039256}
   - {fileID: 4279012248510562835}
   - {fileID: 376266336}
+  - {fileID: 4302849876439341154}
+  - {fileID: 9118552268181070079}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2218,6 +2296,16 @@ MonoBehaviour:
   transformPairs:
   - name: MainHurtbox
     transform: {fileID: 376266336}
+  - name: BlackholeCenter
+    transform: {fileID: 9118552268181070079}
+  - name: HandL
+    transform: {fileID: 520335230342900873}
+  - name: HandR
+    transform: {fileID: 8778452200166726429}
+  - name: Tie
+    transform: {fileID: 2052312077483128636}
+  - name: Skirt
+    transform: {fileID: 7785478302725784931}
 --- !u!114 &-4130880450403621293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2250,6 +2338,21 @@ MonoBehaviour:
   - {fileID: 2052312077483128636}
   componentsToDisableOnRagdoll:
   - {fileID: 0}
+--- !u!114 &2221104243759177838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4991150085729446465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50213d3126f9b2a45ae3b0a558547f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groupName: Rolling
+  hitBoxes:
+  - {fileID: 5146075179269124307}
 --- !u!1 &5012858883823239371
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,9 @@
 
         public const float mikuBeamDamageCoefficient = 16.0f;
 
+        public const float rollingGirlImpactDamageCoefficient = 5.0f;
+        public const float rollingGirlShotDamageCoefficient = 21.0f;
+
         // Diva numbers
         public const float divaExplosionCoeficient = 6.0f;
         public const float boosted_divaExplosionCoeficient = 12.0f;

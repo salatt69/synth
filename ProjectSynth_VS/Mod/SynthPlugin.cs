@@ -45,7 +45,7 @@ namespace ProjectSynth.Mod
             var harmony = new Harmony(MODUID);
             harmony.PatchAll();
 
-            MusicSync.Initialize(true);
+            //MusicSync.Initialize(true);
 
             // easy to use logger
             Log.Init(Logger);

@@ -5,7 +5,7 @@ using RoR2.Projectile;
 using RoR2.Skills;
 using UnityEngine;
 
-namespace ProjectSynth.States.Synth.DivaDeploy
+namespace ProjectSynth.States.Synth.Weapon
 {
     public class DeployDiva : BaseSkillState
     {
