@@ -1,16 +1,9 @@
-﻿using EntityStates;
-using ProjectSynth.Character.Synth.Content;
+﻿using ProjectSynth.Character.Synth.Content;
 using R2API;
 using RoR2;
-using RoR2.Projectile;
 using SyncLib.API;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
-using UnityEngine.PlayerLoop;
 
 namespace ProjectSynth.States.Synth.Diva
 {

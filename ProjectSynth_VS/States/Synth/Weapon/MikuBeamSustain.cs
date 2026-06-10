@@ -1,15 +1,10 @@
 ﻿using EntityStates;
-using EntityStates.VoidSurvivor.Weapon;
 using ProjectSynth.Character.Synth.Content;
 using ProjectSynth.Mod;
 using R2API;
 using RoR2;
 using SyncLib.API;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 namespace ProjectSynth.States.Synth.Weapon
@@ -78,9 +73,9 @@ namespace ProjectSynth.States.Synth.Weapon
                 }
                 if (base.isAuthority && base.characterMotor.velocity.y <= 0)
                 {
-				    float num = base.characterMotor.velocity.y;
-				    num = Mathf.MoveTowards(num, -1, 60f * base.GetDeltaTime());
-				    base.characterMotor.velocity = new Vector3(base.characterMotor.velocity.x, num, base.characterMotor.velocity.z);
+                    float num = base.characterMotor.velocity.y;
+                    num = Mathf.MoveTowards(num, -1, 60f * base.GetDeltaTime());
+                    base.characterMotor.velocity = new Vector3(base.characterMotor.velocity.x, num, base.characterMotor.velocity.z);
                 }
             }
             if (this.fixedAge >= duration && base.isAuthority)

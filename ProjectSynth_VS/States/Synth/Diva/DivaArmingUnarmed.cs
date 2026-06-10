@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ProjectSynth.States.Synth.Diva
+﻿namespace ProjectSynth.States.Synth.Diva
 {
     public class DivaArmingUnarmed : BaseDivaArmingState
     {

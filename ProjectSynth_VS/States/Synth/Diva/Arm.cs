@@ -1,9 +1,4 @@
-﻿using EntityStates;
-using RoR2;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine.Networking;
+﻿using UnityEngine.Networking;
 
 namespace ProjectSynth.States.Synth.Diva
 {

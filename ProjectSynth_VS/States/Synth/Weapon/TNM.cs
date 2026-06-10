@@ -1,10 +1,6 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth.Content;
 using ProjectSynth.Components;
-using ProjectSynth.Mod;
-using ProjectSynth.Modules.BaseContent.BaseStates.Metro;
-using ProjectSynth.States.Synth.Metro;
-using Rewired.Utils;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;

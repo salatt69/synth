@@ -1,8 +1,4 @@
-﻿using RoR2;
-using R2API;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using R2API;
 
 namespace ProjectSynth.Character.Synth.Content
 {

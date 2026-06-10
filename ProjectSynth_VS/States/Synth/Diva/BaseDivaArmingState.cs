@@ -1,17 +1,13 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth.Content;
 using RoR2.Projectile;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ProjectSynth.States.Synth.Diva
 {
     public class BaseDivaArmingState : BaseState
     {
-        public GameObject Owner {  get; private set; }
+        public GameObject Owner { get; private set; }
         public GameObject ExplosionPrefab { get; private set; }
         public float ShockFieldRadius { get; set; }
         public string PathToChildToEnable { get; set; }

@@ -1,7 +1,4 @@
-﻿using EntityStates.Engi.Mine;
-using ProjectSynth.Mod;
-using R2API.Utils;
-using RoR2;
+﻿using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
 
@@ -16,7 +13,7 @@ namespace ProjectSynth.Components
             pc = GetComponent<ProjectileController>();
         }
 
-        private void OnEnable() => InstanceTracker.Add(this);   
+        private void OnEnable() => InstanceTracker.Add(this);
 
         private void OnDisable() => InstanceTracker.Remove(this);
 

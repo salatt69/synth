@@ -1,13 +1,9 @@
 using EntityStates;
-using EntityStates.Toolbot;
-using ProjectSynth.Character.Synth.Content;
 using ProjectSynth.Mod;
 using RoR2;
 using SyncLib.API;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;

@@ -5,12 +5,10 @@ using ProjectSynth.Modules;
 using ProjectSynth.Modules.BaseContent.Characters;
 using ProjectSynth.States.Synth;
 using ProjectSynth.States.Synth.Metro;
-using R2API;
 using RoR2;
 using RoR2.Skills;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ProjectSynth.Character.Synth
 {

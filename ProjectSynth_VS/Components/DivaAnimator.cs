@@ -1,10 +1,6 @@
 ﻿using ProjectSynth.Mod;
 using ProjectSynth.States.Synth.Diva;
 using RoR2;
-using RoR2.Projectile;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace ProjectSynth.Components

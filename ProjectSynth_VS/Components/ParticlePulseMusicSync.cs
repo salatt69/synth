@@ -1,9 +1,6 @@
 ﻿using ProjectSynth.Mod;
-using RoR2;
 using SyncLib.API;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace ProjectSynth.Components

@@ -1,14 +1,8 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth.Content;
-using ProjectSynth.Mod;
 using RoR2;
 using SyncLib.API;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 namespace ProjectSynth.States.Synth.Weapon
@@ -91,7 +85,7 @@ namespace ProjectSynth.States.Synth.Weapon
         }
 
         private void StartHoverParamsOverride(float transitionDuration)
-        { 
+        {
             if (cameraParamsOverrideHandle.isValid) return;
 
             cameraParamsOverrideHandle = base.cameraTargetParams.AddParamsOverride(new CameraTargetParams.CameraParamsOverrideRequest

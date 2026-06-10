@@ -1,12 +1,8 @@
 ﻿using BepInEx;
 using HarmonyLib;
-using ProjectSynth.Character.Synth.Content;
 using R2API;
 using R2API.Networking;
 using R2API.Utils;
-using RoR2;
-using SyncLib.API;
-using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
 using static ProjectSynth.Components.DivaTracker;

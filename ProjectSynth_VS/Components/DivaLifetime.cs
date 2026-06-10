@@ -1,7 +1,6 @@
-﻿using RoR2;
+﻿using ProjectSynth.Components;
 using RoR2.Projectile;
 using UnityEngine;
-using ProjectSynth.Components;
 
 public class DivaLifetime : MonoBehaviour
 {

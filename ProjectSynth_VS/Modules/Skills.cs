@@ -1,5 +1,4 @@
 ﻿using EntityStates;
-using ProjectSynth.Character.Synth;
 using ProjectSynth.Mod;
 using R2API;
 using RoR2;
@@ -212,7 +211,7 @@ namespace ProjectSynth.Modules
             {
                 var passiveItemSkillDef = skillDef as PassiveItemSkillDef;
                 passiveItemSkillDef.passiveItem = passiveItemSkillDefInfo.passiveItem;
-            } 
+            }
             else if (skillDefInfo is SteppedSkillDefInfo steppedSkillDefInfo)
             {
                 var steppedSkillDef = skillDef as SteppedSkillDef;

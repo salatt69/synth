@@ -1,12 +1,8 @@
 ﻿using ProjectSynth.Character.Synth.Content;
+using ProjectSynth.States;
 using R2API;
 using RoR2;
-using SyncLib.API;
-using UnityEngine;
 using UnityEngine.Networking;
-using ProjectSynth.States;
-using EntityStates;
-using R2API.Networking;
 
 namespace ProjectSynth.Mod.Hooks
 {

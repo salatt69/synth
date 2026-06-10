@@ -2,9 +2,7 @@ using ProjectSynth.Character.Synth.Content;
 using ProjectSynth.Mod;
 using RoR2;
 using RoR2.HudOverlay;
-using RoR2.Skills;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProjectSynth.Components

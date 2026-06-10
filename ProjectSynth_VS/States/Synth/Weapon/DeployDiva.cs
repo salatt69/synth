@@ -2,7 +2,6 @@ using EntityStates;
 using ProjectSynth.Character.Synth.Content;
 using RoR2;
 using RoR2.Projectile;
-using RoR2.Skills;
 using UnityEngine;
 
 namespace ProjectSynth.States.Synth.Weapon
@@ -12,9 +11,10 @@ namespace ProjectSynth.States.Synth.Weapon
         public static float BaseDuration = 0.3f;
         public static float ProjectileSpeed = 60f;
 
+        public GameObject projectile = SynthAssets.proj_Diva;
+
         private float duration;
         private Animator animator;
-        private GameObject nade;
 
         public override void OnEnter()
         {
@@ -22,15 +22,13 @@ namespace ProjectSynth.States.Synth.Weapon
 
             if (!isAuthority) return;
 
-            duration = BaseDuration / this.attackSpeedStat;
-            animator = this.GetModelAnimator();
+            duration = BaseDuration / attackSpeedStat;
+            animator = GetModelAnimator();
 
             if (animator)
             {
-                this.PlayAnimation("Gesture, Override", "ThrowBomb", "ThrowBomb.playbackRate", duration);
+                PlayAnimation("Gesture, Override", "ThrowBomb", "ThrowBomb.playbackRate", duration);
             }
-
-            nade = SynthAssets.proj_Diva;
 
             Ray aimRay = GetAimRay();
 
@@ -39,15 +37,15 @@ namespace ProjectSynth.States.Synth.Weapon
 
             FireProjectileInfo info = new()
             {
-                projectilePrefab = nade,
+                projectilePrefab = projectile,
                 position = aimRay.origin,
                 rotation = Util.QuaternionSafeLookRotation(dir.normalized),
-                owner = this.gameObject,
+                owner = gameObject,
                 target = null,
                 useSpeedOverride = true,
                 speedOverride = ProjectileSpeed,
                 useFuseOverride = false,
-                damage = this.damageStat,
+                damage = damageStat,
                 force = 0f,
                 crit = RollCrit(),
                 damageColorIndex = DamageColorIndex.Default,

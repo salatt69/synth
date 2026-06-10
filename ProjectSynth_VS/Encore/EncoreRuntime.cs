@@ -1,6 +1,4 @@
-﻿using EntityStates;
-using ProjectSynth.Character.Synth.Content;
-using ProjectSynth.Mod;
+﻿using ProjectSynth.Character.Synth.Content;
 using RoR2;
 using SyncLib.API;
 using System.Collections.Generic;
@@ -61,7 +59,7 @@ public static class EncoreRuntime
                 {
                     active.RemoveAt(i);
                 }
-            } 
+            }
         }
     }
 

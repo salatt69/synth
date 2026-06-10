@@ -1,6 +1,4 @@
-﻿using RoR2;
-
-namespace ProjectSynth.States.Synth.Metro
+﻿namespace ProjectSynth.States.Synth.Metro
 {
     public sealed class MetroWaitForInputState : BaseMetroState
     {

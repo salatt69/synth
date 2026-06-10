@@ -1,12 +1,5 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth.Content;
-using RoR2;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
 
 namespace ProjectSynth.States
 {
@@ -25,7 +18,7 @@ namespace ProjectSynth.States
             base.OnEnter();
         }
 
-        private string AssignRandomEnterSoundString() 
+        private string AssignRandomEnterSoundString()
         {
             return Sounds.CultureShockStart[UnityEngine.Random.Range(0, Sounds.CultureShockStart.Length)];
         }

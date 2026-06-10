@@ -1,5 +1,4 @@
-﻿using ProjectSynth.Junk;
-using ProjectSynth.States;
+﻿using ProjectSynth.States;
 using ProjectSynth.States.Synth;
 using ProjectSynth.States.Synth.Diva;
 using ProjectSynth.States.Synth.Metro;

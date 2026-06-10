@@ -1,8 +1,4 @@
 ﻿using EntityStates;
-using ProjectSynth.Character.Synth.Content;
-using RoR2;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ProjectSynth.States.Synth
 {

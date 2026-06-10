@@ -1,23 +1,12 @@
-﻿using Newtonsoft.Json.Utilities;
-using ProjectSynth.Character.Synth.Content;
-using ProjectSynth.Mod;
+﻿using ProjectSynth.Components;
 using ProjectSynth.Modules;
+using ProjectSynth.States.Synth.Diva;
 using R2API;
-using R2API.Utils;
+using Rewired.ComponentControls.Effects;
 using RoR2;
 using RoR2.Projectile;
-using RoR2.Skills;
-using RoR2.UI;
-using System;
-using System.IO;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-using ProjectSynth.States.Synth.Metro;
-using ProjectSynth.States.Synth.Diva;
-using ProjectSynth.Components;
-using Rewired.ComponentControls.Effects;
 
 namespace ProjectSynth.Character.Synth.Content
 {
@@ -106,10 +95,10 @@ namespace ProjectSynth.Character.Synth.Content
 
             CreateEffects();
             CreateProjectiles();
-            
+
             CreateCrosshairAndOverlay();
         }
-        
+
         private static void RegisterTextures()
         {
             tex_synthPortrait = _ab.LoadAsset<Texture>("texHenryIcon");
@@ -291,7 +280,7 @@ namespace ProjectSynth.Character.Synth.Content
             tnm_alt_hitBox.showAsSphere = true;
 
             var tnm_alt_scaler = proj_ThirtyNineMusicAlt.AddComponent<ScaleObjectOverTime>();
-            tnm_alt_scaler.finalScale  = new Vector3(100f, 5f, 100f);
+            tnm_alt_scaler.finalScale = new Vector3(100f, 5f, 100f);
             tnm_alt_scaler.time = tnm_alt_simple.lifetime;
 
             var tnm_alt_controller = proj_ThirtyNineMusicAlt.GetComponent<ProjectileController>();
@@ -413,7 +402,7 @@ namespace ProjectSynth.Character.Synth.Content
             "Play_CultureShockStart_6",
             "Play_CultureShockStart_7"
         };
-        
+
         public static NetworkSoundEventDef thirtyNineMusicHitSoundEvent;
 
         public static void CreateSoundEvents()

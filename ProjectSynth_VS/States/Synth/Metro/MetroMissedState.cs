@@ -1,9 +1,4 @@
-﻿using RoR2;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ProjectSynth.States.Synth.Metro
+﻿namespace ProjectSynth.States.Synth.Metro
 {
     public class MetroMissedState : BaseMetroState
     {

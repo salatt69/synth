@@ -1,12 +1,6 @@
 ﻿using EntityStates;
 using ProjectSynth.Components;
 using RoR2;
-using RoR2.Projectile;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-using UnityEngine;
 using UnityEngine.Networking;
 
 namespace ProjectSynth.States.Synth.Diva

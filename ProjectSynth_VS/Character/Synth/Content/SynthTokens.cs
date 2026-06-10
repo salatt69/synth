@@ -73,7 +73,7 @@ namespace ProjectSynth.Character.Synth.Content
 
             Language.Add(prefix + "SECONDARY_GUN_NAME", "Handgun");
             Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Tokens.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * SynthStaticValues.gunDamageCoefficient}% damage</style>.");
-            
+
             Language.Add(prefix + "SECONDARY_VIRTUAL_DEVIATION_NAME", "Virtual Deviation");
             Language.Add(prefix + "SECONDARY_VIRTUAL_DEVIATION_DESCRIPTION", divaDesc);
             #endregion

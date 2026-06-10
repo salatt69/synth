@@ -1,12 +1,6 @@
 ﻿using ProjectSynth.Character.Synth.Content;
-using R2API;
 using RoR2;
 using RoR2.Projectile;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ProjectSynth.States.Synth.Diva
 {

@@ -1,6 +1,5 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth.Content;
-using ProjectSynth.Components;
 using ProjectSynth.States.Synth.Metro;
 using RoR2;
 

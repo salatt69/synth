@@ -1,21 +1,12 @@
 ﻿using EntityStates;
-using ProjectSynth.Junk;
 using ProjectSynth.Modules;
 using ProjectSynth.States.Synth;
 using ProjectSynth.States.Synth.Weapon;
 using R2API;
-using RoR2;
 using RoR2.Skills;
-using System;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Text;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ProjectSynth.Character.Synth.Content
 {
-    // Taken from https://github.com/TheTimeSweeper/EnforcerMod/blob/master/EnforcerMod_VS/Content/SkillDefs/EnforcerSkillDefs.cs
     class SynthSkillDefs
     {
         private static string Prefix => SynthSurvivor.SYNTH_PREFIX;
@@ -119,7 +110,7 @@ namespace ProjectSynth.Character.Synth.Content
                 skillName = "39 Music!",
                 skillNameToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_NAME",
                 skillDescriptionToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_DESCRIPTION",
-                keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
+                //keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
                 icon = SynthAssets.tex_icon_ThirtyNineMusic,
 
                 activationStateMachineName = "Weapon",
@@ -127,7 +118,7 @@ namespace ProjectSynth.Character.Synth.Content
                 interruptPriority = InterruptPriority.Any,
 
                 baseRechargeInterval = 0,
-                baseMaxStock = 0, 
+                baseMaxStock = 0,
                 rechargeStock = 0,
                 requiredStock = 0,
                 stockToConsume = 0,
@@ -168,7 +159,7 @@ namespace ProjectSynth.Character.Synth.Content
                 skillName = "Virtual Deviation",
                 skillNameToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_NAME",
                 skillDescriptionToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_DESCRIPTION",
-                keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
+                //keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
                 icon = SynthAssets.tex_icon_Diva,
 
                 activationStateMachineName = "Weapon",
@@ -258,7 +249,7 @@ namespace ProjectSynth.Character.Synth.Content
                 skillName = "Rolling Girl",
                 skillNameToken = Prefix + "UTILITY_ROLLING_GIRL_NAME",
                 skillDescriptionToken = Prefix + "UTILITY_ROLLING_GIRL_DESCRIPTION",
-                keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
+                //keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
                 icon = SynthAssets.tex_icon_ThirtyNineMusic,
 
                 activationStateMachineName = "Weapon",
@@ -303,7 +294,7 @@ namespace ProjectSynth.Character.Synth.Content
                 skillName = "Miku Miku Beam!",
                 skillNameToken = Prefix + "SPECIAL_MIKU_BEAM_NAME",
                 skillDescriptionToken = Prefix + "SPECIAL_MIKU_BEAM_DESCRIPTION",
-                keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
+                //keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
                 icon = SynthAssets.tex_icon_SonicBoom,
 
                 activationStateMachineName = "Weapon",

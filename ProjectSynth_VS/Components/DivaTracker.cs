@@ -1,13 +1,10 @@
 ﻿using ProjectSynth.Character.Synth.Content;
-using R2API.Networking;
 using R2API.Networking.Interfaces;
 using Rewired.Utils;
 using RoR2;
-using RoR2.Networking;
 using RoR2.Skills;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 namespace ProjectSynth.Components
