@@ -41,12 +41,15 @@ namespace ProjectSynth.Character.Synth.Content
         public static GameObject synthSurvivorPod; // TODO:
 
         // textures
-        public static Sprite tex_icon_SonicBoom; // TODO:
+        public static Sprite tex_icon_Metro; // TODO:
         public static Sprite tex_icon_ThirtyNineMusic; // TODO:
         public static Sprite tex_icon_Diva; // TODO:
-        public static Sprite tex_icon_DivaTeleport; // TODO:
+        public static Sprite tex_icon_RollingGirl; // TODO:
+        public static Sprite tex_icon_MikuBeam; // TODO:
+        public static Sprite tex_icon_LeapToDiva; // TODO:
+        public static Sprite tex_icon_Backflip; // TODO:
+        public static Sprite tex_icon_GroundSlam; // TODO:
         public static Sprite tex_icon_EncoreBuff; // TODO:
-        public static Sprite tex_icon_Metro; // TODO:
 
         public static Texture tex_synthPortrait; // TODO:
 
@@ -113,13 +116,17 @@ namespace ProjectSynth.Character.Synth.Content
 
         private static void RegisterTextures()
         {
+            tex_icon_Metro = _ab.LoadAsset<Sprite>("texSynthMetro");
+            tex_icon_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texSynthTNM");
+            tex_icon_Diva = _ab.LoadAsset<Sprite>("texSynthDiva");
+            tex_icon_RollingGirl = _ab.LoadAsset<Sprite>("texSynthRollingGirl");
+            tex_icon_MikuBeam = _ab.LoadAsset<Sprite>("texSynthMikuBeam");
+            tex_icon_LeapToDiva = _ab.LoadAsset<Sprite>("texSynthLeapToDiva");
+            tex_icon_Backflip = _ab.LoadAsset<Sprite>("texSynthBackflip");
+            tex_icon_GroundSlam = _ab.LoadAsset<Sprite>("texSynthGroundSlam");
+
             tex_synthPortrait = _ab.LoadAsset<Texture>("texHenryIcon");
-            tex_icon_SonicBoom = _ab.LoadAsset<Sprite>("texBazookaFireIcon");
-            tex_icon_ThirtyNineMusic = _ab.LoadAsset<Sprite>("texBoxingGlovesIcon");
-            tex_icon_Diva = _ab.LoadAsset<Sprite>("texSecondaryIcon");
-            tex_icon_DivaTeleport = _ab.LoadAsset<Sprite>("texBazookaIconScepter");
             tex_icon_EncoreBuff = Addressables.LoadAssetAsync<Sprite>("RoR2/DLC3/Items/SharedSuffering/texSharedSufferingDebuffIcon.png").WaitForCompletion();
-            tex_icon_Metro = _ab.LoadAsset<Sprite>("texPassiveIcon");
 
             tex_encoreBars = _ab.LoadAsset<Texture>("texEncoreBars");
 

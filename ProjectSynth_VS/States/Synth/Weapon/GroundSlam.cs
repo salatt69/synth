@@ -43,7 +43,7 @@ namespace ProjectSynth.States.Synth.Weapon
             {
                 if (shouldExplode || (characterMotor.Motor.GroundingStatus.IsStableOnGround && !characterMotor.Motor.LastGroundingStatus.IsStableOnGround))
                 {
-                    //if (explosionSound)
+                    //if (landingSound)
                     //{
                     //    //EffectManager.SimpleSoundEffect();
                     //}

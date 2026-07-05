@@ -205,7 +205,7 @@ namespace ProjectSynth.Character.Synth.Content
                 skillNameToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_LEAP_NAME",
                 skillDescriptionToken = Prefix + "SECONDARY_VIRTUAL_DEVIATION_LEAP_DESCRIPTION",
                 // keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
-                icon = SynthAssets.tex_icon_DivaTeleport,
+                icon = SynthAssets.tex_icon_LeapToDiva,
 
                 activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(LeapTowardsDiva)),
@@ -250,7 +250,7 @@ namespace ProjectSynth.Character.Synth.Content
                 skillNameToken = Prefix + "UTILITY_ROLLING_GIRL_NAME",
                 skillDescriptionToken = Prefix + "UTILITY_ROLLING_GIRL_DESCRIPTION",
                 //keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
-                icon = SynthAssets.tex_icon_ThirtyNineMusic,
+                icon = SynthAssets.tex_icon_RollingGirl,
 
                 activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(RollingGirl)),
@@ -295,7 +295,7 @@ namespace ProjectSynth.Character.Synth.Content
                 skillNameToken = Prefix + "UTILITY_BACKFLIP_NAME",
                 skillDescriptionToken = Prefix + "UTILITY_BACKFLIP_DESCRIPTION",
                 keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
-                icon = SynthAssets.tex_icon_Diva,
+                icon = SynthAssets.tex_icon_Backflip,
 
                 activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(Backflip)),
@@ -340,7 +340,7 @@ namespace ProjectSynth.Character.Synth.Content
                 skillNameToken = Prefix + "UTILITY_GROUND_SLAM_NAME",
                 skillDescriptionToken = Prefix + "UTILITY_GROUND_SLAM_DESCRIPTION",
                 //keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
-                icon = SynthAssets.tex_icon_Metro,
+                icon = SynthAssets.tex_icon_GroundSlam,
 
                 activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(GroundSlam)),
@@ -385,7 +385,7 @@ namespace ProjectSynth.Character.Synth.Content
                 skillNameToken = Prefix + "SPECIAL_MIKU_BEAM_NAME",
                 skillDescriptionToken = Prefix + "SPECIAL_MIKU_BEAM_DESCRIPTION",
                 //keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
-                icon = SynthAssets.tex_icon_SonicBoom,
+                icon = SynthAssets.tex_icon_MikuBeam,
 
                 activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(MikuBeamLeap)),
