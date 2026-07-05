@@ -8,16 +8,13 @@ namespace ProjectSynth.States.Synth.Weapon
 {
     public class LeapTowardsDiva : BaseSkillState
     {
-        public float upwardVelocity = 30.0f;
-        public float forwardVelocity = 4.0f;
-        public float baseVelocityTowardsDiva = 8.0f;
-        public float baseLeapForce = 100.0f;
-        public float rangeY = 15.0f;
+        public float upwardVelocity = 70.0f;
+        public float velocityTowardsDiva = 12.0f;
+        public float leapForce = 50.0f;
 
         private DivaTracker tracker;
         private Transform beacon;
-        private Vector3 directionToDiva;
-        private float leapForce;
+        private Vector3 divaDirection;
 
         public override void OnEnter()
         {
@@ -37,16 +34,16 @@ namespace ProjectSynth.States.Synth.Weapon
                 return;
             }
 
-            Vector3 teleportPos = beacon.position;
-            bool canTeleport = tracker.CanTeleportTo(teleportPos, out _, out float dist);
+            Vector3 leapTo = beacon.position;
+            bool canLeap = tracker.CanLeapTo(leapTo, out _, out float dist);
 
-            if (isAuthority && !canTeleport)
+            if (isAuthority && !canLeap)
             {
                 outer.SetNextStateToMain();
                 return;
             }
 
-            if (NetworkServer.active && !canTeleport)
+            if (NetworkServer.active && !canLeap)
             {
                 outer.SetNextStateToMain();
                 return;
@@ -54,19 +51,19 @@ namespace ProjectSynth.States.Synth.Weapon
 
             if (isAuthority)
             {
-                characterBody.isSprinting = true;
-                leapForce = baseLeapForce;
+                if (characterBody.isSprinting)
+                    velocityTowardsDiva /= characterBody.sprintingSpeedMultiplier;
+                else
+                    characterBody.isSprinting = true;
 
                 Vector3 toBeacon = beacon.position - characterBody.transform.position;
-                float toBeaconY = Mathf.Clamp(toBeacon.y, -rangeY, rangeY);
-                directionToDiva = new Vector3(toBeacon.x, toBeaconY, toBeacon.z).normalized;
-                float distanceFactor = Mathf.Clamp(dist / 75f, 0.50f, 1.0f);
-                Vector3 a = directionToDiva.normalized * baseVelocityTowardsDiva * moveSpeedStat * distanceFactor;
+                divaDirection = new Vector3(toBeacon.x, 0.0f, toBeacon.z).normalized;
+
+                Vector3 a = divaDirection.normalized * velocityTowardsDiva * moveSpeedStat;
                 Vector3 b = Vector3.up * upwardVelocity;
-                Vector3 b2 = new Vector3(directionToDiva.x, 0f, directionToDiva.z).normalized * forwardVelocity;
 
                 characterMotor.Motor.ForceUnground(0.1f);
-                characterMotor.ApplyForce((a + b + b2) * leapForce);
+                characterMotor.ApplyForce((a + b) * leapForce);
 
                 outer.SetNextStateToMain();
             }
@@ -74,7 +71,7 @@ namespace ProjectSynth.States.Synth.Weapon
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

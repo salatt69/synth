@@ -187,6 +187,8 @@ namespace ProjectSynth.Character.Synth
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Utility);
 
             SkillDef rollingGirl = SynthSkillDefs.Utility_RollingGirl();
+            SynthSkillDefs.Utility_Backflip();
+            SynthSkillDefs.Utility_GroundSlam();
             Skills.AddUtilitySkills(bodyPrefab, rollingGirl);
         }
 

@@ -53,11 +53,13 @@ namespace ProjectSynth.States.Synth.Weapon
             };
 
             ProjectileManager.instance.FireProjectile(info);
+
+            outer.SetNextStateToMain();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

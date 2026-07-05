@@ -21,7 +21,7 @@ namespace ProjectSynth.States.Synth.Weapon
         public double baseDuration = MusicSync.BeatInterval * 12f;
         public float encoreInflictChance = 0.5f;
         public float maxDistance = 135f;
-        public float damageCoefficientPerSeconds = SynthStaticValues.mikuBeamDamageCoefficient;
+        public float damageCoefficientPerSeconds = SynthStaticValues.MikuBeamDamageCoefficient;
         public float TickRate => 24f - (float)baseDuration;
 
         private GameObject beamVfxInstance;
@@ -150,7 +150,7 @@ namespace ProjectSynth.States.Synth.Weapon
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Stun;
+            return InterruptPriority.Pain;
         }
     }
 }

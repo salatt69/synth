@@ -27,15 +27,16 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="-148.13887"
-     inkscape:cy="109.9551"
+     inkscape:zoom="1"
+     inkscape:cx="-76.999998"
+     inkscape:cy="106.5"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     showgrid="false" />
   <defs
      id="defs1">
     <linearGradient
@@ -123,9 +124,9 @@
      id="layer1">
     <path
        id="path5"
-       style="display:none;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.175;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0.638191;paint-order:markers stroke fill"
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.175;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0.638191;paint-order:markers stroke fill"
        inkscape:transform-center-y="-11.015736"
-       d="m 33.866664,3.4395833 c -1.734524,0 -3.468733,9.0122347 -13.875896,27.0379677 -20.81432338,36.051466 -27.7527487,24.034493 13.875896,24.034493 41.628648,0 34.690224,12.016973 13.8759,-24.034493 C 37.335401,12.451818 35.601193,3.4395833 33.866664,3.4395833 Z m 0,11.8152217 c 1.188235,0 3.302006,5.247968 10.431422,17.596479 14.25883,24.697019 18.08624,17.864256 -10.431422,17.864256 -28.5176579,0 -24.6902476,7.339882 -10.431418,-17.357138 7.129415,-12.348511 9.243185,-18.103597 10.431418,-18.103597 z"
+       d="m 33.866664,3.4395833 c -1.734524,0 -3.468733,9.0122347 -13.875896,27.0379677 -20.81432338,36.051466 -27.7527487,24.034493 13.875896,24.034493 41.628648,0 34.690224,12.016973 13.8759,-24.034493 C 37.335401,12.451818 35.601193,3.4395833 33.866664,3.4395833 Z m 0,11.8152217 c 1.188235,0 4.889506,3.660468 12.018922,16.008979 14.25883,24.697019 16.49874,21.039256 -12.018922,21.039256 -28.5176579,0 -26.2777476,4.164882 -12.018918,-20.532138 7.129415,-12.348511 10.830685,-16.516097 12.018918,-16.516097 z"
        sodipodi:nodetypes="ssssssssss" />
     <g
        id="g11"

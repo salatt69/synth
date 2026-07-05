@@ -18,9 +18,6 @@ namespace ProjectSynth.Character.Synth.Content
         public static GameObject mdlSynth;
 
         // particle effects
-        public static GameObject swordSwingEffect;
-        public static GameObject swordHitImpactEffect;
-        public static GameObject bombExplosionEffect;
         public static GameObject vfx_stunningPerformance; // TODO:
         public static GameObject vfx_cultureShock;
         public static GameObject vfx_divaExplosion; // TODO:
@@ -29,9 +26,9 @@ namespace ProjectSynth.Character.Synth.Content
         public static GameObject vfx_tnmMuzzleFlash; // TODO:
 
         // projectiles
-        public static GameObject proj_ThirtyNineMusic;
-        public static GameObject proj_ThirtyNineMusicAlt;
-        public static GameObject proj_Diva;
+        public static GameObject proj_ThirtyNineMusic; // TODO:
+        public static GameObject proj_ThirtyNineMusicAlt; // TODO:
+        public static GameObject proj_Diva; // TODO:
 
         // UI
         public static GameObject synthCrosshair; // TODO:
@@ -64,6 +61,8 @@ namespace ProjectSynth.Character.Synth.Content
         public static Texture tex_RampEncoreGlitter; // TODO:
 
         // materials
+        public static Material mat_StandartHopoo;
+
         public static Material mat_SynthBody; // TODO:
         public static Material mat_SynthScreen; // TODO:
 
@@ -82,11 +81,16 @@ namespace ProjectSynth.Character.Synth.Content
 
         public static Material mat_encoreGlitter;
 
+        public static Material mat_TNMRegularOverlay;
+        public static Material mat_TNMRound;
+
         public static void Init(AssetBundle assetBundle)
         {
             _ab = assetBundle;
 
             Sounds.CreateSoundEvents();
+
+            CreateCrosshairAndOverlay();
 
             RegisterTextures();
             RegisterMisc();
@@ -95,8 +99,16 @@ namespace ProjectSynth.Character.Synth.Content
 
             CreateEffects();
             CreateProjectiles();
+        }
 
-            CreateCrosshairAndOverlay();
+        private static void CreateCrosshairAndOverlay()
+        {
+            synthCrosshair = _ab.LoadAsset<GameObject>("SynthCrosshair");
+
+            synthMetroOverlay = _ab.LoadAsset<GameObject>("MetroOverlay");
+            synthMetroOverlay.AddComponent<SynthOverlayController>();
+
+            synthRushOverlay = _ab.LoadAsset<GameObject>("RushOverlay");
         }
 
         private static void RegisterTextures()
@@ -116,28 +128,6 @@ namespace ProjectSynth.Character.Synth.Content
             tex_RampDivaSphereAlt = _ab.LoadAsset<Texture>("texRampDivaSphereAlt");
 
             tex_RampStunningPerformanceMain = _ab.LoadAsset<Texture>("texRampStunningPerformance");
-        }
-
-        private static void CreateMaterials()
-        {
-            mat_SynthBody = _ab.LoadAsset<Material>("matSynthBody").ConvertStubbedShaderToHopoo_Standart();
-            mat_SynthScreen = _ab.LoadAsset<Material>("matSynthScreen").ConvertStubbedShaderToHopoo_Standart();
-            mdlSynth = _ab.LoadAsset<GameObject>("mdlSynth");
-
-            mat_DivaBlink = _ab.LoadAsset<Material>("matDivaBlink").ConvertStubbedShaderToHopoo_CloudRemap();
-            mat_DivaSphere = _ab.LoadAsset<Material>("matDivaSphere").ConvertStubbedShaderToHopoo_Intersection();
-            mat_DivaTrailLine = _ab.LoadAsset<Material>("matDivaTrailLine").ConvertStubbedShaderToHopoo_CloudRemap();
-            mat_DivaTrailParticles = _ab.LoadAsset<Material>("matDivaTrailParicles").ConvertStubbedShaderToHopoo_CloudRemap();
-            mat_DivaStunningPerformaceSphere = _ab.LoadAsset<Material>("matDivaStunningPerformanceSphere").ConvertStubbedShaderToHopoo_Intersection();
-
-            mat_SoundWave = _ab.LoadAsset<Material>("matSoundWave").ConvertStubbedShaderToHopoo_CloudRemap();
-
-            mat_cultureShockOverlayMain = Addressables.LoadAssetAsync<Material>("RoR2/Base/Common/matIsShocked.mat").WaitForCompletion();
-
-            mat_mikuStun = _ab.LoadAsset<Material>("matDivaMikuStun").ConvertStubbedShaderToHopoo_OpaqueCloudRemap();
-            mat_eighthNote = _ab.LoadAsset<Material>("matDivaEighthNote").ConvertStubbedShaderToHopoo_OpaqueCloudRemap();
-
-            mat_encoreGlitter = _ab.LoadAsset<Material>("matEncoreGlitter").ConvertStubbedShaderToHopoo_CloudRemap();
         }
 
         private static void RegisterMisc()
@@ -160,36 +150,70 @@ namespace ProjectSynth.Character.Synth.Content
             ccpMikuBeam.data.fov = 75f;
         }
 
+        private static void CreateMaterials()
+        {
+            mat_StandartHopoo = _ab.LoadAsset<Material>("matStandartHopoo").ConvertStubbedShaderToHopoo_Standart();
+
+            mat_SynthBody = _ab.LoadAsset<Material>("matSynthBody").ConvertStubbedShaderToHopoo_Standart();
+            mat_SynthScreen = _ab.LoadAsset<Material>("matSynthScreen").ConvertStubbedShaderToHopoo_Standart();
+            mdlSynth = _ab.LoadAsset<GameObject>("mdlSynth");
+
+            mat_DivaBlink = _ab.LoadAsset<Material>("matDivaBlink").ConvertStubbedShaderToHopoo_CloudRemap();
+            mat_DivaSphere = _ab.LoadAsset<Material>("matDivaSphere").ConvertStubbedShaderToHopoo_Intersection();
+            mat_DivaTrailLine = _ab.LoadAsset<Material>("matDivaTrailLine").ConvertStubbedShaderToHopoo_CloudRemap();
+            mat_DivaTrailParticles = _ab.LoadAsset<Material>("matDivaTrailParicles").ConvertStubbedShaderToHopoo_CloudRemap();
+            mat_DivaStunningPerformaceSphere = _ab.LoadAsset<Material>("matDivaStunningPerformanceSphere").ConvertStubbedShaderToHopoo_Intersection();
+
+            mat_SoundWave = _ab.LoadAsset<Material>("matSoundWave").ConvertStubbedShaderToHopoo_CloudRemap();
+
+            mat_cultureShockOverlayMain = Addressables.LoadAssetAsync<Material>("RoR2/Base/Common/matIsShocked.mat").WaitForCompletion();
+
+            mat_mikuStun = _ab.LoadAsset<Material>("matDivaMikuStun").ConvertStubbedShaderToHopoo_OpaqueCloudRemap();
+            mat_eighthNote = _ab.LoadAsset<Material>("matDivaEighthNote").ConvertStubbedShaderToHopoo_OpaqueCloudRemap();
+
+            mat_encoreGlitter = _ab.LoadAsset<Material>("matEncoreGlitter").ConvertStubbedShaderToHopoo_CloudRemap();
+
+            mat_TNMRegularOverlay = _ab.LoadAsset<Material>("matTNMRegularOverlay").ConvertStubbedShaderToHopoo_CloudRemap();
+            mat_TNMRound = _ab.LoadAsset<Material>("matTNMRound").ConvertStubbedShaderToHopoo_OpaqueCloudRemap();
+        }
+
         private static void CreateEffects()
         {
-            bombExplosionEffect = _ab.LoadEffect("BombExplosionEffect", "HenryBombExplosion");
+            Effect_StunningPerformance();
+            Effect_DivaExplosion();
+            Effect_MikuBeam();
+            Effect_CultureShock();
+            Effect_EncoreExplosion();
 
-            if (!bombExplosionEffect)
-                return;
+            MuzzleFlash_ThirtyNineMusic();
+        }
 
-            ShakeEmitter shakeEmitter = bombExplosionEffect.AddComponent<ShakeEmitter>();
-            shakeEmitter.amplitudeTimeDecay = true;
-            shakeEmitter.duration = 0.5f;
-            shakeEmitter.radius = 200f;
-            shakeEmitter.scaleShakeRadiusWithLocalScale = false;
+        private static void CreateProjectiles()
+        {
+            Projectile_ThirtyNineMusic();
+            Projectile_ThirtyNineMusicAlt();
 
-            shakeEmitter.wave = new Wave
-            {
-                amplitude = 1f,
-                frequency = 40f,
-                cycleOffset = 0f
-            };
+            Projectile_Diva();
+        }
 
-            swordSwingEffect = _ab.LoadEffect("HenrySwordSwingEffect", true);
-            swordHitImpactEffect = _ab.LoadEffect("ImpactHenrySlash");
-
+        private static void Effect_StunningPerformance()
+        {
             vfx_stunningPerformance = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Captain/CaptainTazerSupplyDropNova.prefab").WaitForCompletion();
             vfx_stunningPerformance.transform.Find("Nova Sphere").GetComponent<ParticleSystemRenderer>().material = mat_DivaStunningPerformaceSphere;
+        }
 
+        private static void Effect_DivaExplosion()
+        {
             vfx_divaExplosion = Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/Mage/MageLightningBombExplosion.prefab").WaitForCompletion();
-            vfx_mikuBeamEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamCorrupt.prefab").WaitForCompletion();
+        }
 
-            // CS
+        private static void Effect_MikuBeam()
+        {
+            vfx_mikuBeamEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamCorrupt.prefab").WaitForCompletion();
+        }
+
+        private static void Effect_CultureShock()
+        {
             vfx_cultureShock = _ab.LoadAsset<GameObject>("CultureShock");
             var cshock_psDration = vfx_cultureShock.AddComponent<ScaleParticleSystemDuration>();
             cshock_psDration.initialDuration = 2f;
@@ -203,8 +227,10 @@ namespace ProjectSynth.Character.Synth.Content
             vfx_cultureShock.AddComponent<Rigidbody>().isKinematic = true;
 
             vfx_cultureShock.transform.Find("Bonk").gameObject.AddComponent<HoverOverHead>();
+        }
 
-            // EE
+        private static void Effect_EncoreExplosion()
+        {
             vfx_encoreExplosion = _ab.LoadAsset<GameObject>("EncoreExplosion");
             var encoreExplosion_effectComponent = vfx_encoreExplosion.AddComponent<EffectComponent>();
             encoreExplosion_effectComponent.soundName = "";
@@ -217,7 +243,10 @@ namespace ProjectSynth.Character.Synth.Content
             var encoreExplosion_particleEnd = vfx_encoreExplosion.AddComponent<DestroyOnParticleEnd>();
             encoreExplosion_particleEnd.trackedParticleSystem = vfx_encoreExplosion.GetComponentInChildren<ParticleSystem>();
             ContentAddition.AddEffect(vfx_encoreExplosion);
+        }
 
+        private static void MuzzleFlash_ThirtyNineMusic()
+        {
             vfx_tnmMuzzleFlash = _ab.LoadAsset<GameObject>("SynthTNMMuzzleFlash");
             var tnmMuzzleFlash_vfxAttributes = vfx_tnmMuzzleFlash.AddComponent<VFXAttributes>();
             tnmMuzzleFlash_vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Medium;
@@ -233,9 +262,8 @@ namespace ProjectSynth.Character.Synth.Content
             ContentAddition.AddEffect(vfx_tnmMuzzleFlash);
         }
 
-        private static void CreateProjectiles()
+        private static void Projectile_ThirtyNineMusic()
         {
-            // ThirtyNineMusic
             proj_ThirtyNineMusic = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC2/Seeker/SpiritPunchProjectile.prefab")
                 .WaitForCompletion()?
                 .InstantiateClone("ThirtyNineMusicProjectile", true);
@@ -262,8 +290,10 @@ namespace ProjectSynth.Character.Synth.Content
             tnm_ghost.AddComponent<VFXAttributes>();
 
             ContentAddition.AddProjectile(proj_ThirtyNineMusic);
+        }
 
-            // ThirtyNineMusic (alt)
+        private static void Projectile_ThirtyNineMusicAlt()
+        {
             proj_ThirtyNineMusicAlt = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC2/Seeker/SpiritPunchProjectile.prefab")
                 .WaitForCompletion()?
                 .InstantiateClone("ThirtyNineMusicProjectileAlt", true);
@@ -286,14 +316,15 @@ namespace ProjectSynth.Character.Synth.Content
             var tnm_alt_controller = proj_ThirtyNineMusicAlt.GetComponent<ProjectileController>();
             GameObject tnm_alt_ghost = tnm_alt_controller.ghostPrefab = _ab.LoadAsset<GameObject>("ThirtyNineMusicGhostAlt")
                 .InstantiateClone("ThirtyNineMusicGhostAlt", true);
-
             var tnm_alt_ghostController = tnm_alt_ghost.AddComponent<ProjectileGhostController>();
             tnm_alt_ghostController.inheritScaleFromProjectile = true;
             tnm_alt_ghost.AddComponent<VFXAttributes>();
 
             ContentAddition.AddProjectile(proj_ThirtyNineMusicAlt);
+        }
 
-            // Virtual Deviation (codename: Diva)
+        private static void Projectile_Diva()
+        {
             proj_Diva = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMine.prefab")
                 .WaitForCompletion()?
                 .InstantiateClone("DivaProjectile", true);
@@ -305,16 +336,18 @@ namespace ProjectSynth.Character.Synth.Content
 
             foreach (var comp in proj_Diva.GetComponents<MonoBehaviour>())
             {
-                // TODO: deployable doesn;t want ot be removed, look into it
                 if (comp is ProjectileDeployToOwner
                     || comp is ProjectileStickOnImpact
                     || comp is EntityStateMachine
-                    || comp is Deployable
                     )
                 {
                     UnityEngine.Object.DestroyImmediate(comp);
                 }
             }
+            // Deleting it explicitly here, because it is higher on the list of components than ProjectileDeployToOwner.
+            // But the requirement for deleting Deployable is to delete ProjectileDeployToOwner first.
+            // This is easiest way to ensure that the order of deletion is correct.
+            UnityEngine.Object.DestroyImmediate(proj_Diva.GetComponent<Deployable>());
 
             var divaVisuals = _ab.LoadAsset<GameObject>("DivaVisuals").InstantiateClone("DivaVisuals", true);
             Transform diva_sphere = divaVisuals.transform.Find("Hologram/Sphere");
@@ -355,7 +388,7 @@ namespace ProjectSynth.Character.Synth.Content
 
             var diva_lifetime = proj_Diva.AddComponent<DivaLifetime>();
             diva_lifetime.flyingLifetime = 5f;
-            diva_lifetime.stuckLifetime = 10000f;
+            diva_lifetime.stuckLifetime = 21f;
 
             var diva_ghost = _ab.LoadAsset<GameObject>("DivaGhost")?.InstantiateClone("DivaProjectileGhost", true);
             diva_controller.ghostPrefab = diva_ghost;
@@ -363,16 +396,6 @@ namespace ProjectSynth.Character.Synth.Content
             diva_ghost.AddComponent<VFXAttributes>().DoNotPool = true;
 
             ContentAddition.AddProjectile(proj_Diva);
-        }
-
-        private static void CreateCrosshairAndOverlay()
-        {
-            synthCrosshair = _ab.LoadAsset<GameObject>("SynthCrosshair");
-
-            synthMetroOverlay = _ab.LoadAsset<GameObject>("MetroOverlay");
-            synthMetroOverlay.AddComponent<SynthOverlayController>();
-
-            synthRushOverlay = _ab.LoadAsset<GameObject>("RushOverlay");
         }
     }
 

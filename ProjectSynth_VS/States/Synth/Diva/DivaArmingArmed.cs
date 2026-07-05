@@ -34,7 +34,7 @@ namespace ProjectSynth.States.Synth.Diva
             new BlastAttack
             {
                 radius = ShockFieldRadius,
-                baseDamage = dmg * SynthStaticValues.divaExplosionCoeficient,
+                baseDamage = dmg * SynthStaticValues.DivaExplosionCoefficient,
                 damageType = damageType,
                 falloffModel = BlastAttack.FalloffModel.None,
                 attacker = base.Owner,

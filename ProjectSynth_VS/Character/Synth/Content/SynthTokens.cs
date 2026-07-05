@@ -58,7 +58,7 @@ namespace ProjectSynth.Character.Synth.Content
 
             #region Primary
             Language.Add(prefix + "PRIMARY_SLASH_NAME", "Sword");
-            Language.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", $"Swing forward for " + Tokens.DamageValueText(SynthStaticValues.swordDamageCoefficient));
+            Language.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", $"Swing forward for " + Tokens.DamageValueText(SynthStaticValues.SwordDamageCoefficient));
 
             Language.Add(prefix + "PRIMARY_THIRTY_NINE_MUSIC_NAME", "39 Music!");
             Language.Add(prefix + "PRIMARY_THIRTY_NINE_MUSIC_DESCRIPTION", $"?");
@@ -72,7 +72,7 @@ namespace ProjectSynth.Character.Synth.Content
                 + "*describes how Backup Magazine will interact with it*";
 
             Language.Add(prefix + "SECONDARY_GUN_NAME", "Handgun");
-            Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Tokens.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * SynthStaticValues.gunDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Tokens.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * SynthStaticValues.GunDamageCoefficient}% damage</style>.");
 
             Language.Add(prefix + "SECONDARY_VIRTUAL_DEVIATION_NAME", "Virtual Deviation");
             Language.Add(prefix + "SECONDARY_VIRTUAL_DEVIATION_DESCRIPTION", divaDesc);
@@ -85,7 +85,7 @@ namespace ProjectSynth.Character.Synth.Content
 
             #region Special
             Language.Add(prefix + "SPECIAL_BOMB_NAME", "Bomb");
-            Language.Add(prefix + "SPECIAL_BOMB_DESCRIPTION", $"Throw a bomb for <style=cIsDamage>{100f * SynthStaticValues.bombDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "SPECIAL_BOMB_DESCRIPTION", $"Throw a bomb for <style=cIsDamage>{100f * SynthStaticValues.BombDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Achievements
@@ -94,8 +94,11 @@ namespace ProjectSynth.Character.Synth.Content
             #endregion
 
             #region Keywords
-            string boostableDesc = "Allows the skill to be shaped in a special way when used in sync with the rhythm of M1K-U technology.";
-            Language.Add(prefix + "KEYWORD_FOLLOW_THE_RHYTHM", Tokens.KeywordText("Follow the Rhythm", boostableDesc));
+            string followTheRhythmDesc = "Allows the skill to be shaped in a special way when used in sync with the rhythm of M1K-U technology.";
+            Language.Add(prefix + "KEYWORD_FOLLOW_THE_RHYTHM", Tokens.KeywordText("Follow The Rhythm (rename maybe?)", followTheRhythmDesc));
+
+            string rhythmHeavyDesc = "No matter the circumstances, this skill will always be in sync with the rhythm of M1K-U technology.";
+            Language.Add(prefix + "KEYWORD_RHYTHM_HEAVY", Tokens.KeywordText("Rhythm Heavy (rename maybe?)", rhythmHeavyDesc));
             #endregion
         }
     }

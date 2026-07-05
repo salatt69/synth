@@ -32,9 +32,9 @@ namespace ProjectSynth.Components
             }
         }
 
-        public float maxTeleportDistance = 75f;
+        public float maxLeapDistance = 75f;
         public LayerMask losMask;
-        public SkillDef blinkSkillDef;
+        public SkillDef leapSkillDef;
         public GenericSkill overrideSlot;
         public GameObject indicatorPrefab;
         public GameObject indicatorLookingPrefab;
@@ -66,7 +66,7 @@ namespace ProjectSynth.Components
 
         private void Update()
         {
-            if (losMask.value == 0 || !blinkSkillDef || !indicatorPrefab || !indicatorLookingPrefab || !overrideSlot)
+            if (losMask.value == 0 || !leapSkillDef || !indicatorPrefab || !indicatorLookingPrefab || !overrideSlot)
             {
                 Bootstrap();
             }
@@ -77,7 +77,7 @@ namespace ProjectSynth.Components
 
             bool hasBeacons = cachedBeacons.Count > 0;
             bool lookingAtBeacon = focusedBeacon != null && GetDot(focusedBeacon.transform.position) > 0.9f;
-            bool inRange = focusedBeacon != null && Vector3.Distance(body.corePosition, focusedBeacon.transform.position) <= maxTeleportDistance;
+            bool inRange = focusedBeacon != null && Vector3.Distance(body.corePosition, focusedBeacon.transform.position) <= maxLeapDistance;
 
             UpdateIndicators();
 
@@ -91,8 +91,8 @@ namespace ProjectSynth.Components
         {
             if (losMask.value == 0) losMask = LayerIndex.world.mask;
 
-            if (!blinkSkillDef)
-                blinkSkillDef = SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Virtual Deviation Leap")); // TODO: this is fragile af
+            if (!leapSkillDef)
+                leapSkillDef = SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Virtual Deviation Leap")); // TODO: this is fragile af
 
             if (!overrideSlot && skillLocator) overrideSlot = skillLocator.secondary;
 
@@ -154,14 +154,14 @@ namespace ProjectSynth.Components
 
         private void EnsureOverrideOn()
         {
-            if (!overrideSlot || !blinkSkillDef) return;
-            overrideSlot.SetSkillOverride(this, blinkSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            if (!overrideSlot || !leapSkillDef) return;
+            overrideSlot.SetSkillOverride(this, leapSkillDef, GenericSkill.SkillOverridePriority.Contextual);
         }
 
         private void MaybeUnsetOverride()
         {
-            if (!overrideSlot || !blinkSkillDef) return;
-            overrideSlot.UnsetSkillOverride(this, blinkSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            if (!overrideSlot || !leapSkillDef) return;
+            overrideSlot.UnsetSkillOverride(this, leapSkillDef, GenericSkill.SkillOverridePriority.Contextual);
         }
 
         private void ClearClientUX()
@@ -184,8 +184,8 @@ namespace ProjectSynth.Components
             }
 
             // local override cleanup
-            if (overrideSlot && blinkSkillDef)
-                overrideSlot.UnsetSkillOverride(this, blinkSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            if (overrideSlot && leapSkillDef)
+                overrideSlot.UnsetSkillOverride(this, leapSkillDef, GenericSkill.SkillOverridePriority.Contextual);
         }
 
         private void ConsumeOwnedBeaconServer()
@@ -240,7 +240,7 @@ namespace ProjectSynth.Components
 
             if (focusedIndicator != null)
             {
-                bool inRange = focusedBeacon != null && Vector3.Distance(body.corePosition, focusedBeacon.transform.position) <= maxTeleportDistance;
+                bool inRange = focusedBeacon != null && Vector3.Distance(body.corePosition, focusedBeacon.transform.position) <= maxLeapDistance;
                 bool lookingAtBeacon = focusedBeacon != null && GetDot(focusedBeacon.transform.position) > 0.9f;
 
                 if (inRange && lookingAtBeacon)
@@ -266,7 +266,7 @@ namespace ProjectSynth.Components
             if (!body) return Color.gray;
 
             float dist = Vector3.Distance(body.corePosition, targetPos);
-            if (dist > maxTeleportDistance) return Color.gray;
+            if (dist > maxLeapDistance) return Color.gray;
 
             Vector3 from = body.corePosition;
             Vector3 dir = targetPos - from;
@@ -317,7 +317,7 @@ namespace ProjectSynth.Components
         #endregion
 
         #region api
-        public bool CanTeleportTo(Vector3 pos, out bool blocked, out float dist)
+        public bool CanLeapTo(Vector3 pos, out bool blocked, out float dist)
         {
             blocked = false;
             dist = 999f;
@@ -327,7 +327,7 @@ namespace ProjectSynth.Components
 
             Vector3 from = body.corePosition;
             dist = Vector3.Distance(from, pos);
-            if (dist > maxTeleportDistance) return false;
+            if (dist > maxLeapDistance) return false;
 
             Vector3 dir = (pos - from);
             float len = dir.magnitude;

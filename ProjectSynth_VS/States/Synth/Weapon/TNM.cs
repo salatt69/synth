@@ -15,7 +15,7 @@ namespace ProjectSynth.States.Synth.Weapon
         public GameObject projectilePrefab = SynthAssets.proj_ThirtyNineMusic;
         public GameObject projectilePrefabAlt = SynthAssets.proj_ThirtyNineMusicAlt;
         public GameObject muzzleFlashPrefab = SynthAssets.vfx_tnmMuzzleFlash;
-        public float damageCoefficient = SynthStaticValues.thirtyNineMusicDamageCoefficient;
+        public float damageCoefficient = SynthStaticValues.ThirtyNineMusicDamageCoefficient;
         public double duration = MusicSync.BeatInterval;
         public float force = 20f;
         public float bloom = 5f;
@@ -137,6 +137,12 @@ namespace ProjectSynth.States.Synth.Weapon
         public override void Update()
         {
             base.Update();
+
+            // TODO: that looks bad, find better way to handle this.
+            // eventually, maybe make into function that resets animation,
+            // that will be playing while input is held, but no projectile is fired due to timing
+            if (!inputBank.skill1.down) outer.SetNextStateToMain();
+
             if (MusicSync.OnBeat())
             {
                 if (soundWave == SoundWave.Circle && !hasFired)

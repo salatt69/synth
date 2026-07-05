@@ -1,6 +1,8 @@
 using EntityStates;
+using ProjectSynth.Character.Synth.Content;
 using ProjectSynth.Mod;
 using RoR2;
+using RoR2.Skills;
 using SyncLib.API;
 using System;
 using System.Collections.Generic;
@@ -8,19 +10,13 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
-namespace ProjectSynth.States.Synth
+namespace ProjectSynth.States.Synth.Weapon
 {
-    public class RollingGirl : BaseCharacterMain
+    public class RollingGirl : BaseSkillState
     {
         public float BaseDuration => (float)MusicSync.BeatInterval * (maxBeatCount + 1);
-        public int maxBeatCount = 8;
-        public float upwardForceMagnitude = 50.0f;
-        public float awayForceMagnitude = 10.0f;
+        public int maxBeatCount = 3;
         public float speedMultiplier = 1.5f;
-        public float massThreshold = 0f;
-        public float carryOffsetDistance = 2.0f;
-        public float pullStrength = 20f;
-        public float pullMinDistance = 4f;
 
         public float radius = 10f;
         public float forceCoefficientAtEdge = 0.5f;
@@ -31,7 +27,7 @@ namespace ProjectSynth.States.Synth
         private int beatCount;
         private Vector3 idealDirection;
         private readonly List<HurtBox> victimsStruck = [];
-        private readonly List<HurtBox> pull = [];
+        private readonly List<HurtBox> victimsToPull = [];
         private OverlapAttack attack;
         private HitBoxGroup rollingHitBoxGroup;
 
@@ -47,8 +43,6 @@ namespace ProjectSynth.States.Synth
             base.OnEnter();
 
             StartCameraParamsOverride(0.5f);
-
-            Log.Warning($"Entered '{this}'!");
 
             duration = BaseDuration;
             playerTransform = base.transform;
@@ -82,6 +76,8 @@ namespace ProjectSynth.States.Synth
                 hitBoxGroup = rollingHitBoxGroup,
                 damageType = DamageType.Shock5s,
             };
+
+            activatorSkillSlot.SetSkillOverride(this, SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Backflip")), GenericSkill.SkillOverridePriority.Contextual);
         }
 
         public override void FixedUpdate()
@@ -106,45 +102,45 @@ namespace ProjectSynth.States.Synth
                 {
                     for (int i = 0; i < victimsStruck.Count; ++i)
                     {
-                        if (!pull.Contains(victimsStruck[i]))
+                        if (!victimsToPull.Contains(victimsStruck[i]))
                         {
-                            pull.Add(victimsStruck[i]);
+                            victimsToPull.Add(victimsStruck[i]);
                         }
                     }
                 }
 
                 Transform pullCenter = base.FindModelChild("BlackholeCenter");
 
-                if (pull.Count > 0)
+                if (victimsToPull.Count > 0)
                 {
-                    for (int i = 0; i < pull.Count; i++)
+                    for (int i = 0; i < victimsToPull.Count; i++)
                     {
-                        HurtBox victimHurtBox = pull[i];
+                        HurtBox victimHurtBox = victimsToPull[i];
                         HealthComponent healthComponent = victimHurtBox.healthComponent;
                         if (healthComponent && healthComponent.body && victimHurtBox.transform && pullCenter && NetworkServer.active)
                         {
                             CharacterMotor characterMotor = healthComponent.body.characterMotor;
-                            Vector3 a = victimHurtBox.transform.position - pullCenter.position;
-                            float num = 1f - Mathf.Clamp(a.magnitude / radius, 0f, 1f - forceCoefficientAtEdge);
-                            a = a.normalized * forceMagnitude * (1f - num);
-                            Vector3 a2 = Vector3.zero;
-                            float d = 0f;
+                            Vector3 centerToVictim = victimHurtBox.transform.position - pullCenter.position;
+                            float distanceFactor = 1f - Mathf.Clamp(centerToVictim.magnitude / radius, 0f, 1f - forceCoefficientAtEdge);
+                            centerToVictim = centerToVictim.normalized * forceMagnitude * (1f - distanceFactor);
+                            Vector3 victimVelocity = Vector3.zero;
+                            float victimMass = 0f;
                             if (characterMotor)
                             {
-                                a2 = characterMotor.velocity;
-                                d = characterMotor.mass;
+                                victimVelocity = characterMotor.velocity;
+                                victimMass = characterMotor.mass;
                             }
                             else
                             {
                                 Rigidbody rigidbody = healthComponent.body.rigidbody;
                                 if (rigidbody)
                                 {
-                                    a2 = rigidbody.velocity;
-                                    d = rigidbody.mass;
+                                    victimVelocity = rigidbody.velocity;
+                                    victimMass = rigidbody.mass;
                                 }
                             }
-                            a2.y += Physics.gravity.y * Time.fixedDeltaTime;
-                            healthComponent.TakeDamageForce(a - a2 * damping * d * num, true, false);
+                            victimVelocity.y += Physics.gravity.y * Time.fixedDeltaTime;
+                            healthComponent.TakeDamageForce(centerToVictim - victimVelocity * damping * victimMass * distanceFactor, true, false);
                         }
                     }
                 }
@@ -169,7 +165,16 @@ namespace ProjectSynth.States.Synth
         public override void OnExit()
         {
             base.OnExit();
-            EndCameraParamsOverride(0.5f);
+            if (age >= duration)
+            {
+                EndCameraParamsOverride(0.5f);
+            }
+            else
+            {
+                EndCameraParamsOverride(1.0f);
+            }
+
+            activatorSkillSlot.UnsetSkillOverride(this, SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Backflip")), GenericSkill.SkillOverridePriority.Contextual);
         }
 
         private void UpdateDirection()
@@ -212,7 +217,7 @@ namespace ProjectSynth.States.Synth
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Frozen;
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

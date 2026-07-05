@@ -18,12 +18,12 @@ namespace ProjectSynth.Character.Synth.Content
                 skillName = "M1K-U",
                 skillNameToken = Prefix + "PASSIVE_METRO_NAME",
                 skillDescriptionToken = Prefix + "PASSIVE_METRO_DESCRIPTION",
-                keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"], // TODO: maybe add a new keyword for the passive? idk if follow the rhythm really fits it
+                keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
                 icon = SynthAssets.tex_icon_Metro,
 
                 activationStateMachineName = "Body",
                 activationState = new SerializableEntityStateType(typeof(SynthMain)),
-                interruptPriority = InterruptPriority.Skill,
+                interruptPriority = InterruptPriority.Any,
 
                 baseRechargeInterval = 0,
                 baseMaxStock = 0,
@@ -69,7 +69,7 @@ namespace ProjectSynth.Character.Synth.Content
 
                 activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(SynthMain)),
-                interruptPriority = InterruptPriority.Skill,
+                interruptPriority = InterruptPriority.Any,
 
                 baseRechargeInterval = 0,
                 baseMaxStock = 0,
@@ -110,7 +110,7 @@ namespace ProjectSynth.Character.Synth.Content
                 skillName = "39 Music!",
                 skillNameToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_NAME",
                 skillDescriptionToken = Prefix + "PRIMARY_THIRTY_NINE_MUSIC_DESCRIPTION",
-                //keywordTokens = [ Prefix + "KEYWORD_FOLLOW_THE_RHYTHM" ],
+                keywordTokens = [ Prefix + "KEYWORD_RHYTHM_HEAVY"],
                 icon = SynthAssets.tex_icon_ThirtyNineMusic,
 
                 activationStateMachineName = "Weapon",
@@ -166,7 +166,7 @@ namespace ProjectSynth.Character.Synth.Content
                 activationState = new SerializableEntityStateType(typeof(DeployDiva)),
                 interruptPriority = InterruptPriority.Skill,
 
-                baseRechargeInterval = 12f,
+                baseRechargeInterval = 17f,
                 baseMaxStock = 1,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -244,7 +244,7 @@ namespace ProjectSynth.Character.Synth.Content
 
         public static SkillDef Utility_RollingGirl()
         {
-            SkillDef sonicBoom = Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef rollingGirl = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "Rolling Girl",
                 skillNameToken = Prefix + "UTILITY_ROLLING_GIRL_NAME",
@@ -254,7 +254,7 @@ namespace ProjectSynth.Character.Synth.Content
 
                 activationStateMachineName = "Weapon",
                 activationState = new SerializableEntityStateType(typeof(RollingGirl)),
-                interruptPriority = InterruptPriority.PrioritySkill,
+                interruptPriority = InterruptPriority.Skill,
 
                 baseRechargeInterval = 4f,
                 baseMaxStock = 1,
@@ -283,8 +283,98 @@ namespace ProjectSynth.Character.Synth.Content
                 hideStockCount = false,
                 hideCooldown = false
             });
-            ContentAddition.AddSkillDef(sonicBoom);
-            return sonicBoom;
+            ContentAddition.AddSkillDef(rollingGirl);
+            return rollingGirl;
+        }
+
+        public static SkillDef Utility_Backflip()
+        {
+            SkillDef backflip = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "Backflip",
+                skillNameToken = Prefix + "UTILITY_BACKFLIP_NAME",
+                skillDescriptionToken = Prefix + "UTILITY_BACKFLIP_DESCRIPTION",
+                keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
+                icon = SynthAssets.tex_icon_Diva,
+
+                activationStateMachineName = "Weapon",
+                activationState = new SerializableEntityStateType(typeof(Backflip)),
+                interruptPriority = InterruptPriority.PrioritySkill,
+
+                baseRechargeInterval = 1f,
+                baseMaxStock = 1,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+                attackSpeedBuffsRestockSpeed = false,
+                attackSpeedBuffsRestockSpeed_Multiplier = 1,
+
+                resetCooldownTimerOnUse = false,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = true,
+                beginSkillCooldownOnSkillEnd = false,
+                isCooldownBlockedUntilManuallyReset = false,
+
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+                canceledFromSprinting = false,
+
+                isCombatSkill = false,
+                mustKeyPress = true,
+                triggeredByPressRelease = false, // TODO: gotta think about that
+                autoHandleLuminousShot = true,
+                suppressSkillActivation = false,
+                hideStockCount = false,
+                hideCooldown = false
+            });
+            ContentAddition.AddSkillDef(backflip);
+            return backflip;
+        }
+
+        public static SkillDef Utility_GroundSlam()
+        {
+            SkillDef groundSlam = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "Ground Slam",
+                skillNameToken = Prefix + "UTILITY_GROUND_SLAM_NAME",
+                skillDescriptionToken = Prefix + "UTILITY_GROUND_SLAM_DESCRIPTION",
+                //keywordTokens = [Prefix + "KEYWORD_FOLLOW_THE_RHYTHM"],
+                icon = SynthAssets.tex_icon_Metro,
+
+                activationStateMachineName = "Weapon",
+                activationState = new SerializableEntityStateType(typeof(GroundSlam)),
+                interruptPriority = InterruptPriority.PrioritySkill,
+
+                baseRechargeInterval = 1f,
+                baseMaxStock = 1,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+                attackSpeedBuffsRestockSpeed = false,
+                attackSpeedBuffsRestockSpeed_Multiplier = 1,
+
+                resetCooldownTimerOnUse = false,
+                fullRestockOnAssign = false,
+                dontAllowPastMaxStocks = true,
+                beginSkillCooldownOnSkillEnd = true,
+                isCooldownBlockedUntilManuallyReset = false,
+
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+                canceledFromSprinting = false,
+
+                isCombatSkill = true,
+                mustKeyPress = true,
+                triggeredByPressRelease = false,
+                autoHandleLuminousShot = true,
+                suppressSkillActivation = false,
+                hideStockCount = false,
+                hideCooldown = false
+            });
+            ContentAddition.AddSkillDef(groundSlam);
+            return groundSlam;
         }
 
         public static SkillDef Special_MikuBeam()

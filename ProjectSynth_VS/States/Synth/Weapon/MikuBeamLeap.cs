@@ -1,6 +1,7 @@
 ﻿using EntityStates;
 using ProjectSynth.Character.Synth.Content;
 using RoR2;
+using RoR2.Skills;
 using SyncLib.API;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -22,6 +23,7 @@ namespace ProjectSynth.States.Synth.Weapon
         public override void OnEnter()
         {
             base.OnEnter();
+
             //this.PlayAnimation(this.animationLayerName, this.animationEnterStateName);
             //Util.PlaySound(this.enterSoundString, base.gameObject);
             if (NetworkServer.active)
@@ -97,7 +99,7 @@ namespace ProjectSynth.States.Synth.Weapon
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Stun;
+            return InterruptPriority.Pain;
         }
     }
 }

@@ -3,6 +3,7 @@ using HarmonyLib;
 using R2API;
 using R2API.Networking;
 using R2API.Utils;
+using SyncLib.API;
 using System.Security;
 using System.Security.Permissions;
 using static ProjectSynth.Components.DivaTracker;

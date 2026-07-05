@@ -5,20 +5,20 @@
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Switches\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\States\Default Work Unit.wwu" DateLow="1769070410" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
-	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\SoundBanks\Default Work Unit.wwu" DateLow="1767602072" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\SoundBanks\Default Work Unit.wwu" DateLow="1774303055" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Queries\Factory Queries.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Queries\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\ProjectSynth_WWISE.wproj" DateLow="1766340872" DateHigh="0"/>
-	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\ProjectSynth_WWISE.dud.wsettings" DateLow="1769070584" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\ProjectSynth_WWISE.dud.wsettings" DateLow="1781385731" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Presets\Factory Spatial Audio.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Presets\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Modulators\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Mixing Sessions\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Metadata\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
-	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1769070119" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1781385275" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Game Parameters\Default Work Unit.wwu" DateLow="1767448528" DateHigh="0"/>
-	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Events\Default Work Unit.wwu" DateLow="1769070119" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Events\Default Work Unit.wwu" DateLow="1774303000" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Effects\Factory McDSP Effects.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Effects\Factory iZotope Singleband Distortion.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Effects\Factory iZotope Multiband Distortion.wwu" DateLow="1764505617" DateHigh="0"/>
@@ -36,5 +36,5 @@
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Control Surface Sessions\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Audio Devices\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
 	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Attenuations\Default Work Unit.wwu" DateLow="1764505617" DateHigh="0"/>
-	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1767602283" DateHigh="0"/>
+	<ValidationCacheItem File="D:\Projects\ProjectSynth\ProjectSynth_WWISE\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1774302521" DateHigh="0"/>
 </ValidationCache>

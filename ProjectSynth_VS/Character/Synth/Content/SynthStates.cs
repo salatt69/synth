@@ -17,8 +17,9 @@ namespace ProjectSynth.Character.Synth.Content
             // Skills
             ContentAddition.AddEntityState(typeof(TNM), out _);
             ContentAddition.AddEntityState(typeof(RollingGirl), out _);
-            ContentAddition.AddEntityState(typeof(RollingGirlImpact), out _);
+            ContentAddition.AddEntityState(typeof(Backflip), out _);
             ContentAddition.AddEntityState(typeof(DeployDiva), out _);
+            ContentAddition.AddEntityState(typeof(GroundSlam), out _);
             ContentAddition.AddEntityState(typeof(LeapTowardsDiva), out _);
             ContentAddition.AddEntityState(typeof(MikuBeamLeap), out _);
             ContentAddition.AddEntityState(typeof(MikuBeamSustain), out _);
